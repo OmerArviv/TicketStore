@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TicketStore.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
+    <p>
+        Search Artist: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+        <a asp-action="Index">Back to Full List</a>
+    </p>
+</form>
+
+@*<form asp-controller="Events" asp-action="group" method="get">
+    <p>
+        grouping: <input type="text" name="groupBy" />
+        <input type="submit" value="Group" />
+    </p>
+</form>*@
+<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option selected asp-controller="Events" asp-action="Index" method="get">Open this select menu</option>
+    <option value="1" href="ynet.com">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+</select>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.ArtistName)</a>
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ArtistName)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableTickets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Date)</a>
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableTickets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TicketStore.Models;
+
+namespace TicketStore.Data
+{
+    public class DbInitializer
+    {
+        public static void Initialize(ShowContext context) {
+            context.Database.EnsureCreated();
+
+            if (context.Events.Any()) { return; }
+
+            var events = new Models.Event[] {
+                new Models.Event{ArtistName="Omer Adam", AvailableTickets=1000,  Date=DateTime.Parse("2021-11-11"), Genre="Music", Place="Qeusarya", Description="Last Omer Adam show of 2021!"},
+                new Event{ArtistName="Eyal Golan", AvailableTickets=2500,  Date=DateTime.Parse("2021-12-12"), Genre="Music", Place="Qeusarya", Description="Eyal Golan comes up with new singles" },
+                new Event{ArtistName="Maccabi Haifa", AvailableTickets=30000,  Date=DateTime.Parse("2021-12-01"), Genre="Sport", Place="Sammy-Offer stadium, Haifa", Description="Maccabi Haifa vs Maccabi TLV"},
+                new Event{ArtistName="Pixies", AvailableTickets=1400,  Date=DateTime.Parse("2022-01-01"), Genre="Music", Place="Barbi, TLV", Description="The Greatest rock band with first new year concert!"},
+                new Event{ArtistName="Sarit Hadad", AvailableTickets=1700, Date=DateTime.Parse("2021-10-16"), Genre="Music", Place="Rishon Lezion", Description="The Middle East queen with a brand new show"},
+            };
+
+            foreach (Event e in events) {
+                context.Events.Add(e);
+            }
+
+            context.SaveChanges();
+
+            var tickets = new Models.Ticket[] {
+                new Models.Ticket{Description="Omer Adam show", Price=200, Available=true},
+                new Models.Ticket{Description="Eyal Golan show", Price=180, Available=true},
+                new Models.Ticket{Description="Maccabi Haifa vs Maccabi TLV", Price=80, Available=true},
+                new Models.Ticket{Description="Pixies show", Price=100, Available=true},
+                new Models.Ticket{Description="Sarit Hadad show", Price=100, Available=true}
+            };
+
+            foreach (Ticket t in tickets) {
+                context.Tickets.Add(t);
+            }
+
+            context.SaveChanges();
+
+
+
+
+
+
+
+        }
+
+    }
+}
