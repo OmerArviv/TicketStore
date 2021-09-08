@@ -25,7 +25,7 @@ namespace TicketStore.Controllers
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
-            var events = from e in _context.Events select e;
+            var events = from e in _context.Event select e;
             //             group e by e.ArtistName into g
             //             orderby g.Key
             //             select g;
@@ -58,6 +58,7 @@ namespace TicketStore.Controllers
 
 
         }
+
 
         //public async Task<IActionResult> group(string groupby)
         //{
@@ -99,7 +100,7 @@ namespace TicketStore.Controllers
                 return NotFound();
             }
 
-            var event1 = await _context.Events.Include(t=>t.Tickets)
+            var event1 = await _context.Event.Include(t=>t.Tickets)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (event1 == null)
@@ -147,7 +148,7 @@ namespace TicketStore.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _context.Event.FindAsync(id);
             if (@event == null)
             {
                 return NotFound();
@@ -198,7 +199,7 @@ namespace TicketStore.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
+            var @event = await _context.Event
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (@event == null)
             {
@@ -213,15 +214,15 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            _context.Events.Remove(@event);
+            var @event = await _context.Event.FindAsync(id);
+            _context.Event.Remove(@event);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.Id == id);
+            return _context.Event.Any(e => e.Id == id);
         }
     }
 }

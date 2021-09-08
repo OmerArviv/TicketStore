@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TicketStore.Models.Event>
+﻿@model TicketStore.Models.Event
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,6 +7,8 @@
 <div class="jumbotron">
     <h1>Ticket Store</h1>
 </div>
+<img src="~/img/firstPic.jpg" />
+
 <div class="row">
     <div class="col-md-4">
         <h2>Welcome to Ticket Store</h2>
@@ -17,7 +19,7 @@
     </div>
     <div class="col-md-4">
         <h2>Next Event</h2>
-        <p>This is where i wanna put next Event by Date</p> 
+        @*<p>@Model.ArtistName</p>*@ 
         <p>
             <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
@@ -26,6 +28,7 @@
              </ul>
         </p>
     </div>
+    <input type="file"/>
     <div class="col-md-4">
         <h2>Find our website on github</h2>
         <p>You can download the completed project from GitHub.</p>

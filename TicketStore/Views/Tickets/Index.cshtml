@@ -9,9 +9,11 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@*<a asp-controller="Tickets" asp-action="test1">mila  </a>*@
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.Available)
             </th>
@@ -23,6 +25,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event.ArtistName)
             </th>
             <th></th>
         </tr>
@@ -41,6 +46,16 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Seat)
+            </td>
+            <td>
+             @foreach (var e in ViewData["events"] as IEnumerable<Event>) {
+
+                    if (e.Id == item.EventID)
+                    {
+                     @e.ArtistName
+                    }
+             }
+                
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

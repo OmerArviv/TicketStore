@@ -10,8 +10,8 @@ namespace TicketStore.Data
     public class ShowContext: DbContext
     {
         public ShowContext(DbContextOptions<ShowContext> options) : base(options) { }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<Event> Event { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> User { get; set; } 
     }
 }

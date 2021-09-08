@@ -10,8 +10,9 @@ namespace TicketStore.Models
     {
         public int Id { get; set; } //Primary key 
         public string Description { get; set; }
+        [Required]
         public int EventID{ get; set; }
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
 
 
         public bool Available { get; set; }
