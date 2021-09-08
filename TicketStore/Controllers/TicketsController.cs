@@ -78,8 +78,9 @@ namespace TicketStore.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
-            SelectList tmp = new SelectList(_context.Event, nameof(Event.Id), nameof(Event.ArtistName));
-            ViewData["Events"] = tmp;
+            // SelectList tmp = new(_context.Event, nameof(Event.Id), nameof(Event.ArtistName));
+            var tmp = from e in _context.Event select e;
+            ViewData["events"] = tmp;
             return View();
         }
 
