@@ -89,8 +89,9 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SerialNumber,Available,Price,Seat,EventID,UserID")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,Description,Available,Price,Seat,EventID,UserID")] Ticket ticket)
         {
+            ticket.Event = _context.Event.Find(ticket.Id);
             if (ModelState.IsValid)
             {
                 _context.Add(ticket);

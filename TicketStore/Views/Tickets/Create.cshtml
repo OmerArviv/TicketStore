@@ -35,9 +35,9 @@
             <div class="form-group">
                 <label asp-for="EventID" class="control-label"> Select show </label>
                 @*<input asp-for="EventID" class="form-control"/>*@
-                <select class="form-select form-control" @*asp-items="@ViewBag.events"*@>
+                <select class="form-select form-control" name="EventID" @*asp-items="@ViewBag.events"*@>
                     @foreach(var e in ViewData["events"] as IEnumerable<Event>) {
-                    <option>@e.ArtistName</option>
+                    <option value="@e.Id">@e.ArtistName</option>
                     }
                 </select>
                 <span asp-validation-for="EventID" class="text-danger"></span>
