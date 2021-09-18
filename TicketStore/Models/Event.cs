@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,15 @@ namespace TicketStore.Models
 {
     public class Event
     {
+        public enum Genre1
+        {
+            Movie,
+            Sport,
+            Music
+        }
+
+        public Genre1 Genre2 { get; set; }
+
         public int Id { get; set; }
 
         public string ArtistName { get; set; }
@@ -26,7 +36,7 @@ namespace TicketStore.Models
         public string Description { get; set; }
         [Display(Name = "Show Time")]
         public DateTime Date { get; set; }
-        //TODO add hour
+        
 
         public ICollection<Ticket> Tickets{ get; set; }
 

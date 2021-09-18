@@ -189,7 +189,8 @@ namespace TicketStore.Controllers
           //  var q = _context.User.FirstOrDefault(u => u.Username == user.UserName);
             var q = from u in _context.User
                    where u.Email == user.Email &&
-                    u.Password == user.Password                    select u;
+                    u.Password == user.Password                    
+                    select u;
             //   same same             var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password); //checking if there is username with the same name it will return null if doesnt, if there is the object
             if (q.Count() > 0)
             {

@@ -20,16 +20,23 @@ namespace TicketStore.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index(string searchString, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, string filterByGenre)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             var events = from e in _context.Event select e;
-            //             group e by e.ArtistName into g
-            //             orderby g.Key
-            //             select g;
-            //search
+            var selectList = new SelectList(
+            new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Sport", Value = "Sport"},
+                    new SelectListItem {Text = "Music", Value = "Music"},
+                    new SelectListItem {Text = "Movie", Value = "Movie"},
+                }, "Value", "Text");
+            SelectList list = selectList;
+            ViewData["List"] = list;
+
+           
             if (!String.IsNullOrEmpty(searchString))
             {
                 events = events.Where(myEvent => myEvent.ArtistName.Contains(searchString));
@@ -50,7 +57,27 @@ namespace TicketStore.Controllers
                 default:
                     events = events.OrderBy(s => s.Genre);
                     break;
-
+            }
+            switch (filterByGenre)
+            {
+                case "Sport":
+                    events = from k in _context.Event
+                             where k.Genre.Equals("Sport")
+                             select k;  
+                    break;
+                case "Music":
+                    events = from k in _context.Event
+                             where k.Genre.Equals("Music")
+                             select k;
+                    break;
+                case "Movie":
+                    events = from k in _context.Event
+                             where k.Genre.Equals("Movie")
+                             select k;
+                     break;
+                default:
+                    events = events.OrderBy(s => s.Genre);
+                    break;
 
             }
 
@@ -58,39 +85,8 @@ namespace TicketStore.Controllers
 
 
         }
-
-
-        //public async Task<IActionResult> group(string groupby)
-        //{
-        //    var events = from e in _context.Events select e;
-
-        //    if (!string.IsNullOrEmpty(groupby))
-        //    {
-        //        if (groupby.Contains("Artist"))
-        //        {
-        //            var q = from c in _context.Events
-        //                    group c by c.ArtistName into g
-        //                    orderby g.Key
-        //                    select g;
-
-        //            return View(await q.ToListAsync());
-
-
-        //        } else if (groupby.Contains("place"))
-        //        {
-
-
-        //        } else if (groupby.Contains("genre"))
-        //        {
-
-
-        //        }
-
-
-        //    }
-            
-        //    return View(await events.ToListAsync());
-        //}
+        
+        
 
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -122,9 +118,9 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public string Index(string searchString, bool notUsed)
+        public string Index(Event @event)
         {
-            return "From [HttpPost]Index: filter on " + searchString;
+            return null;
         }
         
         [HttpPost]
