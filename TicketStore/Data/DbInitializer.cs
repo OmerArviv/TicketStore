@@ -11,6 +11,15 @@ namespace TicketStore.Data
         public static void Initialize(ShowContext context) {
             context.Database.EnsureCreated();
 
+            if(context.User.Any()) { return; }
+            var users = new Models.User[]
+            {
+                new Models.User{Birthdate=DateTime.Parse("2021-05-17"), CartId=0, Email="rrttou@gmail.com", FirstName="Raz", Gender=0, LastName="Yaniv", Password="1234", PasswordConfirm="1234", UserName="rrttou", Type=0 }
+
+
+            };
+            context.SaveChanges();
+
             if (context.Event.Any()) { return; }
 
             var events = new Models.Event[] {
