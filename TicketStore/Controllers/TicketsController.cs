@@ -45,9 +45,11 @@ namespace TicketStore.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-
+            
             var events = from e in _context.Event select e;
             ViewData["events"] = events;
+            
+            
             if (_context.Tickets.Any())
             {
                 return View(await _context.Tickets.ToListAsync());

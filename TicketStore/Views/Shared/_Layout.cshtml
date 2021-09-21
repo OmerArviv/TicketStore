@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using TicketStore.Models;
+@{ 
+    //Layout = null;
+   
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,13 +32,40 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="events" asp-action="Index">Events</a>
                         </li>
+                        @{
+
+
+                            if (Context.User != null && Context.User.Claims != null &&
+                                 Context.User.Claims.Count() > 0)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Logout">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Login">Login</a>
+                                </li>
+                            }
+                        }
+
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Register">Register</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Index">Check</a>
                         </li>
                     </ul>
+                </div>
+                <div class="col-md-4 col-sm-1">
+
+                    @if (Context.User != null && Context.User.Claims != null &&
+                        Context.User.Claims.Count() > 0)
+                    {
+                        <div class="m-3 textDesign">
+                            Hello @Context.User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value
+                        </div>
+                    }
+
                 </div>
             </div>
         </nav>

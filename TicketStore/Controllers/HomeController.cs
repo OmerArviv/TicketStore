@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,6 +27,7 @@ namespace TicketStore.Controllers
 
         public IActionResult Index()
         {
+           
             var events = from t in _context.Event select t;
             if (events.Any())
             {
@@ -32,6 +36,20 @@ namespace TicketStore.Controllers
             }
             return View();
            
+        }
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+
+        public IActionResult About()
+        {
+            return View("About");
+        }
+        public IActionResult Contact()
+        {
+            return View("Contact");
         }
 
         public IActionResult Privacy()

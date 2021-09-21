@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TicketStore.Data;
 using TicketStore.Models;
 
@@ -21,19 +23,29 @@ namespace TicketStore.Controllers
         public UsersController(ShowContext context)
         {
             _context = context;
+            
         }
 
         // GET: Users
         [Authorize(Roles = "Admin")]
-
         public async Task<IActionResult> Index()
-        {
+        { 
             return View(await _context.User.ToListAsync());
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var user = from u in _context.User where u.Id == id select u;
+            if(user != null)
+            {
+                return View(user.FirstOrDefault());
+            }
+            return View();
         }
 
 
         // GET: Users/Edit/5
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -55,8 +67,8 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type,CartId")] User user)
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type,IsAdmin")] User user)
         {
             if (id != user.Id)
             {
@@ -107,17 +119,23 @@ namespace TicketStore.Controllers
 
         // GET: Users
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Create()
         {
             return View();
         }
 
 
 
-        //Register
+        //Create/Register
         [HttpPost]
-        public async Task<IActionResult> Register([Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type,CartId")] User user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type")] User user)
         {
+           
+            //Only admin can insert Type
+            if(user.Type.Equals(null))
+            {
+                user.Type = 0; //Costumer
+            }
 
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
@@ -145,8 +163,8 @@ namespace TicketStore.Controllers
                 if (q == null)
                 {
                     //creating a new cart for this user
-                   // Cart cart = new Cart();
-                   
+                    // Cart cart = new Cart();
+
                     //cart.LastUpdate = DateTime.Now;
                     //_context.Add(cart);
                     //_context.Add(user);
@@ -154,11 +172,11 @@ namespace TicketStore.Controllers
 
                     //user.CartId = cart.Id;
                     //cart.UserId = user.Id;
-                    
 
+                    _context.User.Add(user);
                     await _context.SaveChangesAsync();
                     var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
-                    Signin(u);
+                   // Signin(u);
                     return RedirectToAction(nameof(Index), "Home");
                 }
                 else
@@ -172,7 +190,8 @@ namespace TicketStore.Controllers
         // GET: Users/Create
         public IActionResult Login()
         {
-            return View();
+           
+            return View("Login");
         }
 
         //AccessDenied
@@ -184,18 +203,30 @@ namespace TicketStore.Controllers
         //login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login([Bind("Id,Email,Password")] User user, string ReturnUrl)
+        public IActionResult Login([Bind("Id,Email,Password,FirstName,LastName,Gender,UserType,UserName,UserConnectedByID")] User user, string ReturnUrl)
         {
           //  var q = _context.User.FirstOrDefault(u => u.Username == user.UserName);
             var q = from u in _context.User
                    where u.Email == user.Email &&
                     u.Password == user.Password                    
                     select u;
+            //set value into session key
+            if (ReturnUrl != null)
+            {
+                return Redirect(ReturnUrl);
+            }
+            //else
+            //{
+            //    return RedirectToAction(nameof(Index), "Home");
+            //}
             //   same same             var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password); //checking if there is username with the same name it will return null if doesnt, if there is the object
             if (q.Count() > 0)
             {
-                //HttpContext.Session.SetString("username", q.First().Username);
+                //HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(q.First()));
+                //var user1 = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
                 Signin(q.First());
+               
+                return View("WelcomeUser", q.First());
 
             }
             else
@@ -203,21 +234,15 @@ namespace TicketStore.Controllers
                 ViewData["Error"] = "Username and/or password are incorrect";
                 return View();
             }
-            if (ReturnUrl != null)
-            {
-                return Redirect(ReturnUrl);
-            }
-            else
-            {
-                return RedirectToAction(nameof(Index), "Home");
-            }
+           
         }
 
         //Logout
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            //HttpContext.Session.Clear();
+            // HttpContext.Session.Clear();
+            
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Index), "Home");
         }
@@ -233,15 +258,23 @@ namespace TicketStore.Controllers
         {
             new Claim(ClaimTypes.Email, account.Email),
             new Claim("FullName", account.FirstName),
-            new Claim(ClaimTypes.Role, account.Type.ToString()),
+            new Claim("Role", account.Type.ToString()),
             new Claim("UserId", account.Id.ToString()),
-            new Claim("cartId", account.CartId.ToString()),
+           // new Claim("cartId", account.CartId.ToString()),
             };
+
+
+            
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+          //  var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            // Set current principal
+            //Thread.CurrentPrincipal = claimsPrincipal;
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(15)
             };
+
+
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
         }
@@ -251,7 +284,7 @@ namespace TicketStore.Controllers
          * Search user fuction that return list of users with the input string in their 
          * name,email or username.
          */
-        [Authorize(Roles = "Admin,Editor")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Search(string input)
         {
             if (input != null)

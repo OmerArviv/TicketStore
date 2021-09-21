@@ -64,15 +64,22 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CartId)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt>*@
+        @*<dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CartId)
-        </dd>
+        </dd>*@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="users" asp-action="Edit" id="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+@*<script>
+    var x = document.baseURI;
+    var edit = document.getElementById("Edit");
+    x += "/users/Edit/1";
+    edit.setAttribute("href", x);
+    //fix this
+</script>*@

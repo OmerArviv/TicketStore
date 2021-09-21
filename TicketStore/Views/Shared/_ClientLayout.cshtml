@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<add namespace="System.Web.Mvc.Html" />
+<html lang="en">
+<div class="loader">
+    <div class="center-vertical">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - jewelry</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" type="text/css" />
+    <link href="/css/MainDesign.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <header>
+        <section class="section-nav">
+            <section>
+                @await Component.InvokeAsync("TopLayout")
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm text-center text-box">
+                            Best Price
+                        </div>
+                        <div class="col-sm text-center text-box pink">
+                            Best Quality
+                        </div>
+                        <div class="col-sm text-center text-box">
+                            Best Service
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            <div id="mainSectionClient">
+                @RenderBody()
+            </div>
+
+            <section>
+                @await Component.InvokeAsync("ButtomLayout")
+            </section>
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/mainLoader.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+
+</html>

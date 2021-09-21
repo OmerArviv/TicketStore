@@ -20,23 +20,12 @@ namespace TicketStore.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index(string searchString, string sortOrder, string filterByGenre)
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             var events = from e in _context.Event select e;
-            var selectList = new SelectList(
-            new List<SelectListItem>
-                {
-                    new SelectListItem {Text = "Sport", Value = "Sport"},
-                    new SelectListItem {Text = "Music", Value = "Music"},
-                    new SelectListItem {Text = "Movie", Value = "Movie"},
-                }, "Value", "Text");
-            SelectList list = selectList;
-            ViewData["List"] = list;
-
-           
             if (!String.IsNullOrEmpty(searchString))
             {
                 events = events.Where(myEvent => myEvent.ArtistName.Contains(searchString));
@@ -58,12 +47,33 @@ namespace TicketStore.Controllers
                     events = events.OrderBy(s => s.Genre);
                     break;
             }
+            
+
+            return View(await events.ToListAsync());
+
+
+        }
+
+
+        public async Task<IActionResult> Filter(string filterByGenre)
+        {
+            var events = from e in _context.Event select e;
+            var selectList = new SelectList(
+            new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Sport", Value = "Sport"},
+                    new SelectListItem {Text = "Music", Value = "Music"},
+                    new SelectListItem {Text = "Movie", Value = "Movie"},
+                }, "Value", "Text");
+            SelectList list = selectList;
+            ViewData["List"] = list;
+            
             switch (filterByGenre)
             {
                 case "Sport":
                     events = from k in _context.Event
                              where k.Genre.Equals("Sport")
-                             select k;  
+                             select k;
                     break;
                 case "Music":
                     events = from k in _context.Event
@@ -74,20 +84,16 @@ namespace TicketStore.Controllers
                     events = from k in _context.Event
                              where k.Genre.Equals("Movie")
                              select k;
-                     break;
+                    break;
                 default:
                     events = events.OrderBy(s => s.Genre);
                     break;
 
             }
-
             return View(await events.ToListAsync());
 
 
         }
-        
-        
-
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {

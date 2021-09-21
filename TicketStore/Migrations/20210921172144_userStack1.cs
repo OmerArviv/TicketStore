@@ -2,7 +2,7 @@
 
 namespace TicketStore.Migrations
 {
-    public partial class user1 : Migration
+    public partial class userStack1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

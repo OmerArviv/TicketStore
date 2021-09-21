@@ -1,25 +1,40 @@
-﻿@using TicketStore.Models
-@model IEnumerable<TicketStore.Models.Event>
-
+﻿@model IEnumerable<TicketStore.Models.Event>
+@using TicketStore.Models
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filter";
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form id="CustomerDetails" asp-controller="Events" asp-action="Filter" method="get" name="filterByGenre" class="mt-3">
+            <label class="control-label">Filter by genre</label>
+            <select id="drpUserList" asp-items="ViewBag.List" class="form-select form-control"></select>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
-    <p>
-        Search Artist: <input type="text" name="SearchString" />
-        <input type="submit" value="Search" />
-        <a asp-action="Index">Back to Full List</a>
-    </p>
-</form>
+            <a class="btn btn-primary" onclick="filter()" id="hyperlink" asp-controller="Events" asp-action="Filter "><span class="fas fa-user-plus">Filter</span></a>
+            <a asp-action="Index">Back to Full List</a>
+        </form>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<a class="btn btn-primary" asp-action="Filter">Filter events</a>
+<script type="text/javascript">
+    function filter() {
+
+        var x = document.baseURI;
+        var y = document.getElementById('drpUserList');
+        //alert(this.value);
+        // console.log(this);
+
+        if (x.includes("Events"))
+            x = x.substr(0, 37);
+
+        x += "/?filterByGenre=" + y.value;
+        document.getElementById('hyperlink').setAttribute('href', x);
+    };
+</script>
+
+<h1>Filter</h1>
 
 <table class="table">
     <thead>
@@ -81,23 +96,4 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-   }
-
-@*<script>
-    $(document).ready(function () {
-        $("#GroupBy").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#FilterTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-    $(document).ready(function () {
-        $("#flagInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#FlagTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>*@
+}

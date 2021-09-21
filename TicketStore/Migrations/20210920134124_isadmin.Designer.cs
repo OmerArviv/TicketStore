@@ -10,8 +10,8 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20210908095027_initial")]
-    partial class initial
+    [Migration("20210920134124_isadmin")]
+    partial class isadmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,9 @@ namespace TicketStore.Migrations
 
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Genre2")
+                        .HasColumnType("int");
 
                     b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
@@ -95,9 +98,6 @@ namespace TicketStore.Migrations
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -110,6 +110,9 @@ namespace TicketStore.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

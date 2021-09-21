@@ -2,7 +2,7 @@
 
 namespace TicketStore.Migrations
 {
-    public partial class gender : Migration
+    public partial class updateuser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

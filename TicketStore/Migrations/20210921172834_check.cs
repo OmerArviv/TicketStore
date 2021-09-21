@@ -2,13 +2,13 @@
 
 namespace TicketStore.Migrations
 {
-    public partial class gender1 : Migration
+    public partial class check : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "Genre2",
-                table: "Event",
+                name: "ahava",
+                table: "User",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -17,8 +17,8 @@ namespace TicketStore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Genre2",
-                table: "Event");
+                name: "ahava",
+                table: "User");
         }
     }
 }

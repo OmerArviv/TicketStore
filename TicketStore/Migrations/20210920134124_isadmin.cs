@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketStore.Migrations
 {
-    public partial class initial : Migration
+    public partial class isadmin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,6 +13,7 @@ namespace TicketStore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Genre2 = table.Column<int>(type: "int", nullable: false),
                     ArtistName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Place = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvailableTickets = table.Column<int>(type: "int", nullable: false),
@@ -40,7 +41,7 @@ namespace TicketStore.Migrations
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    CartId = table.Column<int>(type: "int", nullable: false)
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace TicketStore.Models
 {
     public class User
@@ -16,7 +17,6 @@ namespace TicketStore.Models
         public enum UserType
         {
             Client,
-            Editor,
             Admin
         }
 
@@ -45,11 +45,11 @@ namespace TicketStore.Models
 
 
         [Required(ErrorMessage = "Please enter a password")]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
         [Compare("Password", ErrorMessage = "Passwords does not match")]
         public string PasswordConfirm { get; set; }
 
@@ -70,12 +70,15 @@ namespace TicketStore.Models
         [Required]
         public UserType Type { get; set; } = UserType.Client;
 
-        public int CartId { get; set; }
+        //public int CartId { get; set; }
 
 
 
 
         public ICollection<Ticket> Tickets { get; set; }
+        public bool IsAdmin { get; set; } = false;
+        public static Stack<int> UserConnectedByID { get; set; }
+        
 
 
 
