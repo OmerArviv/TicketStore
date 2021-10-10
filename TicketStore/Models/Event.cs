@@ -39,6 +39,7 @@ namespace TicketStore.Models
         
 
         public ICollection<Ticket> Tickets{ get; set; }
+        
 
 
 

@@ -223,7 +223,7 @@ namespace TicketStore.Controllers
             if (q.Count() > 0)
             {
                 //HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(q.First()));
-                //var user1 = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
+                //var user1 = JsonConvert.DegserializeObject<User>(HttpContext.Session.GetString("UserSession"));
                 Signin(q.First());
                
                 return View("WelcomeUser", q.First());
@@ -257,13 +257,13 @@ namespace TicketStore.Controllers
             var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Email, account.Email),
-            new Claim("FullName", account.FirstName),
+            new Claim("FirstName", account.FirstName),
             new Claim("Role", account.Type.ToString()),
             new Claim("UserId", account.Id.ToString()),
-           // new Claim("cartId", account.CartId.ToString()),
+            //new Claim("IsAdmin", account.IsAdmin.ToString())
             };
 
-
+            
             
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
           //  var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

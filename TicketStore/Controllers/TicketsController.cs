@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lucene.Net.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,20 @@ namespace TicketStore.Controllers
 
 
         // GET: Tickets
+
+        public async Task<IActionResult> Buy(HashMap<string, int> hashMap, int count, int eventID)
+        {
+
+            var id = User.Claims.First(c => c.Type == "UserId")?.Value;
+            var user = from u in _context.User where
+                       u.Id.ToString().Equals(id) select u;
+
+            var e = from t in _context.Event where t.Id == eventID select t;
+
+            
+
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
             
