@@ -131,7 +131,7 @@ namespace TicketStore.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date,Urlimage")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -163,7 +163,7 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date,Urlimage")] Event @event)
         {
             if (id != @event.Id)
             {

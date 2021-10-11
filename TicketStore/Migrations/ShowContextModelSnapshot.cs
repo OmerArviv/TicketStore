@@ -47,6 +47,9 @@ namespace TicketStore.Migrations
                     b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Urlimage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Event");

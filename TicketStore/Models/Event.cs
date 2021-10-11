@@ -25,23 +25,22 @@ namespace TicketStore.Models
 
         public string Place { get; set; }
 
-        
 
-        [Display(Name= "Check available tickets")]
+
+        [Display(Name = "Check available tickets")]
         public int AvailableTickets { get; set; }
 
         public string Genre { get; set; }
 
-        
+
         public string Description { get; set; }
         [Display(Name = "Show Time")]
         public DateTime Date { get; set; }
-        
-
-        public ICollection<Ticket> Tickets{ get; set; }
 
 
+        public ICollection<Ticket> Tickets { get; set; }
 
-
+        [Display(Name = "Url Of Image")]
+        public string Urlimage { get; set; }
     }
 }

@@ -4,33 +4,188 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!DOCKTYPE html>
 
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Available)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Available)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Seat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seat)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <html>
+    <head>
+        <title>Product Detail</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animsition/css/animsition.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/daterangepicker/daterangepicker.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/slick/slick.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/MagnificPopup/magnific-popup.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
+        <!--===============================================================================================-->
+        <style>
+            #Place1 {
+                /*  margin-right:200px;*/
+                width: 580px;
+                height: auto;
+            }
+        </style>
+    </head>
+    <div class="container">
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+            <a asp-controller="Home" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+
+            <a asp-controller="Tickets" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
+                Event
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+
+            <span class="stext-109 cl4">
+                @Html.DisplayFor(model => model.Description)
+            </span>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <section class="sec-product-detail bg0 p-t-65 p-b-60">
+        <div class="container">
+            <form asp-controller="User" asp-action="AddToCart" asp-route-ProductId="@Model.Event.Id" asp-route-Amount="amount">
+                <div class="row">
+                    <div class="col-md-6 col-lg-7 p-b-30">
+                        <div class="p-l-25 p-r-30 p-lr-0-lg">
+                            <div class="wrap-slick3 flex-sb flex-w">
+                                <div class="wrap-slick3-dots"></div>
+                                <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                                <div class="item-slick3">
+                                    <div id="Place1" class="wrap-pic-w pos-relative">
+                                        <img src="@Html.DisplayFor(Model=>Model.Event.Urlimage)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 p-b-30">
+                        <div class="p-r-50 p-t-5 p-lr-0-lg">
+                            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                                @Html.DisplayFor(model => model.Event.ArtistName)
+                            </h4>
+
+                            <span class="mtext-106 cl2">
+                                @Html.DisplayFor(model => model.Event.Place)
+                            </span>
+
+                            <br />
+                            <br />
+                            <span class="mtext-106 cl2">
+                                @Html.DisplayFor(model => model.Price)&#8362;
+                            </span>
+
+                            <p class="stext-102 cl3 p-t-23">
+                                @Html.DisplayFor(model => model.Event.Description)
+                            </p>
+
+                            <!--  -->
+                            <div class="p-t-33">
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                       Number of Tickets
+                                    </div>
+
+                                    <div class="size-204 respon6-next">
+                                        <select class="js-select2" name="size">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-204 flex-w flex-m respon6-next">
+                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h1>Details</h1>
+
+    <div>
+        <h4>Ticket</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Available)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Available)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Seat)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Seat)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
