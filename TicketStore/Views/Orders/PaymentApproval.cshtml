@@ -1,0 +1,38 @@
+﻿@model TicketStore.Models.Order
+
+@{ ViewData["Title"] = "PaymentApproval";
+    if (Model.User.IsAdmin)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "_Layout";
+}
+<br />
+<br />
+<br />
+
+
+<section class="bg0 p-t-52 p-b-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-9 p-b-80">
+                <div class="p-r-45 p-r-0-lg">
+                    <!--  -->
+                    <h4 class="ltext-109 cl2 p-b-28">
+                        Thank you very much for buying BSOS, Your order has been received! The order details will appear in your account.
+                    </h4>
+
+                    <div class="flex-c-m flex-w w-full p-t-45">
+                        <a asp-controller="Orders" asp-action="Details" asp-route-id="@ViewBag.orderId" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                            To see your order details click here
+                        </a>
+                        <div class="flex-c-m flex-w w-full p-t-45">
+                            <a asp-controller="Tickets" asp-action="Index" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                                To keep shopping click here
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

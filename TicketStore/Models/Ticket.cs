@@ -20,8 +20,8 @@ namespace TicketStore.Models
         public int Price { get; set; }
 
         public string Seat{ get; set; }
-
+        public ICollection<TicketOrder> ticketOrders { get; set; }
         public Event Event { get; set; }
-        public User Costumer { get; set; }
+        public User Customer { get; set; }
     }
 }

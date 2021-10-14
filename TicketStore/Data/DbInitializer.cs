@@ -40,11 +40,11 @@ namespace TicketStore.Data
             if (context.Tickets.Any()) { return; }
 
             var tickets = new Models.Ticket[] {
-                new Models.Ticket{Description="Omer Adam show", Price=200, Available=true, EventID=events[0].Id},
-                new Ticket{Description="Eyal Golan show", Price=180, Available=true, EventID=events[1].Id},
-                new Ticket{Description="Maccabi Haifa vs Maccabi TLV", Price=80, Available=true, EventID=events[2].Id},
-                new Ticket{Description="Pixies show", Price=100, Available=true, EventID=events[3].Id},
-                new Ticket{Description="Sarit Hadad show", Price=100, Available=true, EventID=events[4].Id}
+                new Models.Ticket{Description="Omer Adam show", Price=200, Available=true, EventID=events[0].Id,Event=events[0]},
+                new Ticket{Description="Eyal Golan show", Price=180, Available=true, EventID=events[1].Id,Event=events[1]},
+                new Ticket{Description="Maccabi Haifa vs Maccabi TLV", Price=80, Available=true, EventID=events[2].Id,Event=events[1]},
+                new Ticket{Description="Pixies show", Price=100, Available=true, EventID=events[3].Id,Event=events[1]},
+                new Ticket{Description="Sarit Hadad show", Price=100, Available=true, EventID=events[4].Id,Event=events[4]}
             };
 
             foreach (Ticket t in tickets)
