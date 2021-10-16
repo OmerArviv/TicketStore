@@ -8,32 +8,7 @@
     <h1>Ticket Store</h1>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Welcome to Ticket Store</h2>
-        <p>
-            Ticket Store is the best place for you to find the best events and deals!
-            Check it out.
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Next Event</h2>
-        <p>@Model.ArtistName</p>
-        <p>
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Click here - Buy tickets now!</a>
-                </li>
-            </ul>
-        </p>
-    </div>
-    @*<input type="file" />*@
-    <div class="col-md-4">
-        <h2>Find our website on github</h2>
-        <p>You can download the completed project from GitHub.</p>
-        <p><a class="btn btn-default" href="https://github.com/rrttou/TicketStore">See project source code &raquo;</a></p>
-    </div>
-</div>
+
 
 <!DOCTYPE html>
 <html>
@@ -41,208 +16,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        /* (A) WRAPPER */
-        .hoverwrap {
-            position: relative;
-            width: 300px;
-            height: 300px;/* OPTIONAL */
-        }
-
-            /* (B) RESPONSIVE IMAGE */
-            .hoverwrap img {
-                width: 100%;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-
-        /* (C) CAPTION */
-        .hovercap {
-            box-sizing: border-box;
+        body {
             width: 100%;
-            padding: 10px;
-            position: sticky;
-            bottom: 0;
-            background-color: #374598;
-            color: #f8f9fa;
+            /*height: 100vh;*/
+            background-color: #F5F5F5;
+            display: grid;
+            /* place-items: center;*/
         }
-
-        /* (D) SHOW/HIDE */
-        .hovercap {
-            visibility: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .hoverwrap:hover .hovercap {
-            visibility: visible;
-            opacity: 1;
-        }
-        /*img {*/
-            /*float: left;*/
-            /*width: 300px;
-            height: 300px;
+        img {
+            width: 100%;
+            display:block;
+            height: 150%;
             object-fit: cover;
-            border-radius: 8px;
+            -webkit-box-reflect: below 2px linear-gradient(transparent, transparent, #0004);
+            transform-origin: center;
+            transform: perspective(800px) rotateY(25deg);
+            transition: 0.5s;
         }
-        .text {
-            width: 340px;
-            height: 217px;
-            background: #FFF;
-            opacity: 0;
-        }
-            img:hover #text {
-                opacity: 0.6;
-                text-align: justify;
-                color: #ffd800;
-                font-size: 20px;
-                font-weight: 700;
-                font-family: "Times New Roman", Times, serif;
-                padding: 30px;
-            }*/
         
-
-        
-
-        /* Style the buttons */
-        .btn {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: white;
-            cursor: pointer;
+        .container {
+            /*max-width: 600px;
+            max-height: 350px;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         }
-
-            .btn:hover {
-                background-color: #ddd;
+        #hide {
+            display: none;
+            background-color: lightblue;
+            text-align: center;
+            color: #c29797;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 34px;
+            bottom: 0;
+            right: 15px;
+          
+        }
+            
+            
+            .container img:hover {
+                transform: perspective(800px) rotateY(0deg);
+                opacity: 0.3;
             }
-
-            .btn.active {
-                background-color: #666;
-                color: white;
-            }
+        * {
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
-
-    <!-- MAIN (Center website) -->
-    <div class="main">
-
-        <h1>Check it out ! </h1>
-        <hr>
-
-        @*<div id="myBtnContainer">
-            <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-            <button class="btn" onclick="filterSelection('nature')"> Nature</button>
-            <button class="btn" onclick="filterSelection('people')"> People</button>
-        </div>*@
-
-        <!-- Portfolio Gallery Grid -->
-        @*<div class="row">
-        <div class="column nature">
-            <div class="content">
-                <img src="~/img/movie.jpg" alt="Mountains">
-                <h4>Movies</h4>
-
-            </div>
-        </div>
-        <div class="column nature">
-            <div class="content">
-                <img src="~/img/music.jpg" alt="Lights">
-                <h4>Music</h4>
-
-            </div>
-        </div>
-        <div class="column nature">
-            <div class="content">
-                <img src="~/img/sport.jpg" id="sport" class="img" alt="Nature">
-                    <div class="text" id="text">Sport</div>
-
-            </div>
-        </div>*@
     <div class="row">
-        <div class="column nature">
-            <div class="hoverwrap">
-                <img src="~/img/movie.jpg" />
-                <div class="hovercap">
-                    <a style="color:aliceblue" asp-controller="events" asp-action="Index">Movie</a>
-                </div>
+        <div class="col-md-4">
+            <h2>Welcome to Ticket Store</h2>
+            <p>
+                Ticket Store is the best place for you to find the best events and deals!
+                Check it out.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Next Event</h2>
+            <p>@Model.ArtistName</p>
+            <p>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Click here - Buy tickets now!</a>
+                    </li>
+                </ul>
+            </p>
+        </div>
+        @*<input type="file" />*@
+        <div class="col-md-4">
+            <h2>Find our website on github</h2>
+            <p>You can download the completed project from GitHub.</p>
+            <p><a class="btn btn-default" href="https://github.com/rrttou/TicketStore">See project source code &raquo;</a></p>
+        </div>
+    </div>
+    <!-- MAIN (Center website) -->
+    <h1>Check it out ! </h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="container">
+                <a style="color:black" asp-controller="events" asp-action="Index">
+                    <img class="card" src="~/img/movie.jpg">
+                </a>
             </div>
         </div>
-        <div class="column nature">
-            <div class="hoverwrap">
-                <img src="~/img/music.jpg" />
-                <div class="hovercap">
-                    <a style="color:aliceblue" asp-controller="events" asp-action="Index">Music</a>
-                </div>
+
+        <div class="col-md-4">
+            <div class="container">
+                <a style="color: black" asp-controller="events" asp-action="Index">
+                <img class="card" src="~/img/music.jpg">
+                </a>
             </div>
         </div>
-        <div class="column nature">
-            <div class="hoverwrap">
-                <img src="~/img/sport.jpg" />
-                <div class="hovercap">
-                    <a style="color:aliceblue" asp-controller="events" asp-action="Index">Sport</a>
-                </div>
-                
+
+        <div class="col-md-4">
+            <div class="container">
+                <a style="color: black" href="Events/Filter/?filterByGenre=Sport" @*asp-controller="events" asp-action="Index"*@>
+                    <img class="card" src="~/img/sport.jpg" onmouseover="showText()" onmouseout="mouseOut()">
+                    <p id="hide">Sport</p>
+                </a>
             </div>
         </div>
     </div>
-    
 
+    <script script type="text/javascript">
+        function showText() {
+            document.getElementById("hide").style.display = "flex";
+        }
 
+        function mouseOut() {
+            document.getElementById("hide").style.display = "none";
 
-        <!-- END GRID -->
-    </div>
-
-        <!-- END MAIN -->
-    
-
-    <script>
-filterSelection("all")
-function filterSelection(c) {
-  var x, i;
-  x = document.getElementsByClassName("column");
-  if (c == "all") c = "";
-  for (i = 0; i < x.length; i++) {
-    w3RemoveClass(x[i], "show");
-    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-  }
-}
-
-function w3AddClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-  }
-}
-
-function w3RemoveClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);
-    }
-  }
-  element.className = arr1.join(" ");
-}
-
-
-// Add active class to the current button (highlight it)
-var btnContainer = document.getElementById("myBtnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function(){
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
+        }
     </script>
-
 </body>
 </html>
