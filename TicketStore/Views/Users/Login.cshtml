@@ -2,49 +2,65 @@
 
 @{
     ViewData["Title"] = "Login";
+    Layout = null;
 }
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Login/design/designLogin.css" />
+    <link rel="stylesheet" type="text/javascript" href="~/Login/design/designLogin.js" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form class="signUp">
+            <h3>Create Your Account</h3>
+            <p>
+                Just enter your email address<br />
+                and your password for join.
+            </p>
+            <input class="w100" type="email" placeholder="Insert eMail" reqired autocomplete='off' />
+            <input type="password" placeholder="Insert Password" reqired />
+            <input type="password" placeholder="Verify Password" reqired />
+            <button class="form-btn sx" id="log-in" type="button">Log In</button>
+            <button class="form-btn dx" type="submit" asp-controller="Users" asp-action="Create">Sign Up</button>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </form>
+        <form class="signIn" asp-action="Login" asp-controller="users" asp-route-returnurl='@Context.Request.Query["ReturnUrl"]' method="post">
+            <h3>Welcome <br />Back !</h3>
+            <button class="fb" type="button">Log In With Facebook</button>
+            <p>- or -</p>
+            <label asp-for="Email" clas="control-label"></label>
+            <input asp-for="Email" type="email" placeholder="Insert eMail" autocomplete="off" reqired />
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" type="password" placeholder="Insert Password" reqired />
+            <button class="form-btn sx back" id="back" type="button">Back</button>
+            <button class="form-btn dx" id="log-in" type="submit" value="Login">Log In</button>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </form>
 
 
-<h1 class=" mainFont text-center">My Account </h1>
 
-<hr />
-<div class="container justify-content-center text-center">
-    <br />
-    <h2 class="mainFont">Login</h2>
-    <div class="row justify-content-center">
 
-        <div class="col-md-4">
-            @if (ViewData["error"] != null)
-            {
-                <div class="alert alert-danger">
-                    @ViewData["error"]
-                </div>
-            }
-            <form asp-action="Login" asp-controller="users" asp-route-returnurl='@Context.Request.Query["ReturnUrl"]'  method="post">
-                <h6 class=" loginFont"> Please enter your email and password to access your account </h6>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email" clas="control-label"></label>
-                    <input asp-for="Email" class="form-control loginFont" placeholder="email" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control loginFont" placeholder="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary" />
-                </div>
+        <script>
+            $("#log-in").click(function () {
+                $(".signIn").addClass("active-dx");
+                $(".signUp").addClass("inactive-sx");
+                $(".signUp").removeClass("active-sx");
+                $(".signIn").removeClass("inactive-dx");
+            });
 
-            </form>
-        </div>
+            $("#back").click(function () {
+                $(".signUp").addClass("active-sx");
+                $(".signIn").addClass("inactive-dx");
+                $(".signIn").removeClass("active-dx");
+                $(".signUp").removeClass("inactive-sx");
+            });
+        </script>
     </div>
-    <div>
-        Not registered?
-        <a asp-controller="users" asp-action="Create">Click here</a> to Register
-    </div>
-</div>
+    
+</body>
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

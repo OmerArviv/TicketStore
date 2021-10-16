@@ -9,7 +9,7 @@
 }
 
 @{if ((Context.User == null || Context.User.Claims == null ||
-        Context.User.Claims.Count() <= 0))
+            Context.User.Claims.Count() <= 0))
     {
         <!DOCTYPE html>
         <html>
@@ -22,8 +22,9 @@
                     font-size: 20px;
                     color: forestgreen;
                 }
-                h1{
-                    font-size: 42px; 
+
+                h1 {
+                    font-size: 42px;
                     text-align: center;
                 }
             </style>
@@ -33,24 +34,30 @@
                 YOU ARE NOT LOGGED IN &#9940; &#9940; &#9940; &#9940;
                 <a asp-controller="Users" asp-action="Login" id="pleaselogin">Please Login</a>
             </h1>
-            
+
 
 
 
         </body>
     </html>
-    
-    
+
+
 
 }
 
 else
 {
-    <h1>Index</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+
+    <h1>Index</h1>
+    @if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+        }
+    
+
     <form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
         <p>
             Search Artist: <input type="text" name="SearchString" />
