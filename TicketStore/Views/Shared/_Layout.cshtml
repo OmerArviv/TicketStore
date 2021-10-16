@@ -56,18 +56,19 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-4 col-sm-1">
+               
 
                     @if (Context.User != null && Context.User.Claims != null &&
                         Context.User.Claims.Count() > 0)
                     {
-                        <div class="m-3 textDesign">
-                            Hello @Context.User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value
-                        </div>
+                        string name = @Context.User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value;
+                    <p class="nav-link text-dark">
+                        Hello @name  &#128151;
+                    </p>
                     }
 
-                </div>
-            </div>
+              </div>
+           
         </nav>
     </header>
     <div class="container">

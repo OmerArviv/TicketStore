@@ -2,102 +2,146 @@
 @model IEnumerable<TicketStore.Models.Event>
 
 
+
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@{if ((Context.User == null || Context.User.Claims == null ||
+        Context.User.Claims.Count() <= 0))
+    {
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                #pleaselogin {
+                    text-align: center;
+                    font-family: Arial;
+                    font-size: 20px;
+                    color: forestgreen;
+                }
+                h1{
+                    font-size: 42px; 
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>
+                YOU ARE NOT LOGGED IN &#9940; &#9940; &#9940; &#9940;
+                <a asp-controller="Users" asp-action="Login" id="pleaselogin">Please Login</a>
+            </h1>
+            
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
+
+
+        </body>
+    </html>
+    
+    
+
+}
+
+else
+{
+    <h1>Index</h1>
+
     <p>
-        Search Artist: <input type="text" name="SearchString" />
-        <input type="submit" value="Search" />
-        <a asp-action="Index">Back to Full List</a>
+        <a asp-action="Create">Create New</a>
     </p>
-</form>
+    <form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
+        <p>
+            Search Artist: <input type="text" name="SearchString" />
+            <input type="submit" value="Search" />
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </form>
 
-<a class="btn btn-primary" asp-action="Filter">Filter events</a>
+    <a class="btn btn-primary" asp-action="Filter">Filter events</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.ArtistName)</a>
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.ArtistName)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Place)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableTickets)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Date)</a>
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="FilterTable">
-        @foreach (var item in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArtistName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Place)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AvailableTickets)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.ArtistName)</a>
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.ArtistName)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Place)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AvailableTickets)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Date)</a>
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>*@
+                <th></th>
             </tr>
+        </thead>
+        <tbody id="FilterTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Place)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailableTickets)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
-    </tbody>
-</table>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}
+}
 
-   }
+
 
 @*<script>
-    $(document).ready(function () {
-        $("#GroupBy").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#FilterTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(document).ready(function () {
+            $("#GroupBy").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#FilterTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-    $(document).ready(function () {
-        $("#flagInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#FlagTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(document).ready(function () {
+            $("#flagInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#FlagTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>*@
+    </script>*@

@@ -4,136 +4,194 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Ticket Store</h1>
-</div>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        #backround {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            height: 400px;
+            width: 1099px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            mix-blend-mode: overlay;
+            opacity: 0.8;
         }
-        body {
-            width: 100%;
-            /*height: 100vh;*/
-            background-color: #F5F5F5;
-            display: grid;
-            /* place-items: center;*/
-        }
-        img {
-            width: 100%;
-            display:block;
-            height: 150%;
-            object-fit: cover;
-            -webkit-box-reflect: below 2px linear-gradient(transparent, transparent, #0004);
-            transform-origin: center;
-            transform: perspective(800px) rotateY(25deg);
-            transition: 0.5s;
-        }
-        
-        .container {
-            /*max-width: 600px;
-            max-height: 350px;*/
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-        #hide {
-            display: none;
-            background-color: lightblue;
+
+        .hero-text {
             text-align: center;
-            color: #c29797;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 34px;
-            bottom: 0;
-            right: 15px;
-          
+            position: absolute;
+            top: 350px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
         }
-            
-            
-            .container img:hover {
-                transform: perspective(800px) rotateY(0deg);
-                opacity: 0.3;
+
+            .hero-text button {
+                border: none;
+                outline: 0;
+                display: inline-block;
+                padding: 10px 25px;
+                color: black;
+                background-color: #ddd;
+                text-align: center;
+                cursor: pointer;
             }
-        * {
-            box-sizing: border-box;
+
+                .hero-text button:hover {
+                    background-color: #555;
+                    color: white;
+                }
+       body
+        {
+          background-color:#555
         }
+    .wrap
+        {
+          margin:50px auto 0 auto;
+          width:100%;
+          display:flex;
+          max-width:1200px;
+        }
+        .tile {
+            width: 900px;
+            height: 300px;
+            margin: 10px;
+            background-color: #99aeff;
+            display: inline-block;
+            background-size: cover;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease-out;
+            box-shadow: 0px 35px 77px -17px rgba(0,0,0,0.44);
+            overflow: hidden;
+            color: white;
+            font-family: 'Roboto';
+        }
+    .tile img
+        {
+          height:100%;
+          width:100%;
+          position:absolute;
+          top:0;
+          left:0;
+          z-index:0;
+          transition: all 0.4s ease-out;
+        }
+    .tile .text
+        {
+        /*   z-index:99; */
+          position:absolute;
+          padding:30px;
+          height:calc(100% - 60px);
+        }
+    .tile h1
+        {
+          font-weight:300;
+          margin:0;
+          text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+    .tile h2
+        {
+          font-weight:100;
+          margin:20px 0 0 0;
+          font-style:italic;
+           transform: translateX(200px);
+        }
+    .tile p
+        {
+          font-weight:300;
+          margin:20px 0 0 0;
+          line-height: 25px;
+        /*   opacity:0; */
+          transform: translateX(-200px);
+          transition-delay: 0.2s;
+        }
+    .animate-text
+        {
+          opacity:0;
+          transition: all 0.6s ease-in-out;
+        }
+    .tile:hover
+        {
+        /*   background-color:#99aeff; */
+        box-shadow: 0px 35px 77px -17px rgba(0,0,0,0.64);
+          transform:scale(1.05);
+        }
+    .tile:hover img
+        {
+          opacity: 0.2;
+        }
+    .tile:hover .animate-text
+        {
+          transform:translateX(0);
+          opacity:1;
+        }
+  
+    .tile:hover span
+        {
+          opacity:1;
+          transform:translateY(0px);
+        }
+
+    hr {
+        display: none;
+    }
+
+
     </style>
 </head>
 <body>
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Welcome to Ticket Store</h2>
-            <p>
-                Ticket Store is the best place for you to find the best events and deals!
-                Check it out.
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Next Event</h2>
-            <p>@Model.ArtistName</p>
-            <p>
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Tickets" asp-action="Index">Click here - Buy tickets now!</a>
-                    </li>
-                </ul>
-            </p>
-        </div>
-        @*<input type="file" />*@
-        <div class="col-md-4">
-            <h2>Find our website on github</h2>
-            <p>You can download the completed project from GitHub.</p>
-            <p><a class="btn btn-default" href="https://github.com/rrttou/TicketStore">See project source code &raquo;</a></p>
+    <div class="hero-image">
+        <img src="~/img/events.jpg" id="backround"/>
+        <div class="hero-text">
+            <h1 style="font-size:50px">Welcome</h1>
+            <p>Ticket store</p>
+            <h2>Next Event @Model.ArtistName</h2>
+            @{ 
+                string[] name = @Model.ArtistName.Split(" ");
+            }
+            @{ if ((Context.User == null || Context.User.Claims == null ||
+                                    Context.User.Claims.Count() <= 0))
+                {
+                <a asp-controller="Users" asp-action="Login">Login</a>
+                } else
+                {
+                 <a href="Events?SearchString=@name[0]">Buy Tickets</a>
+                    } }
+
         </div>
     </div>
+    <hr />
     <!-- MAIN (Center website) -->
-    <h1>Check it out ! </h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="container">
-                <a style="color:black" asp-controller="events" asp-action="Index">
-                    <img class="card" src="~/img/movie.jpg">
-                </a>
+    <div class="wrap">
+        <a class="tile" href="Events/filter/?filterByGenre=Sport">
+            <img src="~/img/sport2.jpg" />
+            <div class="text">
+                <h1>Sport</h1>
+                <h2 class="animate-text">Click here to discover our sport events</h2>
             </div>
-        </div>
+        </a>
 
-        <div class="col-md-4">
-            <div class="container">
-                <a style="color: black" asp-controller="events" asp-action="Index">
-                <img class="card" src="~/img/music.jpg">
-                </a>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="container">
-                <a style="color: black" href="Events/Filter/?filterByGenre=Sport" @*asp-controller="events" asp-action="Index"*@>
-                    <img class="card" src="~/img/sport.jpg" onmouseover="showText()" onmouseout="mouseOut()">
-                    <p id="hide">Sport</p>
-                </a>
+        <a class="tile" href="Events/filter/?filterByGenre=Movie">
+            <img src="~/img/movie.jpg" />
+            <div class="text">
+                <h1>Movies</h1>
+                <h2 class="animate-text">Click here to discover our movie events</h2>
             </div>
-        </div>
+        </a>
+
+        <a class="tile" href="Events/filter/?filterByGenre=Music">
+            <img src="~/img/music.jpg" />
+            <div class="text">
+                <h1>Music</h1>
+                <h2 class="animate-text">Click here to discover our music events</h2>
+            </div>
+        </a>
     </div>
-
-    <script script type="text/javascript">
-        function showText() {
-            document.getElementById("hide").style.display = "flex";
-        }
-
-        function mouseOut() {
-            document.getElementById("hide").style.display = "none";
-
-        }
-    </script>
 </body>
 </html>
