@@ -11,19 +11,14 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
 <body>
+   
     <div class="container">
         <form class="signUp">
-            <h3>Create Your Account</h3>
-            <p>
-                Just enter your email address<br />
-                and your password for join.
-            </p>
-            <input class="w100" type="email" placeholder="Insert eMail" reqired autocomplete='off' />
-            <input type="password" placeholder="Insert Password" reqired />
-            <input type="password" placeholder="Verify Password" reqired />
+            <h3>Welcome to Ticket-Store</h3>
             <button class="form-btn sx" id="log-in" type="button">Log In</button>
             <button class="form-btn dx" type="submit" asp-controller="Users" asp-action="Create">Sign Up</button>
-            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-success" role="button" >Home</a>
+            <img src="~/img/check.png" style="height:230px" />
         </form>
         <form class="signIn" asp-action="Login" asp-controller="users" asp-route-returnurl='@Context.Request.Query["ReturnUrl"]' method="post">
             <h3>Welcome <br />Back !</h3>
@@ -57,7 +52,7 @@
             });
         </script>
     </div>
-    
+
 </body>
 
 
