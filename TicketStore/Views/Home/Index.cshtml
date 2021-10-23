@@ -2,60 +2,24 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        #backround {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-            height: 400px;
-            width: 1099px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-            mix-blend-mode: overlay;
-            opacity: 0.8;
+        .wrap {
+            margin: 50px auto 0 auto;
+            width: 100%;
+            display: flex;
+            max-width: 1200px;
         }
 
-        .hero-text {
-            text-align: center;
-            position: absolute;
-            top: 350px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: black;
-        }
-
-            .hero-text button {
-                border: none;
-                outline: 0;
-                display: inline-block;
-                padding: 10px 25px;
-                color: black;
-                background-color: #ddd;
-                text-align: center;
-                cursor: pointer;
-            }
-
-                .hero-text button:hover {
-                    background-color: #555;
-                    color: white;
-                }
-       body
-        {
-          background-color:#555
-        }
-    .wrap
-        {
-          margin:50px auto 0 auto;
-          width:100%;
-          display:flex;
-          max-width:1200px;
-        }
         .tile {
             width: 900px;
             height: 300px;
@@ -71,102 +35,182 @@
             color: white;
             font-family: 'Roboto';
         }
-    .tile img
-        {
-          height:100%;
-          width:100%;
-          position:absolute;
-          top:0;
-          left:0;
-          z-index:0;
-          transition: all 0.4s ease-out;
-        }
-    .tile .text
-        {
-        /*   z-index:99; */
-          position:absolute;
-          padding:30px;
-          height:calc(100% - 60px);
-        }
-    .tile h1
-        {
-          font-weight:300;
-          margin:0;
-          text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-        }
-    .tile h2
-        {
-          font-weight:100;
-          margin:20px 0 0 0;
-          font-style:italic;
-           transform: translateX(200px);
-        }
-    .tile p
-        {
-          font-weight:300;
-          margin:20px 0 0 0;
-          line-height: 25px;
-        /*   opacity:0; */
-          transform: translateX(-200px);
-          transition-delay: 0.2s;
-        }
-    .animate-text
-        {
-          opacity:0;
-          transition: all 0.6s ease-in-out;
-        }
-    .tile:hover
-        {
-        /*   background-color:#99aeff; */
-        box-shadow: 0px 35px 77px -17px rgba(0,0,0,0.64);
-          transform:scale(1.05);
-        }
-    .tile:hover img
-        {
-          opacity: 0.2;
-        }
-    .tile:hover .animate-text
-        {
-          transform:translateX(0);
-          opacity:1;
-        }
-  
-    .tile:hover span
-        {
-          opacity:1;
-          transform:translateY(0px);
+
+            .tile img {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                transition: all 0.4s ease-out;
+            }
+
+            .tile .text {
+                /*   z-index:99; */
+                position: absolute;
+                padding: 30px;
+                height: calc(100% - 60px);
+            }
+
+        .animate-text {
+            opacity: 0;
+            transition: all 0.6s ease-in-out;
         }
 
-    hr {
-        display: none;
-    }
+        .tile:hover {
+            /*   background-color:#99aeff; */
+            box-shadow: 0px 35px 77px -17px rgba(0,0,0,0.64);
+            transform: scale(1.05);
+        }
 
+            .tile:hover img {
+                opacity: 0.2;
+            }
 
+            .tile:hover .animate-text {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .tile:hover span {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+
+        hr {
+            display: none;
+        }
+
+        .container {
+            padding: 80px 120px;
+        }
+
+        .person {
+            border: 10px solid transparent;
+            margin-bottom: 25px;
+            width: 80%;
+            height: 80%;
+            opacity: 0.7;
+        }
+
+            .person:hover {
+                border-color: #f1f1f1;
+            }
+
+        .carousel-inner img {
+            -webkit-filter: grayscale(90%);
+            filter: grayscale(90%); /* make all photos black and white */
+            width: 100%; /* Set width to 100% */
+            margin: auto;
+        }
+
+        /* Remove rounded borders from list */
+        .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Remove border and add padding to thumbnails */
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+
+            .thumbnail p {
+                margin-top: 15px;
+                color: #555;
+            }
+
+        /* Black buttons with extra padding and without rounded borders */
+        .btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #f1f1f1;
+            border-radius: 0;
+            transition: .2s;
+        }
+
+            /* On hover, the color of .btn will transition to white with black text */
+            .btn:hover, .btn:focus {
+                border: 1px solid #333;
+                background-color: #fff;
+                color: #000;
+            }
     </style>
 </head>
 <body>
-    <div class="hero-image">
-        <img src="~/img/events.jpg" id="backround"/>
-        <div class="hero-text">
-            <h1 style="font-size:50px">Welcome</h1>
-            <p>Ticket store</p>
-            <h2>Next Event @Model.ArtistName</h2>
-            @{ 
-                string[] name = @Model.ArtistName.Split(" ");
-            }
-            @{ if ((Context.User == null || Context.User.Claims == null ||
-                                    Context.User.Claims.Count() <= 0))
-                {
-                <a asp-controller="Users" asp-action="Login">Login</a>
-                } else
-                {
-                 <a href="Events?SearchString=@name[0]">Buy Tickets</a>
-                    } }
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
 
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="~/img/Haifa.jpg" alt="Haifa" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Haifa</h3>
+                    <p>The atmosphere in Haifa is outstanding </p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/img/OmerAdamTelAviv.jpg" alt="Tel Aviv" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3 style="color: black">Tel Aviv</h3>
+                    <p style="color: black">Omer Adam thanks Tel Aviv</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/img/BeerSheva.jpg" alt="BeerSheva" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Beer Sheva</h3>
+                    <p>Take south road 6 - and you will get fixed </p>
+                </div>
+            </div>
         </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <hr />
-    <!-- MAIN (Center website) -->
+    <!-- Head Text -->
+    <div class="container text-center">
+        <h3>Ticket Store</h3>
+        <p><em>Welcome to Ticket Store</em></p>
+        <p>Next Event @Model.ArtistName</p>
+        @{
+            if (Context.User != null && Context.User.Claims != null &&
+                          Context.User.Claims.Count() > 0)
+            {
+                string name = @Context.User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value;
+
+                <br />
+                <p>Hello @name &#128151; </p>
+            }
+        }
+    </div>
+
+    <!-- Events -->
+
     <div class="wrap">
         <a class="tile" href="Events/filter/?filterByGenre=Sport">
             <img src="~/img/sport2.jpg" />
@@ -193,6 +237,65 @@
             </div>
         </a>
     </div>
+
+    <!-- Creators pics -->
+    <!-- Creators Info inside pics -->
+    <div id="band" class="container text-center">
+        <h3>Who we are?</h3>
+        <p><em>We love music!</em></p>
+        <p>We have created a fictional events website. </p>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="text-center"><strong>Name</strong></p><br>
+                <a href="#demo" data-toggle="collapse">
+                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo" class="collapse">
+                    <p>Guitarist and Lead Vocalist</p>
+                    <p>Loves long walks on the beach</p>
+                    <p>Member since 1988</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <p class="text-center"><strong>Name</strong></p><br>
+                <a href="#demo2" data-toggle="collapse">
+                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo2" class="collapse">
+                    <p>Drummer</p>
+                    <p>Loves drummin'</p>
+                    <p>Member since 1988</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <p class="text-center"><strong>Name</strong></p><br>
+                <a href="#demo3" data-toggle="collapse">
+                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo3" class="collapse">
+                    <p>Bass player</p>
+                    <p>Loves math</p>
+                    <p>Member since 2005</p>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <p class="text-center"><strong>Name</strong></p><br>
+                <a href="#demo4" data-toggle="collapse">
+                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo4" class="collapse">
+                    <p>Bass player</p>
+                    <p>Loves math</p>
+                    <p>Member since 2005</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!-- MAIN (Center website) -->
+
 </body>
 
 
