@@ -27,7 +27,7 @@ namespace TicketStore.Controllers
         }
 
         // GET: Users
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         { 
             return View(await _context.User.ToListAsync());
@@ -99,7 +99,7 @@ namespace TicketStore.Controllers
         }
 
         // GET: Users/Delete/5
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,7 +135,7 @@ namespace TicketStore.Controllers
             if(user.Type.Equals(null))
             {
                 user.Type = 0; //Costumer
-            }
+            } 
 
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
@@ -284,27 +284,27 @@ namespace TicketStore.Controllers
          * Search user fuction that return list of users with the input string in their 
          * name,email or username.
          */
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Search(string input)
+       // [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Search(string SearchString)
         {
-            if (input != null)
+            if (SearchString != null)
             {
-                return PartialView(await _context.User.Where(a => (a.UserName.Contains(input) ||
-                a.Email.Contains(input) ||
-                a.FirstName.Contains(input) ||
-                a.LastName.Contains(input)
+                return View(await _context.User.Where(a => (a.UserName.Contains(SearchString) ||
+                a.Email.Contains(SearchString) ||
+                a.FirstName.Contains(SearchString) ||
+                a.LastName.Contains(SearchString)
                 )).ToListAsync());
             }
             else
             {
-                return PartialView(await _context.User.ToListAsync());
+                return View(await _context.User.ToListAsync());
             }
         }
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var user = await _context.User.FindAsync(id);

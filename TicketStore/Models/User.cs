@@ -69,7 +69,7 @@ namespace TicketStore.Models
 
 
         [Required]
-        public UserType Type { get; set; } = UserType.Client;
+        public UserType Type { get; set; } = UserType.Client; //0 user, 1 admin
 
         //public int CartId { get; set; }
 

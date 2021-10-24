@@ -27,7 +27,7 @@ namespace TicketStore.Controllers
 
         public IActionResult Index()
         {
-           
+            
             var events = from t in _context.Event select t;
             if (events.Any())
             {

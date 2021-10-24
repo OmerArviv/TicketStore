@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="mx-2 text-center" id="searchFormTitlediv">
+    <label class="mainFont">Search user: </label>
+    <form asp-controller="Users" asp-action="Search" method="get">
+        <input type="text" name="SearchString" />
+        <input type="submit" value="User name/email" />
+    </form>
+    
+</div>
 <table class="table">
     <thead>
         <tr>
