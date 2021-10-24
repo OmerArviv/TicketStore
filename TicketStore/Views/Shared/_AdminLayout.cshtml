@@ -1,379 +1,192 @@
-﻿@{
-    ViewData["Title"] = "_AdminLayout";
-    Layout = null;
+﻿@using TicketStore.Models;
+@{
+    //Layout = null;
+
 }
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Home</title>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - TicketStore</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            background-color: #2d2d30;
+            border: 0;
+            font-size: 11px !important;
+            letter-spacing: 4px;
+            opacity: 0.9;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+            /* Add a gray color to all navbar links */
+            .navbar li a, .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
 
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.m  in.css">
+        /* On hover, the links will turn white */
+        .navbar-nav li a:hover {
+            color: #fff !important;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+        /* The active link */
+        .navbar-nav li.active a {
+            color: #fff !important;
+            background-color: #29292c !important;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+        /* Remove border color from the collapsible button */
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/~DesignShop/vendor/animate/animate.css">
+        /* Dropdown */
+        .open .dropdown-toggle {
+            color: #fff;
+            background-color: #555 !important;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+        /* Dropdown links */
+        .dropdown-menu li a {
+            color: #000 !important;
+        }
 
-    <link rel="stylesheet" type="text/css" href="~/~DesignShop/vendor/animsition/css/animsition.min.css">
-
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
-
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/daterangepicker/daterangepicker.css">
-
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/MagnificPopup/magnific-popup.css">
-
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
-
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
-    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
-
-
-    <script src="~/Layout/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/Layoutlib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Layout/js/site.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="~/Layout/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Layout/css/site.css" />
-    <!--===============================================================================================-->
-
+            /* On hover, the dropdown links will turn red */
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+    </style>
 </head>
-<body class="animsition">
-    <!-- Header -->
+<body>
     <header>
-        <!-- Header desktop -->
-        <div class="container-menu-desktop">
-            <!-- Topbar -->
-            <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
-                    <div class="left-top-bar">
-                        Free shipping
-                    </div>
+        <nav class="navbar navbar-default @*navbar-fixed-top*@">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#myPage">Ticket-Store</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
+                        <li><a asp-controller="Events" asp-action="Index">EVENTS</a></li>
+                        @{
 
-                    <div class="right-top-bar flex-w h-full">
-                        <a asp-controller="Home" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
-                           hello
-                        </a>
 
-                        <a asp-controller="users" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
-                            User-Index
-                        </a>
+                            if (Context.User != null && Context.User.Claims != null &&
+                                 Context.User.Claims.Count() > 0)
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="users" asp-action="Logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="users" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                                </li>
+                                <li><a asp-controller="Users" asp-action="Create"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
-                        </a>
-                    </div>
+                            }
+                        }
+                        <li><a href="#contact">WEBSITE DATA</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                MORE
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
+                                <li><a href="#">STATISTICS</a></li>
+                                <li><a href="#">ORDERS</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="wrap-menu-desktop">
-                <nav class="limiter-menu-desktop container">
-
-                    <!-- Logo desktop -->
-                    @*<a asp-controller="Home" asp-action="Index" class="logo">
-                        <img src="https://cdn.discordapp.com/attachments/748574787890053181/764747001895452682/400f1317-aa37-485f-b1a8-17dc86a980d9_200x200.png" alt="IMG-LOGO">
-                    </a>*@
-
-                    <!-- Menu desktop -->
-                    <div class="menu-desktop">
-                        <ul class="main-menu">
-                            <li @*class="active-menu"*@>
-                                <a asp-controller="Home" asp-action="Index">Home</a>
+        </nav>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TicketStore</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            <li>
-                                <a asp-controller="events" asp-action="Index">Shop</a>
-                                <ul class="sub-menu">
-                                    <li><a asp-controller="tickets" asp-action="Index">Products overview</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
-                            <li>
-                                <a asp-controller="users" asp-action="Index">Customers</a>
-                                <ul class="sub-menu">
-                                    <li><a asp-controller="users" asp-action="Create">Create User</a></li>
-                                    <li><a asp-controller="users" asp-action="Details">Details</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="events" asp-action="Index">Events</a>
                             </li>
-                            @*<li class="label1" data-label1="hot">
-                                <a asp-controller="Customers" asp-action="GetShoppingCart">My Shopping Cart</a>
-                            </li>*@
-                            @*@{
-                                if (Customer.CustomersId == null || Customer.CustomersId.Count == 0)
+                            @{
+
+
+                                if (Context.User != null && Context.User.Claims != null &&
+                                     Context.User.Claims.Count() > 0)
                                 {
-                                    <li>
-                                        <a asp-controller="Customers" asp-action="RecommendProducts">Popular Products</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Logout">Logout</a>
                                     </li>
-
                                 }
                                 else
                                 {
-                                    <li>
-                                        <a asp-controller="Customers" asp-action="RecommendProducts" asp-route-CustomerId="@Customer.CustomersId.Peek()">My suggestions</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Login">Login</a>
                                     </li>
                                 }
-                            }*@
-                            @*<li>
-                                <a asp-controller="Orders" asp-action="Index">Orders</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Comments" asp-action="Index">Comments</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Products" asp-action="Statistics">Statistics</a>
-                            </li>*@
-                            <li>
-                                <a asp-controller="users" asp-action="Logout">Log Out</a>
+                            }
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="users" asp-action="Index">Check</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="wrap-icon-header flex-w flex-r-m h-full">
 
-                        @*<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-                            <a asp-controller="Customers" asp-action="GetShoppingCart">
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart">
-                                    <i class="zmdi zmdi-shopping-cart"></i>
-                                </div>
-                            </a>
-                        </div>*@
-                    </div>
-                </nav>
-            </div>
-        </div>
+
+                        @if (Context.User != null && Context.User.Claims != null &&
+                            Context.User.Claims.Count() > 0)
+                        {
+                            string name = @Context.User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value;
+                        <p class="nav-link text-dark">
+                            Hello @name  &#128151;
+                        </p>
+                        }
+
+                  </div>
+
+            </nav>*@
     </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <div>
 
-    @RenderBody()
-
-    <!-- Footer -->
-    <footer class="bg3 p-t-75 p-b-32">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Categories
-                    </h4>
-
-                    <ul>
-                        <li class="p-b-10">
-                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Women" class="stext-107 cl7 hov-cl1 trans-04">
-                                Women
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men" class="stext-107 cl7 hov-cl1 trans-04">
-                                Men
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shoes
-                            </a>
-                        </li>
-                        <li class="p-b-10">
-                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Accessories" class="stext-107 cl7 hov-cl1 trans-04">
-                                Accessories
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Our Principles
-                    </h4>
-
-                    <ul>
-                        <li class="p-b-10">
-                            <a class="stext-107 cl7 hov-cl1 trans-04">
-                                Good Quality Of Products
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a class="stext-107 cl7 hov-cl1 trans-04">
-                                Best Products
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a class="stext-107 cl7 hov-cl1 trans-04">
-                                Free and Fast Shipping
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a class="stext-107 cl7 hov-cl1 trans-04">
-                                Great Service
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        GET IN TOUCH
-                    </h4>
-
-                    <p class="stext-107 cl7 size-201">
-                        Any questions? Let us know in BSOS Center 8th floor, Yigal Alon 65 St, Tel Aviv.
-                    </p>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Newsletter
-                    </h4>
-
-                    <form>
-                        <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="For those who do not have an account">
-                            <div class="focus-input1 trans-04"></div>
-                        </div>
-
-                        <div class="p-t-18">
-                            <button asp-controller="Customers" asp-action="Create" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" asp-controller="Customers" asp-action="Create">
-                                Subscribe
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="p-t-40">
-                <div class="flex-c-m flex-w p-b-18">
-                    <a class="m-all-1">
-                        <img src="~/DesignShop/images/icons/icon-pay-01.png" alt="ICON-PAY">
-                    </a>
-
-                    <a class="m-all-1">
-                        <img src="~/DesignShop/images/icons/icon-pay-02.png" alt="ICON-PAY">
-                    </a>
-
-                    <a class="m-all-1">
-                        <img src="~/DesignShop/images/icons/icon-pay-03.png" alt="ICON-PAY">
-                    </a>
-
-                    <a class="m-all-1">
-                        <img src="~/DesignShop/images/icons/icon-pay-04.png" alt="ICON-PAY">
-                    </a>
-
-                    <a class="m-all-1">
-                        <img src="~/DesignShop/images/icons/icon-pay-05.png" alt="ICON-PAY">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- Back to top -->
-    <div class="btn-back-to-top" id="myBtn">
-        <span class="symbol-btn-back-to-top">
-            <i class="zmdi zmdi-chevron-up"></i>
-        </span>
     </div>
 
-
-
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/bootstrap/js/popper.js"></script>
-    <script src="~/DesignShop/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/select2/select2.min.js"></script>
-    <script>
-        $(".js-select2").each(function () {
-            $(this).select2({
-                minimumResultsForSearch: 20,
-                dropdownParent: $(this).next('.dropDownSelect2')
-            });
-        })
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/daterangepicker/moment.min.js"></script>
-    <script src="~/DesignShop/vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/slick/slick.min.js"></script>
-    <script src="~/DesignShop/js/slick-custom.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/parallax100/parallax100.js"></script>
-    <script>
-        $('.parallax100').parallax100();
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-    <script>
-        $('.gallery-lb').each(function () { // the containers for all your galleries
-            $(this).magnificPopup({
-                delegate: 'a', // the selector for gallery item
-                type: 'image',
-                gallery: {
-                    enabled: true
-                },
-                mainClass: 'mfp-fade'
-            });
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/isotope/isotope.pkgd.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/sweetalert/sweetalert.min.js"></script>
-    <script>
-        $('.js-addwish-b2').on('click', function (e) {
-            e.preventDefault();
-        });
-        $('.js-addwish-b2').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-                $(this).addClass('js-addedwish-b2');
-                $(this).off('click');
-            });
-        });
-        $('.js-addwish-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-                $(this).addClass('js-addedwish-detail');
-                $(this).off('click');
-            });
-        });
-        /*---------------------------------------------*/
-        $('.js-addcart-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-        $('.js-pscroll').each(function () {
-            $(this).css('position', 'relative');
-            $(this).css('overflow', 'hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/DesignShop/js/main.js"></script>
-    @RenderSection("Scripts", required: false)
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - TicketStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
+</html>

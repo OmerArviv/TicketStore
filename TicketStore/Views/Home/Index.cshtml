@@ -23,39 +23,39 @@
             opacity: 0.9;
         }
 
-            /* Add a gray color to all navbar links */
+             /*Add a gray color to all navbar links */
             .navbar li a, .navbar .navbar-brand {
                 color: #d5d5d5 !important;
             }
 
-        /* On hover, the links will turn white */
+         /*On hover, the links will turn white */
         .navbar-nav li a:hover {
             color: #fff !important;
         }
 
-        /* The active link */
+         /*The active link */
         .navbar-nav li.active a {
             color: #fff !important;
             background-color: #29292c !important;
         }
 
-        /* Remove border color from the collapsible button */
+         /*Remove border color from the collapsible button*/ 
         .navbar-default .navbar-toggle {
             border-color: transparent;
         }
 
-        /* Dropdown */
+         /*Dropdown*/ 
         .open .dropdown-toggle {
             color: #fff;
             background-color: #555 !important;
         }
 
-        /* Dropdown links */
+         /*Dropdown links*/ 
         .dropdown-menu li a {
             color: #000 !important;
         }
 
-            /* On hover, the dropdown links will turn red */
+             /*On hover, the dropdown links will turn red */
             .dropdown-menu li a:hover {
                 background-color: red !important;
             }
@@ -207,7 +207,6 @@
     </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
-    <!--navbar-->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -221,7 +220,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
-                    <li><a asp-controller="Home" asp-action="Index">EVENTS</a></li>
+                    <li><a asp-controller="Events" asp-action="Index">EVENTS</a></li>
                     @{
 
 
@@ -364,7 +363,7 @@
             <div class="col-sm-3">
                 <p class="text-center"><strong>Omer Arviv</strong></p><br>
                 <a href="#demo" data-toggle="collapse">
-                    <img src="~/img/omerArviv.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                    <img src="~/img/omerArviv.jpg" class="img-circle person" alt="Omer Arviv" width="255" height="255">
                 </a>
                 <div id="demo" class="collapse">
                     <p>Full-Stack specialization</p>
@@ -374,7 +373,7 @@
             <div class="col-sm-3">
                 <p class="text-center"><strong>Raz Yaniv</strong></p><br>
                 <a href="#demo2" data-toggle="collapse">
-                    <img src="~/img/Raz Yaniv.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                    <img src="~/img/Raz Yaniv.jpg" class="img-circle person" alt="Raz Yaniv" width="255" height="255">
                 </a>
                 <div id="demo2" class="collapse">
                     <p>Data Science specialization</p>

@@ -45,12 +45,13 @@ namespace TicketStore.Models
 
 
         [Required(ErrorMessage = "Please enter a password")]
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, a character (like '@'), upper case letter and a number")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, upper case letter and a number")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Enter minimum lower case letter, a character (like '@'), upper case letter and a number")]
         [Compare("Password", ErrorMessage = "Passwords does not match")]
+        [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
 
         [Required(ErrorMessage = "Please enter a valid email adrress")]
