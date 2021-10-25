@@ -73,13 +73,18 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="users" asp-action="Edit" id="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @{ 
+        var id = Context.User.Claims.First(c => c.Type == "UserId").Value;
+        var toInteger = int.Parse(id);
+    }
+    <a asp-controller="users" asp-action="Edit" id="Edit" asp-route-id=@toInteger>Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 @*<script>
     var x = document.baseURI;
     var edit = document.getElementById("Edit");
-    x += "/users/Edit/1";
+    var id = @Model.Id;
+    x += "/users/Edit/" + id;
     edit.setAttribute("href", x);
     //fix this
 </script>*@

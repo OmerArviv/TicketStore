@@ -97,18 +97,32 @@
 
                             }
                         }
-                        <li><a href="#contact">WEBSITE DATA</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                MORE
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
-                                <li><a href="#">STATISTICS</a></li>
-                                <li><a href="#">ORDERS</a></li>
-                            </ul>
-                        </li>
+                        @{
+                            if (Context.User.Claims.Any())
+
+                            {
+                                <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
+                                if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+                                {
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            MORE
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
+                                            <li><a href="#">STATISTICS</a></li>
+                                            <li><a href="#">ORDERS</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            }
+
+                        }
+
+
+
                     </ul>
                 </div>
             </div>

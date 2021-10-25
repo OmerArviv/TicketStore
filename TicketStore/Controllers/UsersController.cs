@@ -134,8 +134,11 @@ namespace TicketStore.Controllers
             //Only admin can insert Type
             if(user.Type.Equals(null))
             {
-                user.Type = 0; //Costumer
-            } 
+                user.Type = 0; //Costumer, isAdmin = false
+            } else
+            {
+                user.IsAdmin = true;
+            }
 
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
@@ -162,17 +165,6 @@ namespace TicketStore.Controllers
                 var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName); //checking if there is username with the same name it will return null if doesnt, if there is the object
                 if (q == null)
                 {
-                    //creating a new cart for this user
-                    // Cart cart = new Cart();
-
-                    //cart.LastUpdate = DateTime.Now;
-                    //_context.Add(cart);
-                    //_context.Add(user);
-                    //await _context.SaveChangesAsync();
-
-                    //user.CartId = cart.Id;
-                    //cart.UserId = user.Id;
-
                     _context.User.Add(user);
                     await _context.SaveChangesAsync();
                     var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);

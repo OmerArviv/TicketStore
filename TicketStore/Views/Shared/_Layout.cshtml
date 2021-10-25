@@ -98,14 +98,14 @@
 
                             }
                         }
-                        <li><a href="#contact">CONTACT</a></li>
                         @{
                             if (Context.User.Claims.Any())
 
                             {
+                                <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
                                 if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
                                 {
-                                    <li><a href="#contact">WEBSITE DATA</a></li>
+
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                             MORE
@@ -121,6 +121,9 @@
                             }
 
                         }
+
+
+
                     </ul>
                 </div>
             </div>

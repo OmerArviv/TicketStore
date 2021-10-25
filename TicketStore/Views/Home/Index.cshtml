@@ -240,14 +240,14 @@
 
                         }
                     }
-                    <li><a href="#contact">CONTACT</a></li>
                     @{
                         if (Context.User.Claims.Any())
 
                         {
+                            <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
                             if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
                             {
-                                <li><a href="#contact">WEBSITE DATA</a></li>
+
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                         MORE
@@ -395,26 +395,24 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <p class="text-center"><strong>Name</strong></p><br>
+                <p class="text-center"><strong>Gil Cohen</strong></p><br>
                 <a href="#demo3" data-toggle="collapse">
-                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                    <img src="~/img/Gil Cohen.jpg" class="img-circle person" alt="Gil Cohen" width="255" height="255">
                 </a>
                 <div id="demo3" class="collapse">
-                    <p>Bass player</p>
-                    <p>Loves math</p>
-                    <p>Member since 2005</p>
+                    <p>Full-Stack specialization</p>
+                    <p>Loves Algorithms</p>
                 </div>
             </div>
 
             <div class="col-sm-3">
-                <p class="text-center"><strong>Name</strong></p><br>
+                <p class="text-center"><strong>Noa Cohen</strong></p><br>
                 <a href="#demo4" data-toggle="collapse">
-                    <img src="~/img/check.png" class="img-circle person" alt="Random Name" width="255" height="255">
+                    <img src="~/img/check.png" class="img-circle person" alt="Noa Cohen" width="255" height="255">
                 </a>
                 <div id="demo4" class="collapse">
-                    <p>Bass player</p>
-                    <p>Loves math</p>
-                    <p>Member since 2005</p>
+                    <p>Full-Stack specialization</p>
+                    <p>Loves Photographing</p>
                 </div>
             </div>
         </div>
