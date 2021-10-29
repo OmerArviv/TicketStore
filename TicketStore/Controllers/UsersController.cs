@@ -50,13 +50,13 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var user = await _context.User.FindAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(user);
         }
@@ -72,7 +72,7 @@ namespace TicketStore.Controllers
         {
             if (id != user.Id)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -104,14 +104,14 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var user = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(user);
@@ -302,7 +302,7 @@ namespace TicketStore.Controllers
             var user = await _context.User.FindAsync(id);
             if (user == null || id == null)
             {
-                return NotFound();
+                return View("NotFound");
 
             }
             _context.User.Remove(user);
