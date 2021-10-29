@@ -20,29 +20,6 @@ namespace TicketStore.Controllers
             _context = context;
         }
 
-        //tests for dibug
-        //public async Task<IActionResult> test1()
-        //{
-        //    var events = new Models.Event[] {
-        //        new Models.Event{ArtistName="Omer Adam", AvailableTickets=1000,  Date=DateTime.Parse("2021-11-11"), Genre="Music", Place="Qeusarya", Description="Last Omer Adam show of 2021!", Id=1},
-        //        new Event{ArtistName="Eyal Golan", AvailableTickets=2500,  Date=DateTime.Parse("2021-12-12"), Genre="Music", Place="Qeusarya", Description="Eyal Golan comes up with new singles", Id=2 },
-        //        new Event{ArtistName="Maccabi Haifa", AvailableTickets=30000,  Date=DateTime.Parse("2021-12-01"), Genre="Sport", Place="Sammy-Offer stadium, Haifa", Description="Maccabi Haifa vs Maccabi TLV", Id=3},
-        //        new Event{ArtistName="Pixies", AvailableTickets=1400,  Date=DateTime.Parse("2022-01-01"), Genre="Music", Place="Barbi, TLV", Description="The Greatest rock band with first new year concert!", Id=4},
-        //        new Event{ArtistName="Sarit Hadad", AvailableTickets=1700, Date=DateTime.Parse("2021-10-16"), Genre="Music", Place="Rishon Lezion", Description="The Middle East queen with a brand new show", Id=5}
-        //    };
-
-        //    var tickets = new Models.Ticket[] {
-        //        new Models.Ticket{Description="Omer Adam show", Price=200, Available=true, EventID=1},
-        //        new Ticket{Description="Eyal Golan show", Price=180, Available=true, EventID=2},
-        //        new Ticket{Description="Maccabi Haifa vs Maccabi TLV", Price=80, Available=true, EventID=3},
-        //        new Ticket{Description="Pixies show", Price=100, Available=true, EventID=4},
-        //        new Ticket{Description="Sarit Hadad show", Price=100, Available=true, EventID=5}
-        //    };
-
-        //    return View(_context.Event.ToListAsync());
-        //}
-
-
         // GET: Tickets
 
         public async Task<IActionResult> Buy(HashMap<string, int> hashMap, int count, int eventID)
@@ -77,7 +54,7 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var ticket = await _context.Tickets
@@ -86,7 +63,7 @@ namespace TicketStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(ticket);
@@ -108,6 +85,7 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description,Available,Price,Seat,EventID,UserID")] Ticket ticket)
         {
+            if(ticket==null) { return View("NotFount"); }
             ticket.Event = _context.Event.Find(ticket.Id);
             if (ModelState.IsValid)
             {
@@ -123,13 +101,13 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var ticket = await _context.Tickets.FindAsync(id);
             if (ticket == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(ticket);
         }
@@ -143,7 +121,7 @@ namespace TicketStore.Controllers
         {
             if (id != ticket.Id)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -157,7 +135,7 @@ namespace TicketStore.Controllers
                 {
                     if (!TicketExists(ticket.Id))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -174,14 +152,14 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var ticket = await _context.Tickets
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(ticket);
