@@ -19,6 +19,49 @@ namespace TicketStore.Controllers
             _context = context;
         }
 
+
+        public ActionResult Buy(int? id,int Quan)
+        {
+            var e = _context.Event.Where(temp => temp.Id == id).FirstOrDefault();
+            if (e.AvailableTickets >= Quan)
+            {
+                ICollection<Ticket> tick = new List<Ticket>();
+                e.AvailableTickets = e.AvailableTickets - Quan;
+                for (int i = 0; i < Quan; i++)
+                {
+                    Ticket tempTicket = new Ticket { Description = e.Description, Price = e.MinPrice, Available = false, EventID = (int)id, Event = _context.Event.FirstOrDefault(c => c.Id == id) };
+                    tick.Add(tempTicket);
+                    var tempUser = _context.User.FirstOrDefault();
+                    if (tempUser.Tickets == null)
+                        tempUser.Tickets = new List<Ticket>();
+                    tempUser.Tickets.Add(tempTicket);
+                    tempTicket.UserID = tempUser.Id;
+                    tempTicket.Costumer = tempUser;
+                    int j = 1;
+                }
+                foreach (Ticket t in tick)
+                {
+                    _context.Tickets.Add(t);
+                }
+                _context.SaveChanges();
+
+                return View(tick.FirstOrDefault().Costumer);
+            }
+            else
+                return Redirect("https://localhost:44350/events/");
+        }
+
+        public ActionResult Summary(int? id)
+        {
+            if (id != null)
+            {
+                var e = _context.Event.Where(temp => temp.Id == id); ;
+                return View(e.FirstOrDefault());
+            }
+            else
+                return View();
+        }
+
         // GET: Events
         public async Task<IActionResult> Index(string searchString, string sortOrder)
         {

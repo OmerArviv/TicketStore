@@ -37,16 +37,22 @@ namespace TicketStore.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            
-            var events = from e in _context.Event select e;
-            ViewData["events"] = events;
-            
-            
-            if (_context.Tickets.Any())
+            var tempUser = _context.User.FirstOrDefault();
+            if(tempUser==null)
+                return Redirect("https://localhost:44350/events/");
+            else
             {
-                return View(await _context.Tickets.ToListAsync());
+                return View(tempUser);
             }
-            return View();
+            //var events = from e in _context.Event select e;
+            //ViewData["events"] = events;
+
+
+            //if (_context.Tickets.Any())
+            //{
+            //    return View(await _context.Tickets.ToListAsync());
+            //}
+            //return View();
         }
 
         // GET: Tickets/Details/5

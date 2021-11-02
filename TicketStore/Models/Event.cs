@@ -25,7 +25,11 @@ namespace TicketStore.Models
 
         public string Place { get; set; }
 
-        
+        public string ImageUrl { get; set; }
+        public string ImageUrl2 { get; set; }
+        public string ImageUrl3 { get; set; }
+        public int stars { get; set; }
+        public int MinPrice { get; set; }
 
         [Display(Name= "Check available tickets")]
         public int AvailableTickets { get; set; }
