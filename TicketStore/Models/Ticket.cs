@@ -8,6 +8,12 @@ namespace TicketStore.Models
 {
     public class Ticket
     {
+        //Ticket(int eventid, int userid)
+        //{
+        //    this.EventID = eventid;
+        //    this.UserID = userid;
+        //}
+
         public int Id { get; set; } //Primary key 
         public string Description { get; set; }
         [Required]

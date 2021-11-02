@@ -44,8 +44,23 @@ namespace TicketStore.Migrations
                     b.Property<int>("Genre2")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MinPrice")
+                        .HasColumnType("int");
+
                     b.Property<string>("Place")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("stars")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
