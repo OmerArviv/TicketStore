@@ -53,16 +53,26 @@
                 <select asp-for="Gender" class="form-control"></select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
+            @{
+                if (Context.User.Claims.Any())
+
+                {
+                    if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+                    {
+                        <div class="form-group">
+                            <label asp-for="Type" class="control-label"></label>
+                            <input asp-for="Type" class="form-control" />
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    }
+                }
+
+            }
             @*<div class="form-group">
-                <label asp-for="CartId" class="control-label"></label>
-                <input asp-for="CartId" class="form-control" />
-                <span asp-validation-for="CartId" class="text-danger"></span>
-            </div>*@
+            <label asp-for="CartId" class="control-label"></label>
+            <input asp-for="CartId" class="form-control" />
+            <span asp-validation-for="CartId" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

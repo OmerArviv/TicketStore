@@ -78,7 +78,7 @@ namespace TicketStore.Models
 
         public ICollection<Ticket> Tickets { get; set; }
         public bool IsAdmin { get; set; } = false;
-        public static Stack<int> UserConnectedByID { get; set; }
+       // public static Stack<int> UserConnectedByID { get; set; }
         
 
 

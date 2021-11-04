@@ -35,10 +35,18 @@ namespace TicketStore.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            var user = from u in _context.User where u.Id == id select u;
+
+            var user = await _context.User
+                .Include(c => c.Tickets)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
+            //var event1 = await _context.User.Include(from t in )
+            //    .AsNoTracking()
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //var user = from u in _context.User where u.Id == id select u;
             if(user != null)
             {
-                return View(user.FirstOrDefault());
+                return View(user);
             }
             return View();
         }
@@ -130,16 +138,6 @@ namespace TicketStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type")] User user)
         {
-           
-            //Only admin can insert Type
-            if(user.Type.Equals(null))
-            {
-                user.Type = 0; //Costumer, isAdmin = false
-            } else
-            {
-                user.IsAdmin = true;
-            }
-
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
             {
@@ -165,6 +163,7 @@ namespace TicketStore.Controllers
                 var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName); //checking if there is username with the same name it will return null if doesnt, if there is the object
                 if (q == null)
                 {
+                     user.Tickets = new List<Ticket>();
                     _context.User.Add(user);
                     await _context.SaveChangesAsync();
                     var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);

@@ -1,7 +1,7 @@
 ﻿<html lang="en">
 
 @{
-    ViewData["Title"] = "NotFound";
+    ViewData["Title"] = "Not Found";
     if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
     {
         Layout = "_AdminLayout";

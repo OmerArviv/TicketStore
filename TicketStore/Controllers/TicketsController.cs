@@ -22,27 +22,43 @@ namespace TicketStore.Controllers
 
         // GET: Tickets
 
-        public async Task<IActionResult> Buy(HashMap<string, int> hashMap, int count, int eventID)
-        {
+        //public async Task<IActionResult> Buy(HashMap<string, int> hashMap, int count, int eventID)
+        //{
 
-            var id = User.Claims.First(c => c.Type == "UserId")?.Value;
-            var user = from u in _context.User where
-                       u.Id.ToString().Equals(id) select u;
+        //    var id = User.Claims.First(c => c.Type == "UserId")?.Value;
+        //    var user = from u in _context.User where
+        //               u.Id.ToString().Equals(id) select u;
 
-            var e = from t in _context.Event where t.Id == eventID select t;
+        //    var e = from t in _context.Event where t.Id == eventID select t;
 
             
 
-            return View();
-        }
+        //    return View();
+        //}
         public async Task<IActionResult> Index()
         {
-            var tempUser = _context.User.FirstOrDefault();
+            var tmp = User.Claims.First(c => c.Type == "UserId").Value;
+            var id = int.Parse(tmp);
+            //var tempUser = _context.User.FirstOrDefault();
+            var tempUser = from t in _context.User where id == t.Id select t;
+            var tickets = new List<Ticket>();
+            
+            foreach(Ticket t in _context.Tickets)
+            {
+               
+                if (t.UserID == id)
+                {
+                    var events = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                    t.Event = events;
+                    tickets.Add(t);
+                }
+
+            }
             if(tempUser==null)
                 return Redirect("https://localhost:44350/events/");
             else
             {
-                return View(tempUser);
+                return View(tickets);
             }
             //var events = from e in _context.Event select e;
             //ViewData["events"] = events;

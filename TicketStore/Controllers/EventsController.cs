@@ -30,15 +30,24 @@ namespace TicketStore.Controllers
                 for (int i = 0; i < Quan; i++)
                 {
                     Ticket tempTicket = new Ticket { Description = e.Description, Price = e.MinPrice, Available = false, EventID = (int)id, Event = _context.Event.FirstOrDefault(c => c.Id == id) };
+                    
+                    var tmp = User.Claims.First(c => c.Type == "UserId").Value;
+                    var idd = int.Parse(tmp);
+                    //var tempUser = _context.User.FirstOrDefault();
+                    var raz = from t in _context.User where idd == t.Id select t;
+                    var user = raz.FirstOrDefault();
+                    //var raz = _context.User.FirstOrDefault();
+                    if (user.Tickets == null)
+                        user.Tickets = new List<Ticket>();
+                    var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == id);
+                    tempTicket.Event = tmpEvent;
+                    user.Tickets.Add(tempTicket);
+                    tempTicket.UserID = user.Id;
+                    tempTicket.Costumer = user;
                     tick.Add(tempTicket);
-                    var tempUser = _context.User.FirstOrDefault();
-                    if (tempUser.Tickets == null)
-                        tempUser.Tickets = new List<Ticket>();
-                    tempUser.Tickets.Add(tempTicket);
-                    tempTicket.UserID = tempUser.Id;
-                    tempTicket.Costumer = tempUser;
                     int j = 1;
                 }
+              
                 foreach (Ticket t in tick)
                 {
                     _context.Tickets.Add(t);

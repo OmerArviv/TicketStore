@@ -1,4 +1,5 @@
-﻿@model TicketStore.Models.User
+﻿@using TicketStore.Models
+@model IEnumerable<TicketStore.Models.Ticket>
 
 <head>
     <script src="https://fonts.googleapis.com/css?family=Oswald"></script>
@@ -188,13 +189,14 @@ h1 {
     <section class="container">
         <h1>Your Tickets</h1>
         @{
-            foreach (Ticket t in Model.Tickets)
-            {
 
+            foreach (Ticket t in Model)
+            {
                 <div class="row">
                     <article class="card fl-left">
                         <section class="date">
                             <time datetime="">
+
                                 <span>@t.Event.Date.Day</span><span>@t.Event.Date.ToString("MMM")</span>
                             </time>
                         </section>

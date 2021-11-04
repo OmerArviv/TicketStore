@@ -12,9 +12,12 @@ namespace TicketStore.Data
             context.Database.EnsureCreated();
 
             if(context.User.Any()) { return; }
+            var tickets = new List<Ticket>();
             var users = new Models.User[]
             {
-                new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="rrttou@gmail.com", FirstName="Raz", Gender=0, LastName="Yaniv", Password="Admin@123", PasswordConfirm="Admin@123", UserName="rrttou", Type=0, IsAdmin=true }
+                new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="rrttou@gmail.com", FirstName="Raz",
+                    Gender=0, LastName="Yaniv", Password="Admin@123", PasswordConfirm="Admin@123",
+                    UserName="rrttou", Type=0, IsAdmin=true, Tickets=tickets }
 
 
             };
