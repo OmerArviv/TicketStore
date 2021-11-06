@@ -5,54 +5,6 @@
     ViewData["Title"] = "Index";
 }
 
-@*@{if ((Context.User == null || Context.User.Claims == null ||
-                Context.User.Claims.Count() <= 0))
-        {
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <style>
-                    #pleaselogin {
-                        text-align: center;
-                        font-family: Arial;
-                        font-size: 20px;
-                        color: forestgreen;
-                    }
-
-                    h1 {
-                        font-size: 42px;
-                        text-align: center;
-                    }
-                </style>
-            </head>
-            <body>
-                <h1>
-                    YOU ARE NOT LOGGED IN &#9940; &#9940; &#9940; &#9940;
-                    <a asp-controller="Users" asp-action="Login" id="pleaselogin">Please Login</a>
-                </h1>
-
-
-
-
-            </body>
-        </html>
-
-
-
-    }
-
-    else
-    {*@
-
-
-@*<h1>Index</h1>
-    @if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
-        {
-            <p>
-                <a asp-action="Create">Create New</a>
-            </p>
-        }*@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -115,21 +67,25 @@
         }
 
         .dropbtn {
-            background-color: #3498DB;
+            background-color: #9c78e9;
             color: white;
             padding: 16px;
             font-size: 16px;
             border: none;
             cursor: pointer;
+            border-radius:12px;
+            width:180px;
         }
 
         .dropbtn:hover, .dropbtn:focus {
-            background-color: #2980B9;
+            background-color: #99aeff;
         }
 
         .dropdown {
+
             position: relative;
             display: inline-block;
+            border-radius:12px;
         }
 
         .dropdown-content {
@@ -140,6 +96,7 @@
             overflow: auto;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+            border-radius:12px;
         }
 
         .dropdown-content a {
@@ -156,26 +113,35 @@
         .show {
             display: block;
         }
+
+        .bg {
+            min-height:100%;
+            background-image: url("https://cdn.wallpapersafari.com/17/96/f2DBba.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
     </style>
 </head>
 
-<body>
+<body class="bg">
     <form asp-controller="Events" asp-action="Index" method="get" value="@ViewData["CurrentFilter"]">
-        <h3 style="text-align:center;">
-            Search Artist: <input type="text" name="SearchString" />
-            <input type="submit" value="Search" />
-        </h3>
-        <h6 style="text-align:center;"><a asp-action="Index">Back to Full List</a></h6>
+        <h1 style="text-align:center;">
+            Search Artist: <input type="text" name="SearchString" style="border-radius:12px; text-align:center;" />
+            <input type="submit" value="Search" style="background-color: #9c78e9; border-radius: 12px; width: 140px;color:white;" />
+        </h1>
+        <h4 style="text-align:center;"><a asp-action="Index">Back to Full List</a></h4>
     </form>
 
     <div class="dropdown" style="width:100%;text-align:center">
-        <button onclick="myFunction()" class="dropbtn" >Filter</button>
+        <button onclick="myFunction()"  class="dropbtn" >Filter</button>
         <div id="myDropdown" class="dropdown-content" style="text-align:center;position:absolute;left:50%;">
             <a href="Events/filter/?filterByGenre=Sport" style="width:160px;height:44px;">Sport</a>
             <a href="Events/filter/?filterByGenre=Movie" style="width:160px;height:44px;">Movie</a>
             <a href="Events/filter/?filterByGenre=Music" style="width:160px;height:44px;">Music</a>
         </div>
     </div>
+
 
     <br />
     <br />
@@ -218,7 +184,7 @@
     }
     <br /><br /><br /><br /><br /><br /><br /><br />
     <div>
-        <video width="320" height="240" controls autoplay preload="auto">
+        <video width="320" height="240" controls muted autoplay >
             <source src="~/video/EventsVideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>

@@ -9,6 +9,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Events\microphone.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Events\microphone.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\img\firstPic.jpg" />
   </ItemGroup>
