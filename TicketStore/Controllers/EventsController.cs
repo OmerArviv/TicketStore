@@ -45,7 +45,7 @@ namespace TicketStore.Controllers
                     tempTicket.UserID = user.Id;
                     tempTicket.Costumer = user;
                     tick.Add(tempTicket);
-                    int j = 1;
+                    int j = 1; //for debug
                 }
               
                 foreach (Ticket t in tick)
@@ -151,7 +151,7 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var event1 = await _context.Event.Include(t=>t.Tickets)
@@ -159,7 +159,7 @@ namespace TicketStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (event1 == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View( event1);
@@ -199,13 +199,13 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var @event = await _context.Event.FindAsync(id);
             if (@event == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(@event);
         }
@@ -219,7 +219,7 @@ namespace TicketStore.Controllers
         {
             if (id != @event.Id)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -250,14 +250,14 @@ namespace TicketStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var @event = await _context.Event
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (@event == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(@event);

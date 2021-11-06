@@ -38,28 +38,38 @@ namespace TicketStore.Controllers
         public async Task<IActionResult> Index()
         {
             var tmp = User.Claims.First(c => c.Type == "UserId").Value;
-            var id = int.Parse(tmp);
-            //var tempUser = _context.User.FirstOrDefault();
-            var tempUser = from t in _context.User where id == t.Id select t;
-            var tickets = new List<Ticket>();
-            
-            foreach(Ticket t in _context.Tickets)
+            if(tmp != null)
             {
-               
-                if (t.UserID == id)
-                {
-                    var events = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
-                    t.Event = events;
-                    tickets.Add(t);
-                }
+                var id = int.Parse(tmp);
+                //var tempUser = _context.User.FirstOrDefault();
+                var tempUser = from t in _context.User where id == t.Id select t;
+                var tickets = new List<Ticket>();
 
+                foreach (Ticket t in _context.Tickets)
+                {
+
+                    if (t.UserID == id)
+                    {
+                        var events = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                        t.Event = events;
+                        tickets.Add(t);
+                    }
+
+                }
+                if (tempUser == null)
+                    return RedirectToAction("Index", "Event");
+                else
+                {
+                    return View(tickets);
+                }
             }
-            if(tempUser==null)
-                return Redirect("https://localhost:44350/events/");
             else
             {
-                return View(tickets);
+                return RedirectToAction("Index", "Home");
             }
+            
+           
+            
             //var events = from e in _context.Event select e;
             //ViewData["events"] = events;
 
