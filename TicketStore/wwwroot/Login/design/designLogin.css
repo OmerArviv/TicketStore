@@ -1,5 +1,5 @@
 ﻿@import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
-* {
+ {
 	margin: 0;
 	padding: 0;
 }
@@ -274,3 +274,5 @@ input {
 		opacity: 1;
 	}
 }
+
+

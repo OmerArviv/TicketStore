@@ -7,17 +7,21 @@
 <head>
     <link rel="stylesheet" type="text/css" href="~/Login/design/designLogin.css" />
     <link rel="stylesheet" type="text/javascript" href="~/Login/design/designLogin.js" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 </head>
+
 <body>
-   
     <div class="container">
         <form class="signUp">
             <h3>Welcome to Ticket-Store</h3>
             <button class="form-btn sx" id="log-in" type="button">Log In</button>
             <button class="form-btn dx" type="submit" asp-controller="Users" asp-action="Create">Sign Up</button>
-            <a asp-controller="Home" asp-action="Index" class="btn btn-success" role="button" >Home</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-success" role="button">Home</a>
             <img src="~/img/check.png" style="height:230px" />
         </form>
         <form class="signIn" asp-action="Login" asp-controller="users" asp-route-returnurl='@Context.Request.Query["ReturnUrl"]' method="post">
@@ -29,10 +33,10 @@
             <label asp-for="Password" class="control-label"></label>
             <input asp-for="Password" type="password" placeholder="Insert Password" reqired />
             <button class="form-btn sx back" id="back" type="button">Back</button>
-            <button class="form-btn dx" id="log-in" type="submit" value="Login">Log In</button>
+            <button class="form-btn dx" id="log-in1" type="submit" value="Login">Log In</button>
+
             <a asp-controller="Home" asp-action="Index">Home</a>
         </form>
-
 
 
 
@@ -51,7 +55,20 @@
                 $(".signUp").removeClass("inactive-sx");
             });
         </script>
+
     </div>
+
+    <div id="ex1" class="modal" style="position:fixed">
+        <p>@ViewData["error"]</p>
+        <a href="#" rel="modal:close">Close</a>
+    </div>
+
+    <script type="text/javascript">
+        var err = '@ViewData["error"]';
+        
+    </script>
+    <script src="~/js/site.js"></script>
+
 
 </body>
 

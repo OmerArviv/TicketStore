@@ -30,7 +30,12 @@ namespace TicketStore.Controllers
        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         { 
-            return View(await _context.User.ToListAsync());
+            if(User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+                 return View(await _context.User.ToListAsync());
+            else
+            {
+                return View("NotFound");
+            }
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -48,7 +53,7 @@ namespace TicketStore.Controllers
             {
                 return View(user);
             }
-            return View();
+            return View("NotFound");
         }
 
 
@@ -78,7 +83,8 @@ namespace TicketStore.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type,IsAdmin")] User user)
         {
-            if (id != user.Id)
+            var tmpUser = await _context.User.FindAsync(id);
+            if (tmpUser == null || user == null || id != user.Id)
             {
                 return View("NotFound");
             }
@@ -94,7 +100,7 @@ namespace TicketStore.Controllers
                 {
                     if (!UserExists(user.Id))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -110,14 +116,9 @@ namespace TicketStore.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
-
             var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+                   .FirstOrDefaultAsync(m => m.Id == id);
+            if (id == null || user == null)
             {
                 return View("NotFound");
             }
