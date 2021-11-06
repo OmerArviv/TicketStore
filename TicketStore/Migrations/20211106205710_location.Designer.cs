@@ -10,8 +10,8 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20211102204450_first")]
-    partial class first
+    [Migration("20211106205710_location")]
+    partial class location
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,12 @@ namespace TicketStore.Migrations
 
                     b.Property<string>("ImageUrl3")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("LocationX")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Locationy")
+                        .HasColumnType("float");
 
                     b.Property<int>("MinPrice")
                         .HasColumnType("int");

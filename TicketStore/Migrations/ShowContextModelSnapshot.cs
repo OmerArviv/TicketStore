@@ -53,6 +53,12 @@ namespace TicketStore.Migrations
                     b.Property<string>("ImageUrl3")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("LocationX")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Locationy")
+                        .HasColumnType("float");
+
                     b.Property<int>("MinPrice")
                         .HasColumnType("int");
 

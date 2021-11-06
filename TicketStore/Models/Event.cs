@@ -43,7 +43,10 @@ namespace TicketStore.Models
         
 
         public ICollection<Ticket> Tickets{ get; set; }
-        
+
+        public double LocationX { get; set; }
+        public double Locationy { get; set; }
+
 
 
 

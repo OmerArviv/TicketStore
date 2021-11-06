@@ -2,104 +2,104 @@
 
 
 <html>
-    <body>
-        <div class="container" style="margin-top:100px;">
-            <div class="row">
-                <div class="col-md-5">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
+<body>
+    <div class="container" style="margin-top:100px;">
+        <div class="row">
+            <div class="col-md-5">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
 
-                            <div class="item active">
-                                <img src="@Model.ImageUrl" alt="First slide" style="height: 600px;">
-                                <div class="carousel-caption">
-                                    <h3></h3>
-                                    <p></p>
-                                </div>
+                        <div class="item active">
+                            <img src="@Model.ImageUrl" alt="First slide" style="height: 600px;">
+                            <div class="carousel-caption">
+                                <h3></h3>
+                                <p></p>
                             </div>
-
-                            <div class="item">
-                                <img src="@Model.ImageUrl2" alt="Second slide" style="height: 600px;">
-                                <div class="carousel-caption">
-                                    <h3></h3>
-                                    <p></p>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img src="@Model.ImageUrl3" alt="Third slide" style="height: 600px;">
-                                <div class="carousel-caption">
-                                    <h3></h3>
-                                    <p></p>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <p class="newarrival text-center" style="background:green; width:50px; color:white; font-size:12px; font-weight:bold;">New</p>
-                    <h2 style="color:#555">@Model.ArtistName</h2>
-                    <h4>@Model.Description</h4>
-                    <p class="price" style="color:#FE980F;font-size:26px;font-weight:bold;padding-top:20px;">Buy now for  @Model.MinPrice NIS</p>
-                    @switch (Model.stars)
-                    {
-                        case 1:
-                            <img src="~/img/1stars.png" class="stars" style="height:20px;" />
-                            break;
-                        case 2:
-                            <img src="~/img/2stars.png" class="stars" style="height:20px;" />
-                            break;
-                        case 3:
-                            <img src="~/img/3stars.png" class="stars" style="height:20px;" />
-                            break;
-                        case 4:
-                            <img src="~/img/4stars.png" class="stars" style="height:20px;" />
-                            break;
-                        case 5:
-                            <img src="~/img/5stars.png" class="stars" style="height:20px;" />
-                            break;
-                    }
-                    <br />
-                    <br />
-                    <br />
-                    <p><b>Event's Location :</b>@Model.Place</p>
-                    <br />
-                    <p><b>Date :</b>@Model.Date</p>
-                    <br />
-                    @if (Model.AvailableTickets > 0)
-                    {
-                        <p><b>Availability:</b> Available - <span style="color:green"> Only @Model.AvailableTickets Left !</span></p>
-                    }
-                    else
-                    {
-                        <p><b>Availability:</b> <span style="color:darkred">Not Available</span></p>
-                    }
-                    <br />
-                    <label>Quantity:</label>
-                    <input id="NumTickets" type="text" value="1" style="border:1px solid #CCC;font-weight:bold;height:33px;text-align:center;width:30px;" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;@*<button type="button" class="btn-secondary">Buy Now!</button>*@
+                        <div class="item">
+                            <img src="@Model.ImageUrl2" alt="Second slide" style="height: 600px;">
+                            <div class="carousel-caption">
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
 
-                    <button onclick="myFunction()">Buy Now!</button>
-                    
-                    <script>
+                        <div class="item">
+                            <img src="@Model.ImageUrl3" alt="Third slide" style="height: 600px;">
+                            <div class="carousel-caption">
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <p class="newarrival text-center" style="background:green; width:50px; color:white; font-size:12px; font-weight:bold;">New</p>
+                <h2 style="color:#555">@Model.ArtistName</h2>
+                <h4>@Model.Description</h4>
+                <p class="price" style="color:#FE980F;font-size:26px;font-weight:bold;padding-top:20px;">Buy now for  @Model.MinPrice NIS</p>
+                @switch (Model.stars)
+                {
+                    case 1:
+                        <img src="~/img/1stars.png" class="stars" style="height:20px;" />
+                        break;
+                    case 2:
+                        <img src="~/img/2stars.png" class="stars" style="height:20px;" />
+                        break;
+                    case 3:
+                        <img src="~/img/3stars.png" class="stars" style="height:20px;" />
+                        break;
+                    case 4:
+                        <img src="~/img/4stars.png" class="stars" style="height:20px;" />
+                        break;
+                    case 5:
+                        <img src="~/img/5stars.png" class="stars" style="height:20px;" />
+                        break;
+                }
+                <br />
+                <br />
+                <br />
+                <p><b>Event's Location :</b>@Model.Place</p>
+                <br />
+                <p><b>Date :</b>@Model.Date</p>
+                <br />
+                @if (Model.AvailableTickets > 0)
+                {
+                    <p><b>Availability:</b> Available - <span style="color:green"> Only @Model.AvailableTickets Left !</span></p>
+                }
+                else
+                {
+                    <p><b>Availability:</b> <span style="color:darkred">Not Available</span></p>
+                }
+                <br />
+                <label>Quantity:</label>
+                <input id="NumTickets" type="text" value="1" style="border:1px solid #CCC;font-weight:bold;height:33px;text-align:center;width:30px;" />
+                &nbsp;&nbsp;&nbsp;&nbsp;@*<button type="button" class="btn-secondary">Buy Now!</button>*@
+
+                <button onclick="myFunction()">Buy Now!</button>
+
+                <script>
                         function myFunction() {
                             if (document.getElementById("NumTickets").value >@Model.AvailableTickets) {
                                 alert("We can't place your order :(\n\n\nThere is not enough available tickets for your order...\n\nTry order less tickets :) ");
@@ -113,10 +113,34 @@
                                 location.replace(temp);
                             }
 }
-                    </script>
-                </div>
+                </script>
             </div>
         </div>
-    </body>
+    </div>
+    <h1 style="text-align:center;">@Model.Place <br /></h1>
+    <div id="googleMap" style="width:100%;height:400px;"></div>
+
+    <script>
+        function myMap() {
+            var x =  @Model.LocationX;
+            var y =  @Model.Locationy;
+            var mapProp = {
+                center: new google.maps.LatLng(x, y),
+                zoom: 15,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            map.center = mapProp.center;
+            map.zoom = 15;
+
+            var marker = new google.maps.Marker({
+                position: map.center,
+                animation: google.maps.Animation.BOUNCE
+            });
+
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoCYZEMSXqkifoIsjBGY_oejA72j2i9bw&callback=myMap"></script>
+</body>
 
 </html>

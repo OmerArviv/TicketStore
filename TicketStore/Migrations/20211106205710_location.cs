@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketStore.Migrations
 {
-    public partial class first : Migration
+    public partial class location : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,9 @@ namespace TicketStore.Migrations
                     AvailableTickets = table.Column<int>(type: "int", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LocationX = table.Column<double>(type: "float", nullable: false),
+                    Locationy = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
