@@ -81,6 +81,22 @@ namespace TicketStore.Data
 
                 },
                 new Event{
+                    ArtistName="Hapoel Beer Sheva",
+                    AvailableTickets=30000,
+                    Date=DateTime.Parse("2021-12-10"),
+                    Genre="Sport",
+                    Place="Terner stadium, Beer Sheva",
+                    Description="Hapoel Beer Sheva vs Maccabi TLV ",
+                    ImageUrl="https://sport1images.maariv.co.il/image/upload/f_auto,fl_lossy,c_thumb,g_north/1024488",
+                    ImageUrl2="https://sport1images.maariv.co.il/image/upload/f_auto,fl_lossy,c_thumb,g_north,w_728,h_441/1002630",
+                    ImageUrl3="https://a7.org/pictures/1037/1037898.jpg",
+                    stars=2,
+                    MinPrice=69,
+                    LocationX = 31.243870,
+                    Locationy = 34.793991
+
+                },
+                new Event{
                     ArtistName="Pixies",
                     AvailableTickets=1400,
                     Date=DateTime.Parse("2022-01-01"),
@@ -110,7 +126,39 @@ namespace TicketStore.Data
                     LocationX = 31.996655, 
                     Locationy = 34.736217
 
-                }
+                },
+                 new Event{
+                    ArtistName="No Time to Die",
+                    AvailableTickets=400,
+                    Date=DateTime.Parse("2021-10-16"),
+                    Genre="Movie",
+                    Place="Rishon Lezion",
+                    Description="The latest James Bond movie",
+                    ImageUrl="https://upload.wikimedia.org/wikipedia/he/8/80/%D7%94%D7%90%D7%A8%D7%99-%D7%A4%D7%95%D7%98%D7%A8-%D7%95%D7%90%D7%91%D7%9F-%D7%94%D7%97%D7%9B%D7%9E%D7%99%D7%9D-%D7%A4%D7%95%D7%A1%D7%98%D7%A8-%D7%A2%D7%91%D7%A8%D7%99-%D7%9E%D7%A7%D7%95%D7%A8%D7%99-2000.jpg",
+                    ImageUrl2="https://i.insider.com/5e57d0c1fee23d37c7514919?width=700",
+                    ImageUrl3="https://ychef.files.bbci.co.uk/976x549/p09x617v.jpg",
+                    stars=4,
+                    MinPrice=39,
+                    LocationX = 31.996655,
+                    Locationy = 34.736217
+
+                 },
+                 new Event{
+                    ArtistName="Harry Potter and the Sorcerer's Stone",
+                    AvailableTickets=400,
+                    Date=DateTime.Parse("2021-10-18"),
+                    Genre="Movie",
+                    Place="Rishon Lezion",
+                    Description="New edition",
+                    ImageUrl="https://m.media-amazon.com/images/M/MV5BYWQ2NzQ1NjktMzNkNS00MGY1LTgwMmMtYTllYTI5YzNmMmE0XkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_.jpg",
+                    ImageUrl2="https://jff.org.il/sites/default/files/styles/slide_show/public/harry_potter_and_the_sorcerers_stone_1.jpg?itok=01PVXEFO",
+                    ImageUrl3="https://reutbuyitforme.com/wp-content/uploads/2019/07/Buying_Images__030.jpg",
+                    stars=3,
+                    MinPrice=39,
+                    LocationX = 31.996655,
+                    Locationy = 34.736217
+
+                 }
             };
 
             foreach (Event e in events)
