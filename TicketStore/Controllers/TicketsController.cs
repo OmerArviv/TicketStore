@@ -109,6 +109,15 @@ namespace TicketStore.Controllers
             ViewData["events"] = tmp;
             return View();
         }
+        public async Task<IActionResult> SortByGenre(string genre)
+        {
+            var tickets = _context.Tickets.GroupBy(b => b.Event.Genre.Equals(genre)).Select(g => new
+            {
+                Genre = g.Key      
+            });
+
+            return View( await tickets.ToListAsync());
+        }
 
         // POST: Tickets/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
