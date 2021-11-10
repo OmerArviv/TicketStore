@@ -37,6 +37,7 @@ namespace TicketStore.Controllers
         //}
         public async Task<IActionResult> Index()
         {
+            
             var tmp = User.Claims.First(c => c.Type == "UserId").Value;
             if(tmp != null)
             {
@@ -111,12 +112,37 @@ namespace TicketStore.Controllers
         }
         public async Task<IActionResult> SortByGenre(string genre)
         {
-            var tickets = _context.Tickets.GroupBy(b => b.Event.Genre.Equals(genre)).Select(g => new
+            var tmp = User.Claims.First(c => c.Type == "UserId").Value;
+            if (tmp != null)
             {
-                Genre = g.Key      
-            });
+                var id = int.Parse(tmp);
+                //var tempUser = _context.User.FirstOrDefault();
+                var tempUser = from t in _context.User where id == t.Id select t;
+                var tickets = new List<Ticket>();
 
-            return View( await tickets.ToListAsync());
+                foreach (Ticket t in _context.Tickets)
+                {
+
+                    if (t.UserID == id)
+                    {
+                        var events = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                        t.Event = events;
+                        tickets.Add(t);
+                    }
+
+                }
+                var ticketsByGenre = tickets.GroupBy(g => g.Event.Genre.Equals(genre));
+                if (tempUser == null)
+                    return RedirectToAction("Index", "Event");
+                else
+                {
+                    return View(tickets);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // POST: Tickets/Create
