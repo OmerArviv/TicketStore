@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using org.apache.zookeeper.data;
 using TicketStore.Data;
 using TicketStore.Models;
+using System.Collections.ObjectModel;
 
 namespace TicketStore.Controllers
 {
@@ -151,6 +154,8 @@ namespace TicketStore.Controllers
 
 
         }
+        
+
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -282,6 +287,54 @@ namespace TicketStore.Controllers
         private bool EventExists(int id)
         {
             return _context.Event.Any(e => e.Id == id);
+        }
+
+        public ActionResult Statistics()
+        { 
+            
+            ICollection<Stat> statistic = new Collection<Stat>();
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic.Add("Sport", 0);
+            dic.Add("Movie", 0);
+            dic.Add("Music", 0);
+
+            foreach (var t in _context.Tickets)
+            {
+                if (t == null)
+                    continue;
+                var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                if (!dic.ContainsKey(tmpEvent.Genre))
+                {
+                    dic.Add(t.Event.Genre, 1);
+                }
+                else
+                {
+                    int temp = dic.GetValueOrDefault(t.Event.Genre);
+                    dic.Remove(tmpEvent.Genre);
+                    dic.Add(t.Event.Genre, temp + 1);
+                }
+            }
+
+
+
+            foreach (var v in dic)
+            {
+                statistic.Add(new Stat(v.Key, v.Value));
+            }
+
+            ViewBag.data = statistic;
+
+            return View();
+        }
+    }
+    public class Stat
+    {
+        public string Key;
+        public int Values;
+        public Stat(string key, int values)
+        {
+            Key = key;
+            Values = values;
         }
     }
 }
