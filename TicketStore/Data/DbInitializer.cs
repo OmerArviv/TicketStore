@@ -92,8 +92,8 @@ namespace TicketStore.Data
                     ImageUrl3="https://a7.org/pictures/1037/1037898.jpg",
                     stars=2,
                     MinPrice=69,
-                    LocationX = 31.243870,
-                    Locationy = 34.793991
+                    LocationX = 31.273196,
+                    Locationy = 34.779681
 
                 },
                 new Event{
@@ -139,8 +139,8 @@ namespace TicketStore.Data
                     ImageUrl3="https://ychef.files.bbci.co.uk/976x549/p09x617v.jpg",
                     stars=4,
                     MinPrice=39,
-                    LocationX = 31.996655,
-                    Locationy = 34.736217
+                    LocationX = 31.984473,
+                    Locationy = 34.769859
 
                  },
                  new Event{
@@ -155,8 +155,8 @@ namespace TicketStore.Data
                     ImageUrl3="https://cdn.mos.cms.futurecdn.net/c630d2e738d3bb015c33a5a338108b21.jpg",
                     stars=3,
                     MinPrice=39,
-                    LocationX = 31.996655,
-                    Locationy = 34.736217
+                    LocationX = 31.984473,
+                    Locationy = 34.769859
 
                  }
             };
