@@ -10,8 +10,8 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20211106205710_location")]
-    partial class location
+    [Migration("20211111100357_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

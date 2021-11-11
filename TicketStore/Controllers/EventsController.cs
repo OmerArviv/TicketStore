@@ -22,6 +22,11 @@ namespace TicketStore.Controllers
 
         public ActionResult Buy(int? id,int Quan)
         {
+            var temp = User.Claims.Count();
+            if (temp==0)
+            {
+                return RedirectToAction("Login", "Users");
+            }
             var e = _context.Event.Where(temp => temp.Id == id).FirstOrDefault();
             if (e.AvailableTickets >= Quan)
             {
@@ -57,7 +62,7 @@ namespace TicketStore.Controllers
                 return View(tick.FirstOrDefault().Costumer);
             }
             else
-                return Redirect("https://localhost:44350/events/");
+                return RedirectToAction("Index", "Events");
         }
 
         public ActionResult Summary(int? id)

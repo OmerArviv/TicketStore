@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketStore.Migrations
 {
-    public partial class location : Migration
+    public partial class start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

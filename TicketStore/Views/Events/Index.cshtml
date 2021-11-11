@@ -136,9 +136,9 @@
     <div class="dropdown" style="width:100%;text-align:center">
         <button onclick="myFunction()"  class="dropbtn" >Filter</button>
         <div id="myDropdown" class="dropdown-content" style="text-align:center;position:absolute;left:50%;">
-            <a href="Events/filter/?filterByGenre=Sport" style="width:160px;height:44px;">Sport</a>
-            <a href="Events/filter/?filterByGenre=Movie" style="width:160px;height:44px;">Movie</a>
-            <a href="Events/filter/?filterByGenre=Music" style="width:160px;height:44px;">Music</a>
+            <a asp-controller="Events" asp-action="Filter" asp-route-filterByGenre="Sport" style="width:160px;height:44px;">Sport</a>
+            <a asp-controller="Events" asp-action="Filter" asp-route-filterByGenre="Movie" style="width:160px;height:44px;">Movie</a>
+            <a asp-controller="Events" asp-action="Filter" asp-route-filterByGenre="Music" style="width:160px;height:44px;">Music</a>
         </div>
     </div>
 
@@ -194,89 +194,3 @@
 
 </body>
 
-<!--<a class="btn btn-primary" asp-action="Filter">Filter events</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.ArtistName)</a>
-            </th>-->
-            @*<th>
-                    @Html.DisplayNameFor(model => model.ArtistName)
-                </th>*@
-            <!--<th>
-                @Html.DisplayNameFor(model => model.Place)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableTickets)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Date)</a>
-            </th>-->
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>*@
-            <!--<th></th>
-        </tr>
-    </thead>
-    <tbody id="FilterTable">
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArtistName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Place)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AvailableTickets)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-
-}
-}-->
-@*}*@
-
-
-
-@*<script>
-        $(document).ready(function () {
-            $("#GroupBy").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#FilterTable tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-        $(document).ready(function () {
-            $("#flagInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#FlagTable tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>*@
