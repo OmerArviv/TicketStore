@@ -131,12 +131,24 @@ namespace TicketStore.Controllers
                     }
 
                 }
-                var ticketsByGenre = tickets.GroupBy(g => g.Event.Genre.Equals(genre));
+                var endTickets = new List<Ticket>();
+                var ticketsByGenre = tickets.GroupBy(g => g.Event.Genre);
+                foreach(var group in ticketsByGenre)
+                {
+                    if (group.Key.ToString().Equals(genre))
+                    {
+                        foreach (var ti in group)
+                        {
+                            endTickets.Add(ti);
+                        }
+                    }
+                }
+       
                 if (tempUser == null)
                     return RedirectToAction("Index", "Event");
                 else
                 {
-                    return View(tickets);
+                    return View(endTickets);
                 }
             }
             else
