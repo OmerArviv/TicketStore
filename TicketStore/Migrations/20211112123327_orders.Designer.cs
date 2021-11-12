@@ -10,15 +10,15 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20211106205710_location")]
-    partial class location
+    [Migration("20211112123327_orders")]
+    partial class orders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("TicketStore.Models.Event", b =>
@@ -73,6 +73,34 @@ namespace TicketStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("TicketStore.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfTickets")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("TicketStore.Models.Ticket", b =>
@@ -158,6 +186,25 @@ namespace TicketStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("TicketStore.Models.Order", b =>
+                {
+                    b.HasOne("TicketStore.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketStore.Models.User", "Costumer")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Costumer");
+
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("TicketStore.Models.Ticket", b =>

@@ -13,5 +13,6 @@ namespace TicketStore.Data
         public DbSet<Event> Event { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<User> User { get; set; } 
+        public DbSet<TicketStore.Models.Order> Order { get; set; }
     }
 }

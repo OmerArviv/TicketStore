@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketStore.Migrations
 {
-    public partial class location : Migration
+    public partial class orders : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,6 +56,34 @@ namespace TicketStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumOfTickets = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
@@ -86,6 +114,16 @@ namespace TicketStore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Order_EventId",
+                table: "Order",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_UserId",
+                table: "Order",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_EventID",
                 table: "Tickets",
                 column: "EventID");
@@ -98,6 +136,9 @@ namespace TicketStore.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Order");
+
             migrationBuilder.DropTable(
                 name: "Tickets");
 

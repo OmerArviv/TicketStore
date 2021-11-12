@@ -26,6 +26,12 @@ namespace TicketStore.Controllers
         public ActionResult Buy(int? id,int Quan)
         {
             var e = _context.Event.Where(temp => temp.Id == id).FirstOrDefault();
+            var tmp = User.Claims.First(c => c.Type == "UserId").Value;
+            var idd = int.Parse(tmp);
+            //var tempUser = _context.User.FirstOrDefault();
+            var raz = from t in _context.User where idd == t.Id select t;
+            var user = raz.FirstOrDefault();
+            //var raz = _context.User.FirstOrDefault();
             if (e.AvailableTickets >= Quan)
             {
                 ICollection<Ticket> tick = new List<Ticket>();
@@ -34,12 +40,7 @@ namespace TicketStore.Controllers
                 {
                     Ticket tempTicket = new Ticket { Description = e.Description, Price = e.MinPrice, Available = false, EventID = (int)id, Event = _context.Event.FirstOrDefault(c => c.Id == id) };
                     
-                    var tmp = User.Claims.First(c => c.Type == "UserId").Value;
-                    var idd = int.Parse(tmp);
-                    //var tempUser = _context.User.FirstOrDefault();
-                    var raz = from t in _context.User where idd == t.Id select t;
-                    var user = raz.FirstOrDefault();
-                    //var raz = _context.User.FirstOrDefault();
+                   
                     if (user.Tickets == null)
                         user.Tickets = new List<Ticket>();
                     var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == id);
@@ -50,7 +51,19 @@ namespace TicketStore.Controllers
                     tick.Add(tempTicket);
                     int j = 1; //for debug
                 }
-              
+                var order = new Order
+                {
+                    Costumer = user,
+                    Event = e,
+                    EventId = e.Id,
+                    UserId = user.Id,
+                    NumOfTickets = Quan,
+                    OrderTime = DateTime.Now,
+                   
+                };
+                _context.Order.Add(order);
+                
+               // _context.SaveChanges();
                 foreach (Ticket t in tick)
                 {
                     _context.Tickets.Add(t);
