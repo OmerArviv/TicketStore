@@ -38,7 +38,11 @@ namespace TicketStore.Controllers
         //}
         public async Task<IActionResult> Index()
         {
-            
+            var temp = User.Claims.Count();
+            if (temp == 0)
+            {
+                return RedirectToAction("Login", "Users");
+            }
             var tmp = User.Claims.First(c => c.Type == "UserId").Value;
             if(tmp != null)
             {
