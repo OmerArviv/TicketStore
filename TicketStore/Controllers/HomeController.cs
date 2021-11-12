@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TicketStore.Data;
 using TicketStore.Models;
+using Tweetinvi;
 
 namespace TicketStore.Controllers
 {
@@ -40,6 +41,28 @@ namespace TicketStore.Controllers
         public IActionResult Login()
         {
             return View("Login");
+        }
+
+
+        public async Task<IActionResult> Twitter()
+        {
+            
+            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Twitter(String tweet)
+        {
+            string APIkey = "r2TfeRi4hFBAuVcxU1NgUw9Vx";
+            string APIsecret = "bWWJkrTDdhfmn7oab3CsSYiu8PvLJw7lx8zh4yprM5QbjlNo4K";
+            string APIToken = "1459045772188606486-JnnsEcDOj44R3MN2nHvx9J0mx5Irs5";
+            string APITokenSecret = "fQN9bMOYnzvMbwzlqhFu3cvsYX3idKIzuSgg4aq5axjME";
+            string APIBearerToken = "AAAAAAAAAAAAAAAAAAAAANTrVgEAAAAAaFH2KZfe2eUoqldVXuuVr6GgC2k%3DWqfviCgFXRhuR1BC1xwD2fFdV1tOkBLjqIn6krTh087V2Fghry";
+            var client = new TwitterClient(APIkey, APIsecret, APIToken, APITokenSecret);
+            //client.Config.TweetMode = TweetMode.Compat;
+            await client.Tweets.PublishTweetAsync(tweet);
+            return View();
         }
 
         public IActionResult About()

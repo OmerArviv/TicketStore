@@ -61,6 +61,7 @@
                 background-color: red !important;
             }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -87,6 +88,21 @@
                                 <li>
                                     <a asp-area="" asp-controller="users" asp-action="Logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a>
                                 </li>
+                                <li><a asp-controller="Tickets" asp-action="Index">My Tickets</a></li>
+                                <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        MORE
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
+                                        <li><a asp-controller="Events" asp-action="Statistics">STATISTICS</a></li>
+                                        <li><a asp-controller="Orders" asp-action="Index">ORDERS</a></li>
+                                        <li><a asp-controller="Home" asp-action="Twitter"><i style="font-size:24px" class="fa">&#xf099;</i>Tweet</a></li>
+                                    </ul>
+                                </li>
+
                             }
                             else
                             {
@@ -97,32 +113,6 @@
 
                             }
                         }
-                        @{
-                            if (Context.User.Claims.Any())
-
-                            {
-                                <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
-                                if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
-                                {
-
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            MORE
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
-                                            <li><a href="#">STATISTICS</a></li>
-                                            <li><a href="#">ORDERS</a></li>
-                                        </ul>
-                                    </li>
-                                }
-                            }
-
-                        }
-
-
-
                     </ul>
                 </div>
             </div>
@@ -192,12 +182,6 @@
     <div>
 
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - TicketStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Twitter";
+    Layout = "_AdminLayout";
+    
+}
+
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <form asp-controller="Home" asp-action="Twitter" method="post">
+        <h1 style="text-align:center;">
+            Tweet: <input type="text" name="tweet" style="border-radius:12px; text-align:center;" />
+            <button @*type="submit"*@ onclick="myFunc" class="fa fa-twitter" value="Tweet" style="background-color: #9c78e9; border-radius: 12px; width: 140px;color:white;">Tweet</button>
+        </h1>
+    </form>
+
+    <div id="tweet" class="modal" style="position:fixed">
+        <p>Your tweet has been tweeted</p>
+        <a href="#" rel="modal:close">Close</a>
+    </div>
+
+    <script type="text/javascript">
+        function myFunc() {
+            $("#tweet").modal();
+        }
+
+    </script>
+    
+
+
+
+</body>
+</html>
+

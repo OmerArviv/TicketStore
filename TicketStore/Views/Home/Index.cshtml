@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Home/Design/designHomePage.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -38,20 +39,7 @@
                             <li>
                                 <a asp-area="" asp-controller="users" asp-action="Logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a>
                             </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-area="" asp-controller="users" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>Login</a>
-                            </li>
-                            <li><a asp-controller="Users" asp-action="Create"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-
-                        }
-                    }
-                    @{
-                        if (Context.User.Claims.Any())
-
-                        {
+                            <li><a asp-controller="Tickets" asp-action="Index">My Tickets</a></li>
                             <li><a asp-controller="Users" asp-action="Details" asp-route-id="@Context.User.Claims.First(c => c.Type == "UserId").Value">My account</a></li>
                             if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
                             {
@@ -63,15 +51,23 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a asp-controller="Users" asp-action="Index">USERS</a></li>
-                                        <li><a href="#">STATISTICS</a></li>
-                                        <li><a href="#">ORDERS</a></li>
+                                        <li><a asp-controller="Events" asp-action="Statistics">STATISTICS</a></li>
+                                        <li><a asp-controller="Orders" asp-action="Index">ORDERS</a></li>
+                                        <li><a asp-controller="Home" asp-action="Twitter"><i style="font-size:24px" class="fa">&#xf099;</i>Tweet</a></li>
                                     </ul>
                                 </li>
                             }
                         }
+                        else
+                        {
+                            <li>
+                                <a asp-area="" asp-controller="users" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                            </li>
+                            <li><a asp-controller="Users" asp-action="Create"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 
+                        }
                     }
-
+    
                 </ul>
             </div>
         </div>

@@ -2,6 +2,22 @@
 
 @{
     ViewData["Title"] = "Search";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 <table class="table">
     <thead>
@@ -73,12 +89,12 @@
                 @*<td>
                         @Html.DisplayFor(modelItem => item.CartId)
                     </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-controller="Users" asp-action="Index">Back to Full List</a>
-            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-controller="Users" asp-action="Index">Back to Full List</a>
+                </td>
             </tr>
         }
     </tbody>

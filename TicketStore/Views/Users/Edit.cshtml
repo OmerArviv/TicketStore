@@ -2,6 +2,21 @@
 
 @{
     ViewData["Title"] = "Edit";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <h1>Edit</h1>
@@ -69,10 +84,10 @@
 
             }
             @*<div class="form-group">
-            <label asp-for="CartId" class="control-label"></label>
-            <input asp-for="CartId" class="form-control" />
-            <span asp-validation-for="CartId" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="CartId" class="control-label"></label>
+                    <input asp-for="CartId" class="form-control" />
+                    <span asp-validation-for="CartId" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

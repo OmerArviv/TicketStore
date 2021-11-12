@@ -2,6 +2,21 @@
 
 @{
     ViewData["Title"] = "Details";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <h1>Details</h1>
@@ -10,28 +25,28 @@
     <h4>Order</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NumOfTickets)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NumOfTickets)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Costumer)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Costumer.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Event)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Event.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OrderTime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.OrderTime)
         </dd>
     </dl>

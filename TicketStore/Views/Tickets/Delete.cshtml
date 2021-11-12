@@ -2,6 +2,21 @@
 
 @{
     ViewData["Title"] = "Delete";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <h1>Delete</h1>
@@ -11,26 +26,26 @@
     <h4>Ticket</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Available)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Available)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Seat)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Seat)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

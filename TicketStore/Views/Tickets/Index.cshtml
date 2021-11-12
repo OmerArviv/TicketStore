@@ -1,5 +1,23 @@
 ﻿@using TicketStore.Models
 @model IEnumerable<TicketStore.Models.Ticket>
+@{
+    ViewData["Title"] = "Index";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
 
 <head>
     <script src="https://fonts.googleapis.com/css?family=Oswald"></script>

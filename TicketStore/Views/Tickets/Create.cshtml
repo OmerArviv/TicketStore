@@ -2,6 +2,21 @@
 
 @{
     ViewData["Title"] = "Create";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <h1>Create</h1>
@@ -36,8 +51,9 @@
                 <label asp-for="EventID" class="control-label"> Select show </label>
                 @*<input asp-for="EventID" class="form-control"/>*@
                 <select class="form-select form-control" name="EventID" @*asp-items="@ViewBag.events"*@>
-                    @foreach(var e in ViewData["events"] as IEnumerable<Event>) {
-                    <option value="@e.Id">@e.ArtistName</option>
+                    @foreach (var e in ViewData["events"] as IEnumerable<Event>)
+                    {
+                        <option value="@e.Id">@e.ArtistName</option>
                     }
                 </select>
                 <span asp-validation-for="EventID" class="text-danger"></span>
