@@ -75,7 +75,7 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumOfTickets,EventId,UserId,OrderTime")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,NumOfTickets,EventId,UserId,OrderTime,TotalAmount")] Order order)
         {
             if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
             {
@@ -119,7 +119,7 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumOfTickets,EventId,UserId,OrderTime")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NumOfTickets,EventId,UserId,OrderTime,TotalAmount")] Order order)
         {
             if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
             {
@@ -127,7 +127,7 @@ namespace TicketStore.Controllers
             }
             if (id != order.Id)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)

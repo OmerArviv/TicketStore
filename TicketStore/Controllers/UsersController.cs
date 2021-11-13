@@ -145,10 +145,6 @@ namespace TicketStore.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
             return View();
         }
 
@@ -158,10 +154,7 @@ namespace TicketStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type")] User user)
         {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
+           
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
             {
