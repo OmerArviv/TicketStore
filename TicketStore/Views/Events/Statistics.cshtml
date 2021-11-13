@@ -1,21 +1,31 @@
 ﻿@using TicketStore.Models;
 @using TicketStore.Controllers;
+@model IEnumerable<Stat>
 @{
     ViewBag.Title = "statistics";
 }
 
 
-@*<br />
+
+
+
+<!doctype html>
+<html>
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+    <br />
     <br />
     <br />
     <br />
     <br />
     <br />
     <div>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/data.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
         <br />
@@ -31,13 +41,13 @@
             </thead>
 
             <tbody>
-                @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+                @foreach (var v in @ViewBag.data1 as ICollection<Stat>)
                 {
                     <tr>
                         <th> @v.Key</th>
                         <th>@v.Values</th>
                     </tr>
-                  }
+                }
             </tbody>
         </table>
 
@@ -68,64 +78,36 @@
             });
         </script>
 
-    </div>*@
-
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-</head>
-<body>
-    <div style="text-align:center">
-        <h1>How many tickets bought of each genre</h1>
-        <div id="d3-container"/>
     </div>
-    <script>-->
-        @*const data ][
-            @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+
+    <section class="my-5">
+        @{
+            @*Gathering the Data*@
+
+            
+            <input id="numberOfCategory" hidden value="@Model.Count()" />
+            var i = 0;
+
+
+            foreach (var cat in Model)
             {
-                { genre: v.Key, num: v.Values};
+                <input id="@i" hidden value="@cat.Key" />
+                <input id="@cat.Key" hidden value="@cat.Values" />
+                i++;
             }
-        ]*@
-        <!--const width = 800;
-        const height = 400;
-        const margin = { top: 50, bottom: 50, left: 50, right: 50 };
+        }
+    </section>
 
-        const svg = d3.select('#d3-container')
-            .append('svg')
-            .attr('height', height - margin.top - margin.bottom)
-            .attr('width', width - margin.left - margin.right)
-            .attr('viewBox', [0, 0, width, height]);
+    <div class="container text-center my-3">
+        <div class="my-4 col-md-12 text-center">
+            <h4>The amount of money customers spent on each genre</h4>
+            <h6>(D3.js)</h6>
+        </div>
+        <div id="my_dataviz"></div>
 
-        const x = d3.scaleBand()
-            .domain(d3.range(3))
-            .range([margin.left, width - margin.right])
-            .padding(0.1);
-
-        @{var max = 0;
-                foreach (var v in @ViewBag.data1 as ICollection<Stat>)
-                {
-                    if (max < v.Values)
-                        max = v.Values;
-                }
-                
-            }
-        
-        const y = d3.scaleLinear()
-            .domain(0, )
-            .range([height - margin.bottom, margin.top]);
-
-    </script>
-</body>
-</html>-->
-
-
-<div class="container text-center my-3">
-    <input id="numberOfGenre" hidden value="@ViewBag.data1.Count()" />
-    <div class="my-4 col-md-12 text-center">
-        <h1>D3-JS CHART</h1>
     </div>
-    <div id="my_dataviz"></div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="~/js/d3Graph.js"></script>
+</body>
+</html>
 
-</div>
-<script src="~/js/d3Graph.js"></script>

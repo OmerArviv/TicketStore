@@ -1,9 +1,8 @@
 ﻿
-var catnum = $('#numberOfGenre').val();
 let data1 = [];
-data1.push(['Categories', 'Interest']);
-console.log('#' + (1).toString() + " interest")
-for (var i = 0; i < catnum; i++) {
+data1.push(['Key', 'Values']);
+console.log('#' + (1).toString() + " Values")
+for (var i = 0; i < 3; i++) {
     var name = $('#' + i.toString()).val();
     var num = parseInt($('#' + name).val());
     console.log(name + "  " + num);
@@ -11,6 +10,11 @@ for (var i = 0; i < catnum; i++) {
 }
 
 
+//const data1 = [
+//    { key: 'Sport', value: 4},
+//    { key: 'Movie', value: 3},
+//    { key: 'Music', value: 2}
+//]
 
 // set the dimensions and margins of the graph
 var margin = { top: 30, right: 30, bottom: 70, left: 60 },

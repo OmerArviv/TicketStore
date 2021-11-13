@@ -362,44 +362,70 @@ namespace TicketStore.Controllers
 
         public ActionResult Statistics()
         {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
+            //if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            //{
+            //    return View("NotFound");
+            //}
 
-            ICollection<Stat> statistic = new Collection<Stat>();
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("Sport", 0);
-            dic.Add("Movie", 0);
-            dic.Add("Music", 0);
+            ICollection<Stat> statistic1 = new Collection<Stat>();
+            ICollection<Stat> statistic2 = new Collection<Stat>();
+            Dictionary<string, int> dic1 = new Dictionary<string, int>();
+            Dictionary<string, int> dic2 = new Dictionary<string, int>();
+            dic1.Add("Sport", 0);
+            dic1.Add("Movie", 0);
+            dic1.Add("Music", 0);
+            dic2.Add("Sport", 0);
+            dic2.Add("Movie", 0);
+            dic2.Add("Music", 0);
 
             foreach (var t in _context.Tickets)
             {
                 if (t == null)
                     continue;
                 var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
-                if (!dic.ContainsKey(tmpEvent.Genre))
+                if (!dic1.ContainsKey(tmpEvent.Genre))
                 {
-                    dic.Add(t.Event.Genre, 1);
+                    dic1.Add(t.Event.Genre, 1);
                 }
                 else
                 {
-                    int temp = dic.GetValueOrDefault(t.Event.Genre);
-                    dic.Remove(tmpEvent.Genre);
-                    dic.Add(t.Event.Genre, temp + 1);
+                    int temp = dic1.GetValueOrDefault(t.Event.Genre);
+                    dic1.Remove(tmpEvent.Genre);
+                    dic1.Add(t.Event.Genre, temp + 1);
                 }
             }
 
 
 
-            foreach (var v in dic)
+            foreach (var v in dic1)
             {
-                statistic.Add(new Stat(v.Key, v.Value));
+                statistic1.Add(new Stat(v.Key, v.Value));
             }
 
-            ViewBag.data1 = statistic;
-
-            return View();
+            ViewBag.data1 = statistic1;
+            //////////////////////////// STAT 2
+            
+            foreach (var t in _context.Tickets)
+            {
+                if (t == null)
+                    continue;
+                var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                if (!dic2.ContainsKey(tmpEvent.Genre))
+                {
+                    dic2.Add(t.Event.Genre, t.Price);
+                }
+                else
+                {
+                    int temp = dic2.GetValueOrDefault(t.Event.Genre);
+                    dic2.Remove(tmpEvent.Genre);
+                    dic2.Add(t.Event.Genre, temp + t.Price);
+                }
+            }
+            foreach (var v in dic2)
+            {
+                statistic2.Add(new Stat(v.Key, v.Value));
+            }
+            return View(statistic2);
         }
     }
     public class Stat

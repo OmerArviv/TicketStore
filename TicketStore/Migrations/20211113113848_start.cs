@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketStore.Migrations
 {
-    public partial class orders : Migration
+    public partial class start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,7 +64,8 @@ namespace TicketStore.Migrations
                     NumOfTickets = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalAmount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

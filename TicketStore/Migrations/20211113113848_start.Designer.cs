@@ -10,8 +10,8 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20211112123327_orders")]
-    partial class orders
+    [Migration("20211113113848_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,9 @@ namespace TicketStore.Migrations
 
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

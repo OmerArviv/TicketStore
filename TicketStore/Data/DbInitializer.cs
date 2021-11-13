@@ -21,7 +21,7 @@ namespace TicketStore.Data
             {
                 new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="rrttou@gmail.com", FirstName="Raz",
                     Gender=0, LastName="Yaniv", Password="Admin@123", PasswordConfirm="Admin@123",
-                    UserName="rrttou", Type=0, IsAdmin=true, Tickets=tickets }
+                    UserName="rrttou", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets }
 
 
             };
