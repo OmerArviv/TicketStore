@@ -169,23 +169,6 @@ namespace TicketStore.Data
 
             context.SaveChanges();
 
-            /*if (context.Tickets.Any()) { return; }
-
-            var tickets = new Models.Ticket[] {
-                new Models.Ticket{Description="Omer Adam show", Price=199, Available=true, EventID=events[0].Id,Event=context.Event.FirstOrDefault(c=>c.Id==events[0].Id)},
-                new Ticket{Description="Eyal Golan show", Price=149, Available=true, EventID=events[1].Id,Event=context.Event.FirstOrDefault(c=>c.Id==events[1].Id)},
-                new Ticket{Description="Maccabi Haifa vs Maccabi TLV", Price=69, Available=true, EventID=events[2].Id,Event=context.Event.FirstOrDefault(c=>c.Id==events[2].Id)},
-                new Ticket{Description="Pixies show", Price=99, Available=true, EventID=events[3].Id,Event=context.Event.FirstOrDefault(c=>c.Id==events[3].Id)},
-                new Ticket{Description="Sarit Hadad show", Price=79, Available=true, EventID=events[4].Id,Event=context.Event.FirstOrDefault(c=>c.Id==events[4].Id)}
-            };
-
-            foreach (Ticket t in tickets)
-            {
-                context.Tickets.Add(t);
-            }
-
-            context.SaveChanges();*/
-
         }
 
     }
