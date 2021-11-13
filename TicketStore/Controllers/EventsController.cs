@@ -25,6 +25,10 @@ namespace TicketStore.Controllers
 
         public ActionResult Buy(int? id,int Quan)
         {
+            if (!User.Claims.Any())
+            {
+                return View("NotLogIn");
+            }
             var e = _context.Event.Where(temp => temp.Id == id).FirstOrDefault();
             var tmp = User.Claims.First(c => c.Type == "UserId").Value;
             var idd = int.Parse(tmp);
@@ -211,9 +215,66 @@ namespace TicketStore.Controllers
         }
 
 
-        public async Task<IActionResult> Filter()
+        public async Task<IActionResult> Filter(string filterByGenre)
         {
             var events = from e in _context.Event select e;
+            
+            List<string> places = new List<string>();
+            List<string> names = new List<string>();
+            List<string> genre = new List<string>();
+
+            foreach (var e in _context.Event)
+            {
+                if (!places.Contains(e.Place))
+                {
+                    places.Add(e.Place);
+                }
+                if (!names.Contains(e.ArtistName))
+                {
+                    names.Add(e.ArtistName);
+                }
+                if (!genre.Contains(e.Genre))
+                {
+                    genre.Add(e.Genre);
+                }
+
+
+            }
+
+            var tmp = new List<SelectListItem>();
+            foreach (var p in places)
+            {
+                tmp.Add(new SelectListItem { Text = p, Value = p });
+            }
+            var listPlace = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var name in names)
+            {
+                tmp.Add(new SelectListItem { Text = name, Value = name });
+            }
+            var listName = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var g in genre)
+            {
+                tmp.Add(new SelectListItem { Text = g, Value = g });
+            }
+            var listGenre = tmp;
+
+            ViewData["ListName"] = listName;
+            ViewData["ListPlace"] = listPlace;
+            ViewData["ListGenre"] = listGenre;
+
+
+            if (filterByGenre != null)
+            {
+                var res = from e in events where e.Genre.Equals(filterByGenre) select e;
+                if (res != null)
+                {
+                    return View("Index", await res.ToListAsync());
+                }
+            }
 
             return View("Index", events.ToListAsync());
 
