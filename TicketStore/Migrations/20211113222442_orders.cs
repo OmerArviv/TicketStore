@@ -26,7 +26,7 @@ namespace TicketStore.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LocationX = table.Column<double>(type: "float", nullable: false),
-                    Locationy = table.Column<double>(type: "float", nullable: false)
+                    LocationY = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +64,9 @@ namespace TicketStore.Migrations
                     NumOfTickets = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalAmount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,12 +75,6 @@ namespace TicketStore.Migrations
                         name: "FK_Order_Event_EventId",
                         column: x => x.EventId,
                         principalTable: "Event",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Order_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -117,11 +113,6 @@ namespace TicketStore.Migrations
                 name: "IX_Order_EventId",
                 table: "Order",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_UserId",
-                table: "Order",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_EventID",

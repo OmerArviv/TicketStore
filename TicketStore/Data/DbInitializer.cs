@@ -20,9 +20,22 @@ namespace TicketStore.Data
             var users = new Models.User[]
             {
                 new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="rrttou@gmail.com", FirstName="Raz",
-                    Gender=0, LastName="Yaniv", Password="Admin@123", PasswordConfirm="Admin@123",
-                    UserName="rrttou", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
-      
+                    Gender=0, LastName="Yaniv", Password="aA@123456", PasswordConfirm="aA@123456",
+                    UserName="Raz", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
+                  new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="gil@gmail.com", FirstName="Gil",
+                    Gender=0, LastName="Cohen", Password="aA@123456", PasswordConfirm="aA@123456",
+                    UserName="Gil", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
+                    new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="omer@gmail.com", FirstName="Omer",
+                    Gender=0, LastName="Arviv", Password="aA@123456", PasswordConfirm="aA@123456",
+                    UserName="Omer", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
+                      new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="noa@gmail.com", FirstName="Noa",
+                    Gender=(User.gender)1, LastName="Cogen", Password="aA@123456", PasswordConfirm="aA@123456",
+                    UserName="Noa", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
+                        new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="yonatan@gmail.com", FirstName="Yonatan",
+                    Gender=0, LastName="Langer", Password="aA@123456", PasswordConfirm="aA@123456",
+                    UserName="Yonatan", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets },
+
+
             };
             foreach (User u in users)
             {

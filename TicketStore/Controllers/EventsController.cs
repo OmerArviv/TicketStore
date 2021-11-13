@@ -59,9 +59,9 @@ namespace TicketStore.Controllers
                 }
                 var order = new Order
                 {
-                    Costumer = user,
                     Event = e,
                     EventId = e.Id,
+                    UserName = user.UserName,
                     UserId = user.Id,
                     NumOfTickets = Quan,
                     OrderTime = DateTime.Now,

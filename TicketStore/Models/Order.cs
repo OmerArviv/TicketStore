@@ -13,7 +13,8 @@ namespace TicketStore.Models
         public int NumOfTickets { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }
-        public User Costumer { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName{ get; set; }
         public Event Event { get; set; }
         [Display(Name = "Order Date")]
         public DateTime OrderTime { get; set; }

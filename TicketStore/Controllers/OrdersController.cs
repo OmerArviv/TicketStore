@@ -26,7 +26,7 @@ namespace TicketStore.Controllers
             {
                 return View("NotFound");
             }
-            var orders = _context.Order.Include(o => o.Costumer).Include(o => o.Event);
+            var orders = _context.Order.Include(o => o.Event);
             if(orders.FirstOrDefault() == null || orders == null)
             {
                 return View("NotFound");
@@ -39,7 +39,7 @@ namespace TicketStore.Controllers
 
             var us = _context.User.Where(a => a.Id == joinQuery.FirstOrDefault().UserId);
 
-            if(joinQuery != null)
+            if(joinQuery != null && us.FirstOrDefault() != null)
             {
                 ViewData["join"] = "The user with the most expensive purchase is " + us.FirstOrDefault().Email + " with " +
                         joinQuery.FirstOrDefault().TotalAmount + "$";
@@ -62,7 +62,6 @@ namespace TicketStore.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.Costumer)
                 .Include(o => o.Event)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
@@ -183,7 +182,6 @@ namespace TicketStore.Controllers
             }
 
             var order = await _context.Order
-                .Include(o => o.Costumer)
                 .Include(o => o.Event)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)

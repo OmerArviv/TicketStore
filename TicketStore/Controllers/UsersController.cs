@@ -343,6 +343,12 @@ namespace TicketStore.Controllers
                 return View("NotFound");
 
             }
+            var tick = from t in _context.Tickets where id == t.UserID select t;
+
+            foreach(var t in tick)
+            {
+                _context.Tickets.Remove(t);
+            }
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

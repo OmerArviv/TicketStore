@@ -10,7 +10,7 @@ using TicketStore.Data;
 namespace TicketStore.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20211112123327_orders")]
+    [Migration("20211113222442_orders")]
     partial class orders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace TicketStore.Migrations
                     b.Property<double>("LocationX")
                         .HasColumnType("float");
 
-                    b.Property<double>("Locationy")
+                    b.Property<double>("LocationY")
                         .HasColumnType("float");
 
                     b.Property<int>("MinPrice")
@@ -91,14 +91,18 @@ namespace TicketStore.Migrations
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Order");
                 });
@@ -195,14 +199,6 @@ namespace TicketStore.Migrations
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TicketStore.Models.User", "Costumer")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Costumer");
 
                     b.Navigation("Event");
                 });
