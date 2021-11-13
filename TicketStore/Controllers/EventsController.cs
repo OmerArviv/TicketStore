@@ -167,6 +167,11 @@ namespace TicketStore.Controllers
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+
             if (id == null)
             {
                 return View("NotFound");
@@ -186,6 +191,10 @@ namespace TicketStore.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             return View();
         }
 
@@ -203,6 +212,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(@event);
@@ -215,6 +228,10 @@ namespace TicketStore.Controllers
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -235,6 +252,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id != @event.Id)
             {
                 return View("NotFound");
@@ -266,6 +287,10 @@ namespace TicketStore.Controllers
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -298,8 +323,12 @@ namespace TicketStore.Controllers
         }
 
         public ActionResult Statistics()
-        { 
-            
+        {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+
             ICollection<Stat> statistic = new Collection<Stat>();
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add("Sport", 0);
