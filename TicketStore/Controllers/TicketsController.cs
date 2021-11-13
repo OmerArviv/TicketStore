@@ -86,6 +86,10 @@ namespace TicketStore.Controllers
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -106,6 +110,10 @@ namespace TicketStore.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             // SelectList tmp = new(_context.Event, nameof(Event.Id), nameof(Event.ArtistName));
             var tmp = from e in _context.Event select e;
             ViewData["events"] = tmp;
@@ -166,7 +174,11 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description,Available,Price,Seat,EventID,UserID")] Ticket ticket)
         {
-            if(ticket==null) { return View("NotFount"); }
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+            if (ticket==null) { return View("NotFount"); }
             ticket.Event = _context.Event.Find(ticket.Id);
             if (ModelState.IsValid)
             {
@@ -180,6 +192,10 @@ namespace TicketStore.Controllers
         // GET: Tickets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -200,6 +216,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,SerialNumber,Available,Price,Seat")] Ticket ticket)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id != ticket.Id)
             {
                 return View("NotFound");
@@ -231,6 +251,10 @@ namespace TicketStore.Controllers
         // GET: Tickets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");

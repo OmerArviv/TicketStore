@@ -22,6 +22,10 @@ namespace TicketStore.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             var orders = _context.Order.Include(o => o.Costumer).Include(o => o.Event);
             if(orders == null)
             {
@@ -33,6 +37,10 @@ namespace TicketStore.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -53,6 +61,10 @@ namespace TicketStore.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Email");
             ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id");
             return View();
@@ -65,6 +77,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NumOfTickets,EventId,UserId,OrderTime")] Order order)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(order);
@@ -79,6 +95,10 @@ namespace TicketStore.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -101,6 +121,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NumOfTickets,EventId,UserId,OrderTime")] Order order)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id != order.Id)
             {
                 return NotFound();
@@ -134,6 +158,10 @@ namespace TicketStore.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return NotFound();
