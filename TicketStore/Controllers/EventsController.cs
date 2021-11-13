@@ -78,7 +78,37 @@ namespace TicketStore.Controllers
             else
                 return Redirect("https://localhost:44350/events/");
         }
+        public async Task<IActionResult> FilterBy(string ArtistName, string Place, string Genre)
+        {
+            var result = from e
+                         in _context.Event
+                         select e;
+            
+            if (!(String.IsNullOrEmpty(ArtistName)))
+            {
+                result = from eve in result
+                         where eve.ArtistName.Equals(ArtistName)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(Place)))
+            {
+                result = from eve in result
+                         where eve.Place.Equals(Place)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(Genre)))
+            {
+                result = from eve in result
+                         where eve.Genre.Equals(Genre)
+                         select eve;
+            }
+            if (result == null)
+            {
+                return View("Index");
+            }
+            return View("Index", await result.ToListAsync());
 
+        }
         public ActionResult Summary(int? id)
         {
             if (id != null)

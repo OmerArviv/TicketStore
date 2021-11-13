@@ -67,7 +67,7 @@
 
                         }
                     }
-    
+
                 </ul>
             </div>
         </div>
@@ -243,7 +243,40 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoCYZEMSXqkifoIsjBGY_oejA72j2i9bw&callback=myMap"></script>
-
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <div class="tradingview-widget-copyright">‎<a href="https://il.tradingview.com" rel="noopener" target="_blank"><span class="blue-text">‎נתונים‎</span></a>‎ מאת TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>{
+                "symbols": [
+                    {
+                        "proName": "FOREXCOM:SPXUSD",
+                        "title": "S&P 500"
+                    },
+                    {
+                        "proName": "FOREXCOM:NSXUSD",
+                        "title": "US 100"
+                    },
+                    {
+                        "proName": "FX_IDC:USDILS",
+                        "title": "USD/ILS"
+                    },
+                    {
+                        "proName": "BITSTAMP:BTCUSD",
+                        "title": "BTC/USD"
+                    },
+                    {
+                        "proName": "BITSTAMP:ETHUSD",
+                        "title": "ETH/USD"
+                    }
+                ],
+                    "colorTheme": "light",
+                        "isTransparent": false,
+                            "showSymbolLogo": true,
+                                "locale": "he_IL"
+            }</script>
+    </div>
+    <!-- TradingView Widget END -->
     <footer class="text-center">
         <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
             <span class="glyphicon glyphicon-chevron-up"></span>
