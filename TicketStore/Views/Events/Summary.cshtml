@@ -115,7 +115,34 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;@*<button type="button" class="btn-secondary">Buy Now!</button>*@
 
                 <button onclick="myFunction()">Buy Now!</button>
+                @{if (Context.User.Claims.Any())
+                    {
+                        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+                        {
+                            <div id="myBtnContainer">
+                              
+                                    <from>
+                                        <a asp-action="Edit" asp-route-id="@Model.Id">
+                                            <button class="btn active"> Edit</button>
+                                        </a>
+                                    </from>
+                                    <from>
+                                        <a asp-action="Details" asp-route-id="@Model.Id">
+                                            <button class="btn active"> Details</button>
+                                        </a>
+                                    </from>
+                                    <from>
+                                        <a asp-action="Delete" asp-route-id="@Model.Id">
+                                            <button class="btn active"> Delete</button>
+                                        </a>
+                                    </from>
 
+                            </div>
+                          
+                        }
+
+                    }
+                }
                 <script>
                         function myFunction() {
                             if (document.getElementById("NumTickets").value >@Model.AvailableTickets) {
@@ -141,7 +168,7 @@
     <script>
         function myMap() {
             var x =  @Model.LocationX;
-            var y =  @Model.Locationy;
+            var y =  @Model.LocationY;
             var mapProp = {
                 center: new google.maps.LatLng(x, y),
                 zoom: 15,

@@ -40,10 +40,7 @@ namespace TicketStore.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
+
             var user = await _context.User
                 .Include(c => c.Tickets)
                 .AsNoTracking()

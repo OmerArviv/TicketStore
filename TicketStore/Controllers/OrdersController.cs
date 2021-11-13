@@ -27,10 +27,20 @@ namespace TicketStore.Controllers
                 return View("NotFound");
             }
             var orders = _context.Order.Include(o => o.Costumer).Include(o => o.Event);
-            if(orders == null)
+            if(orders.FirstOrDefault() == null || orders == null)
             {
                 return View("NotFound");
             }
+            var joinQuery = from eve in _context.Event
+                            join order in _context.Order on eve.Id equals order.EventId into pordGroup
+                            from ord2 in pordGroup
+                            orderby ord2.TotalAmount descending
+                            select ord2;
+
+
+            ViewData["join"] = "The user with the most expensive purchase is " + joinQuery.FirstOrDefault().Costumer.Email + " with " +
+                joinQuery.FirstOrDefault().TotalAmount + "$";
+
             return View(await orders.ToListAsync());
         }
 
@@ -43,7 +53,7 @@ namespace TicketStore.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var order = await _context.Order
@@ -52,7 +62,7 @@ namespace TicketStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(order);
@@ -101,13 +111,13 @@ namespace TicketStore.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var order = await _context.Order.FindAsync(id);
             if (order == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", order.UserId);
             ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", order.EventId);
@@ -141,7 +151,7 @@ namespace TicketStore.Controllers
                 {
                     if (!OrderExists(order.Id))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -164,7 +174,7 @@ namespace TicketStore.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var order = await _context.Order
@@ -173,7 +183,7 @@ namespace TicketStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(order);

@@ -46,8 +46,8 @@ namespace TicketStore.Data
                     ImageUrl3="https://www.kan-ashkelon.co.il/wp-content/uploads/2021/07/66d7045c52c29e31c64af73400dc6ff7-845x563.png",
                     stars=5,
                     MinPrice=199,
-                    LocationX = 32.496026, 
-                    Locationy = 34.891230
+                    LocationX = 32.496026,
+                    LocationY = 34.891230
                 },
                 new Event{
                     ArtistName="Eyal Golan",
@@ -62,7 +62,7 @@ namespace TicketStore.Data
                     stars=3,
                     MinPrice=149,
                     LocationX = 32.496026,
-                    Locationy = 34.891230
+                    LocationY = 34.891230
                 },
                 new Event{
                     ArtistName="Maccabi Haifa",
@@ -77,7 +77,7 @@ namespace TicketStore.Data
                     stars=2,
                     MinPrice=69,
                     LocationX = 32.783211, 
-                    Locationy = 34.965248
+                    LocationY = 34.965248
 
                 },
                 new Event{
@@ -93,7 +93,7 @@ namespace TicketStore.Data
                     stars=2,
                     MinPrice=69,
                     LocationX = 31.273196,
-                    Locationy = 34.779681
+                    LocationY = 34.779681
 
                 },
                 new Event{
@@ -109,7 +109,7 @@ namespace TicketStore.Data
                     stars=4,
                     MinPrice=99,
                     LocationX = 32.051282,
-                    Locationy = 34.769307
+                    LocationY = 34.769307
                 },
                 new Event{
                     ArtistName="Sarit Hadad",
@@ -123,8 +123,8 @@ namespace TicketStore.Data
                     ImageUrl3="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-MX15rhT3pVGtqMHicfZOhH67CvRDZ3kaKA&usqp=CAU",
                     stars=4,
                     MinPrice=79,
-                    LocationX = 31.996655, 
-                    Locationy = 34.736217
+                    LocationX = 31.996655,
+                    LocationY = 34.736217
 
                 },
                  new Event{
@@ -140,7 +140,7 @@ namespace TicketStore.Data
                     stars=4,
                     MinPrice=39,
                     LocationX = 31.984473,
-                    Locationy = 34.769859
+                    LocationY = 34.769859
 
                  },
                  new Event{
@@ -156,7 +156,7 @@ namespace TicketStore.Data
                     stars=3,
                     MinPrice=39,
                     LocationX = 31.984473,
-                    Locationy = 34.769859
+                    LocationY = 34.769859
 
                  }
             };

@@ -113,11 +113,18 @@ namespace TicketStore.Controllers
         {
             if (id != null)
             {
-                var e = _context.Event.Where(temp => temp.Id == id); ;
-                return View(e.FirstOrDefault());
+                var e = _context.Event.Where(temp => temp.Id == id); 
+                if(e.FirstOrDefault() != null)
+                {
+                    return View(e.FirstOrDefault());
+                } else
+                {
+                    return View("NotFound");
+                }
+             
             }
             else
-                return View();
+                return View("NotFound");
         }
 
         // GET: Events
@@ -217,7 +224,6 @@ namespace TicketStore.Controllers
             {
                 return View("NotFound");
             }
-
             return View( event1);
         }
 
@@ -243,7 +249,7 @@ namespace TicketStore.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date,stars,ImageUrl,ImageUrl2,ImageUrl3,MinPrice,Description,LocationX,LocationY")] Event @event)
         {
             if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
             {
@@ -283,7 +289,7 @@ namespace TicketStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date,stars,ImageUrl,ImageUrl2,ImageUrl3,MinPrice,Description,LocationX,LocationY")] Event @event)
         {
             if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
             {
@@ -305,7 +311,7 @@ namespace TicketStore.Controllers
                 {
                     if (!EventExists(@event.Id))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {

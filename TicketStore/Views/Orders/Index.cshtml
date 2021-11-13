@@ -55,31 +55,36 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfTickets)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Costumer.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Event.ArtistName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalAmount)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumOfTickets)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Costumer.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Event.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
             }
+            
         </tbody>
     </table>
+   @{ 
+       var user = ViewBag.join;
+       <p>@user</p>
+   }
     <script type="text/javascript">
         $(document).ready(function () {
             $('#table_id').DataTable();
