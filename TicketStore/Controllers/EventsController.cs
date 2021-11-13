@@ -31,6 +31,7 @@ namespace TicketStore.Controllers
             //var tempUser = _context.User.FirstOrDefault();
             var raz = from t in _context.User where idd == t.Id select t;
             var user = raz.FirstOrDefault();
+            int totalAmount = 0;
             //var raz = _context.User.FirstOrDefault();
             if (e.AvailableTickets >= Quan)
             {
@@ -48,6 +49,7 @@ namespace TicketStore.Controllers
                     user.Tickets.Add(tempTicket);
                     tempTicket.UserID = user.Id;
                     tempTicket.Costumer = user;
+                    totalAmount += tempTicket.Price;
                     tick.Add(tempTicket);
                     int j = 1; //for debug
                 }
@@ -59,6 +61,7 @@ namespace TicketStore.Controllers
                     UserId = user.Id,
                     NumOfTickets = Quan,
                     OrderTime = DateTime.Now,
+                    TotalAmount = totalAmount
                    
                 };
                 _context.Order.Add(order);
