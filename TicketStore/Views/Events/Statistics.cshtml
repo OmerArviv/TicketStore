@@ -1,144 +1,131 @@
 ﻿@using TicketStore.Models;
 @using TicketStore.Controllers;
 @{
-        ViewBag.Title = "statistics";
- }
-
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<div>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-    <br />
-    <br />
-    <br />
-    <table id="datatable" style="display:none">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Genre</th>
-
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var v in ViewBag.data as ICollection<Stat>)
-            {
-                <tr>
-                    <th> @v.Key</th>
-                    <th>@v.Values</th>
-                </tr>
-              }
-        </tbody>
-    </table>
-
-    <script>
-        Highcharts.chart('container', {
-            data: {
-                table: 'datatable'
-            },
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'How many tickets bought of each genre'
-            },
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'Number of Tickets'
-                }
-            },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        this.point.y + ' ' + this.point.name.toLowerCase();
-                }
-            }
-
-        });
-    </script>
-
-</div>
-
-
-
-@*<p>
-
-
-
-
-</p>
-
-<table id="datatable" style="display:none">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Item Name</th>
-
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var v in ViewBag.data as ICollection<Stat>)
-        {
-<tr>
-    <th> @v.Key</th>
-    <th>@v.Values</th>
-</tr>
+    ViewBag.Title = "statistics";
 }
-    </tbody>
-</table>
 
 
+@*<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-<div>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+        <br />
+        <br />
+        <br />
+        <table id="datatable" style="display:none">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Genre</th>
 
-    <div id="container2" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+                {
+                    <tr>
+                        <th> @v.Key</th>
+                        <th>@v.Values</th>
+                    </tr>
+                  }
+            </tbody>
+        </table>
 
-
-    <script>
-        Highcharts.chart('container2', {
-            data: {
-                table: 'datatable2'
-            },
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Which brand the customers prefer to order'
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.percentage:.1f} %'
+        <script>
+            Highcharts.chart('container', {
+                data: {
+                    table: 'datatable'
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'How many tickets bought of each genre'
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Number of Tickets'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + ' ' + this.point.name.toLowerCase();
                     }
                 }
 
-            },
+            });
+        </script>
 
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    </div>*@
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div style="text-align:center">
+        <h1>How many tickets bought of each genre</h1>
+        <div id="d3-container"/>
+    </div>
+    <script>-->
+        @*const data ][
+            @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+            {
+                { genre: v.Key, num: v.Values};
             }
-        });
+        ]*@
+        <!--const width = 800;
+        const height = 400;
+        const margin = { top: 50, bottom: 50, left: 50, right: 50 };
 
+        const svg = d3.select('#d3-container')
+            .append('svg')
+            .attr('height', height - margin.top - margin.bottom)
+            .attr('width', width - margin.left - margin.right)
+            .attr('viewBox', [0, 0, width, height]);
 
+        const x = d3.scaleBand()
+            .domain(d3.range(3))
+            .range([margin.left, width - margin.right])
+            .padding(0.1);
+
+        @{var max = 0;
+                foreach (var v in @ViewBag.data1 as ICollection<Stat>)
+                {
+                    if (max < v.Values)
+                        max = v.Values;
+                }
+                
+            }
+        
+        const y = d3.scaleLinear()
+            .domain(0, )
+            .range([height - margin.bottom, margin.top]);
 
     </script>
+</body>
+</html>-->
 
-</div>*@
+
+<div class="container text-center my-3">
+    <input id="numberOfGenre" hidden value="@ViewBag.data1.Count()" />
+    <div class="my-4 col-md-12 text-center">
+        <h1>D3-JS CHART</h1>
+    </div>
+    <div id="my_dataviz"></div>
+
+</div>
+<script src="~/js/d3Graph.js"></script>

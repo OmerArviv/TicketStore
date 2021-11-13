@@ -322,7 +322,7 @@ namespace TicketStore.Controllers
                 statistic.Add(new Stat(v.Key, v.Value));
             }
 
-            ViewBag.data = statistic;
+            ViewBag.data1 = statistic;
 
             return View();
         }

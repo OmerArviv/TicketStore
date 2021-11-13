@@ -251,37 +251,110 @@ h1 {
     <section class="container">
         <h1>Your Tickets</h1>
         @{
-
+            <h2>Sport Tickets</h2>
             foreach (Ticket t in Model)
             {
-                <div class="row">
-                    <article class="card fl-left">
-                        <section class="date">
-                            <time datetime="">
+                if (t.Event.Genre.Equals("Sport"))
+                {
+                    <div class="row">
+                        <article class="card fl-left">
+                            <section class="date">
+                                <time datetime="">
 
-                                <span>@t.Event.Date.Day</span><span>@t.Event.Date.ToString("MMM")</span>
-                            </time>
-                        </section>
-                        <section class="card-cont">
-                            <small>@t.Event.ArtistName</small>
-                            <h3>Event place : @t.Event.Place</h3>
-                            <div class="even-date">
-                                <i class="fa fa-calendar"></i>
-                                <time>
-                                    <span>@t.Event.Date.ToString("dddd, dd MMMM yyyy")</span>
-                                    <span>@t.Event.Date.ToString("h:mm tt")</span>
+                                    <span>@t.Event.Date.Day</span><span>@t.Event.Date.ToString("MMM")</span>
                                 </time>
-                            </div>
-                            <div class="even-info">
-                                <i class="fa fa-map-marker"></i>
-                                <p>
-                                    @t.Event.Description
-                                </p>
-                            </div>
-                            <button type="button" disabled>BOOKED</button>
-                        </section>
-                    </article>
-                </div>
+                            </section>
+                            <section class="card-cont">
+                                <small>@t.Event.ArtistName</small>
+                                <h3>Event place : @t.Event.Place</h3>
+                                <div class="even-date">
+                                    <i class="fa fa-calendar"></i>
+                                    <time>
+                                        <span>@t.Event.Date.ToString("dddd, dd MMMM yyyy")</span>
+                                        <span>@t.Event.Date.ToString("h:mm tt")</span>
+                                    </time>
+                                </div>
+                                <div class="even-info">
+                                    <i class="fa fa-map-marker"></i>
+                                    <p>
+                                        @t.Event.Description
+                                    </p>
+                                </div>
+                                <button type="button" disabled>BOOKED</button>
+                            </section>
+                        </article>
+                    </div>
+                }
+            }
+            <h2>Movie Tickets</h2>
+            foreach (Ticket t in Model)
+            {
+                if (t.Event.Genre.Equals("Movie"))
+                {
+                    <div class="row">
+                        <article class="card fl-left">
+                            <section class="date">
+                                <time datetime="">
+
+                                    <span>@t.Event.Date.Day</span><span>@t.Event.Date.ToString("MMM")</span>
+                                </time>
+                            </section>
+                            <section class="card-cont">
+                                <small>@t.Event.ArtistName</small>
+                                <h3>Event place : @t.Event.Place</h3>
+                                <div class="even-date">
+                                    <i class="fa fa-calendar"></i>
+                                    <time>
+                                        <span>@t.Event.Date.ToString("dddd, dd MMMM yyyy")</span>
+                                        <span>@t.Event.Date.ToString("h:mm tt")</span>
+                                    </time>
+                                </div>
+                                <div class="even-info">
+                                    <i class="fa fa-map-marker"></i>
+                                    <p>
+                                        @t.Event.Description
+                                    </p>
+                                </div>
+                                <button type="button" disabled>BOOKED</button>
+                            </section>
+                        </article>
+                    </div>
+                }
+            }
+            <h2>Music Tickets</h2>
+            foreach (Ticket t in Model)
+            {
+                if (t.Event.Genre.Equals("Music"))
+                {
+                    <div class="row">
+                        <article class="card fl-left">
+                            <section class="date">
+                                <time datetime="">
+
+                                    <span>@t.Event.Date.Day</span><span>@t.Event.Date.ToString("MMM")</span>
+                                </time>
+                            </section>
+                            <section class="card-cont">
+                                <small>@t.Event.ArtistName</small>
+                                <h3>Event place : @t.Event.Place</h3>
+                                <div class="even-date">
+                                    <i class="fa fa-calendar"></i>
+                                    <time>
+                                        <span>@t.Event.Date.ToString("dddd, dd MMMM yyyy")</span>
+                                        <span>@t.Event.Date.ToString("h:mm tt")</span>
+                                    </time>
+                                </div>
+                                <div class="even-info">
+                                    <i class="fa fa-map-marker"></i>
+                                    <p>
+                                        @t.Event.Description
+                                    </p>
+                                </div>
+                                <button type="button" disabled>BOOKED</button>
+                            </section>
+                        </article>
+                    </div>
+                }
             }
         }
     </section>
