@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using TicketStore.Data;
 using TicketStore.Models;
 using Tweetinvi;
+using Tweetinvi.Models;
 
 namespace TicketStore.Controllers
 {
@@ -51,20 +52,22 @@ namespace TicketStore.Controllers
                 return View("NotFound");
             }
             
+           
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Twitter(String tweet)
         {
-            string APIkey = "xRHUJp5A6hxRNw8XfjKnCjMBv";
-            string APIsecret = "9jPnJN3rrBtIqSwrKIJPQf3y5hPPqiUvZ1s5CIhBJPw7V9tttI";
-            string APIToken = "1459045772188606486-Rolj7jq0sF37UavkOY9WrbMpFElo1r";
-            string APITokenSecret = "qHy2O4QM7e95ftCJgSWL9kR7yUMbewk3d0lGH2Tlb9e5p";
+            string APIkey = "gMGbGJawdwSUT2ol3jXKDLd1t";
+            string APIsecret = "kRA2ymHpDmZytgISrLgyzZqp7T8Ril9y1lz8BK4cBVm1OlEE67";
+            string APIToken = "1459045772188606486-fgPBvYbvxSjKi92gUBUgJkEkJTIaMa";
+            string APITokenSecret = "JAtexAJatHUkBa4CBuNzadiP9oE9OSevRwFZnhYBcd3UM";
             string APIBearerToken = "AAAAAAAAAAAAAAAAAAAAAKz9VgEAAAAAkR%2Bb%2FAczCSBT4qtI9we0zEYQqrc%3DyXaxLxF5upOVK7BOG2mDCYE0YHWvf93teaociiiJQHHNe9x1To";
             var client = new TwitterClient(APIkey, APIsecret, APIToken, APITokenSecret);
             //client.Config.TweetMode = TweetMode.Compat;
             await client.Tweets.PublishTweetAsync(tweet);
+            
             return View();
         }
 
