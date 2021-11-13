@@ -21,7 +21,7 @@ namespace TicketStore.Data
             {
                 new Models.User{Birthdate=DateTime.Parse("2021-05-17"), Email="rrttou@gmail.com", FirstName="Raz",
                     Gender=0, LastName="Yaniv", Password="Admin@123", PasswordConfirm="Admin@123",
-                    UserName="rrttou", Type=0, IsAdmin=true, Tickets=tickets }
+                    UserName="rrttou", Type=(User.UserType)1, IsAdmin=true, Tickets=tickets }
 
 
             };
@@ -74,7 +74,7 @@ namespace TicketStore.Data
                     ImageUrl="https://www.israelhayom.co.il/wp-content/uploads/2021/05/ALEN86499-e1622054286836-960x640.jpg",
                     ImageUrl2="https://sport1images.maariv.co.il/image/upload/f_auto,fl_lossy,c_thumb,g_north,w_728,h_441/1031474",
                     ImageUrl3="https://img.haarets.co.il/img/1.9683928/2259543329.jpg?precrop=1488,1486,x303,y25&height=1200&width=1200",
-                    stars=2,
+                    stars=5,
                     MinPrice=69,
                     LocationX = 32.783211, 
                     LocationY = 34.965248

@@ -128,8 +128,12 @@
     <div class="container text-center">
         <h3>Ticket Store</h3>
         <p><em>Welcome to Ticket Store</em></p>
-        <p>Next Event @Model.ArtistName</p>
+
         @{
+            if (@Model != null)
+            {
+                <p>Next Event @Model.ArtistName</p>
+            }
             if (Context.User != null && Context.User.Claims != null &&
                           Context.User.Claims.Count() > 0)
             {

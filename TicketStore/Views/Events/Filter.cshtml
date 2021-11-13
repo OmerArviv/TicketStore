@@ -196,14 +196,32 @@
         <h4 style="text-align:center;"><a asp-action="Index">Back to Full List</a></h4>
     </form>
 
-    <div class="dropdown" style="width:100%;text-align:center">
+    <!--<div class="dropdown" style="width:100%;text-align:center">
         <button onclick="myFunction()" class="dropbtn">Filter</button>
-        <div id="myDropdown" class="dropdown-content" style="text-align:center;position:absolute;left:50%;">
-            <a href="https://localhost:44350/Events/filter/?filterByGenre=Sport" style="width:160px;height:44px;">Sport</a>
-            <a href="https://localhost:44350/Events/filter/?filterByGenre=Movie" style="width:160px;height:44px;">Movie</a>
-            <a href="https://localhost:44350/Events/filter/?filterByGenre=Music" style="width:160px;height:44px;">Music</a>
+        <div id="myDropdown" class="dropdown-content" style="text-align:center;position:absolute;left:50%;">-->
+    @*<a href="https://localhost:44350/Events/filter/?filterByGenre=Sport" style="width:160px;height:44px;">Sport</a>
+        <a href="https://localhost:44350/Events/filter/?filterByGenre=Movie" style="width:160px;height:44px;">Movie</a>
+        <a href="https://localhost:44350/Events/filter/?filterByGenre=Music" style="width:160px;height:44px;">Music</a>*@
+    <!--@Html.DropDownList("ListName")
+            @Html.DropDownList("ListPlace")
+            @Html.DropDownList("ListGenre")
         </div>
-    </div>
+    </div>-->
+
+    @using (Html.BeginForm("Filter", "Events", FormMethod.Post))
+    {
+        @Html.DropDownList("ListName", null, new { @class = "btn" })
+        @Html.DropDownList("ListPlace", null, new { @class = "btn" })
+        @Html.DropDownList("ListGenre", null, new { @class = "btn" })
+
+        <br /> <br />
+        <div style="width: 100%">
+
+            <input type="submit" style="left:30.7%; position: absolute; margin: 0" class="btn" value="Submit" />
+
+        </div>
+    }
+
 
     <br />
     <br />
@@ -246,8 +264,8 @@
         }
     }
     <br /><br /><br /><br /><br /><br /><br /><br />
-   <div>
-        <video width="320" height="240" controls muted autoplay >
+    <div>
+        <video width="320" height="240" controls muted autoplay>
             <source src="~/video/EventsVideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>

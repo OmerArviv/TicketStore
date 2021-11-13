@@ -83,7 +83,11 @@
     </table>
    @{ 
        var user = ViewBag.join;
-       <p>@user</p>
+       if(user != null)
+            {
+                <p>@user</p>
+            }
+       
    }
     <script type="text/javascript">
         $(document).ready(function () {

@@ -134,6 +134,54 @@ namespace TicketStore.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             var events = from e in _context.Event select e;
+
+            List<string> places = new List<string>();
+            List<string> names = new List<string>();
+            List<string> genre = new List<string>();
+
+            foreach (var e in _context.Event)
+            {
+                if (!places.Contains(e.Place))
+                {
+                    places.Add(e.Place);
+                }
+                if (!names.Contains(e.ArtistName))
+                {
+                    names.Add(e.ArtistName);
+                }
+                if (!genre.Contains(e.Genre))
+                {
+                    genre.Add(e.Genre);
+                }
+
+
+            }
+            
+            var tmp = new List<SelectListItem>();
+                    foreach (var p in places)
+                    {
+                        tmp.Add (new SelectListItem { Text = p, Value = p });
+                    }
+            var listPlace = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var name in names)
+            {
+                tmp.Add(new SelectListItem { Text = name, Value = name });
+            }
+            var listName = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var g in genre)
+            {
+                tmp.Add(new SelectListItem { Text = g, Value = g });
+            }
+            var listGenre = tmp;
+
+            ViewData["ListName"] = listName;
+            ViewData["ListPlace"] = listPlace;
+            ViewData["ListGenre"] = listGenre;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 events = events.Where(myEvent => myEvent.ArtistName.Contains(searchString));
@@ -163,47 +211,95 @@ namespace TicketStore.Controllers
         }
 
 
-        public async Task<IActionResult> Filter(string filterByGenre)
+        public async Task<IActionResult> Filter()
         {
             var events = from e in _context.Event select e;
-            var selectList = new SelectList(
-            new List<SelectListItem>
-                {
-                    new SelectListItem {Text = "Sport", Value = "Sport"},
-                    new SelectListItem {Text = "Music", Value = "Music"},
-                    new SelectListItem {Text = "Movie", Value = "Movie"},
-                }, "Value", "Text");
-            SelectList list = selectList;
-            ViewData["List"] = list;
-            
-            switch (filterByGenre)
-            {
-                case "Sport":
-                    events = from k in _context.Event
-                             where k.Genre.Equals("Sport")
-                             select k;
-                    break;
-                case "Music":
-                    events = from k in _context.Event
-                             where k.Genre.Equals("Music")
-                             select k;
-                    break;
-                case "Movie":
-                    events = from k in _context.Event
-                             where k.Genre.Equals("Movie")
-                             select k;
-                    break;
-                default:
-                    events = events.OrderBy(s => s.Genre);
-                    break;
 
-            }
-            return View(await events.ToListAsync());
+            return View("Index", events.ToListAsync());
 
 
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> Filter(string ListName, string ListPlace, string ListGenre)
+        {
+            var events = from e in _context.Event select e;
 
+
+            List<string> places = new List<string>();
+            List<string> names = new List<string>();
+            List<string> genre = new List<string>();
+
+            foreach (var e in _context.Event)
+            {
+                if (!places.Contains(e.Place))
+                {
+                    places.Add(e.Place);
+                }
+                if (!names.Contains(e.ArtistName))
+                {
+                    names.Add(e.ArtistName);
+                }
+                if (!genre.Contains(e.Genre))
+                {
+                    genre.Add(e.Genre);
+                }
+
+
+            }
+
+            var tmp = new List<SelectListItem>();
+            foreach (var p in places)
+            {
+                tmp.Add(new SelectListItem { Text = p, Value = p });
+            }
+            var listPlace = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var name in names)
+            {
+                tmp.Add(new SelectListItem { Text = name, Value = name });
+            }
+            var listName = tmp;
+
+            tmp = new List<SelectListItem>();
+            foreach (var g in genre)
+            {
+                tmp.Add(new SelectListItem { Text = g, Value = g });
+            }
+            var listGenre = tmp;
+
+            ViewData["ListName"] = listName;
+            ViewData["ListPlace"] = listPlace;
+            ViewData["ListGenre"] = listGenre;
+
+            var result = from e
+                         in _context.Event
+                         select e;
+
+            if (!(String.IsNullOrEmpty(ListName)))
+            {
+                result = from eve in result
+                         where eve.ArtistName.Equals(ListName)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(ListPlace)))
+            {
+                result = from eve in result
+                         where eve.Place.Equals(ListPlace)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(ListGenre)))
+            {
+                result = from eve in result
+                         where eve.Genre.Equals(ListGenre)
+                         select eve;
+            }
+            if (result.FirstOrDefault() == null)
+            {
+                return View("Index", await events.ToListAsync());
+            }
+            return View("Index", await result.ToListAsync());
+        }
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -363,44 +459,70 @@ namespace TicketStore.Controllers
 
         public ActionResult Statistics()
         {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
+            //if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            //{
+            //    return View("NotFound");
+            //}
 
-            ICollection<Stat> statistic = new Collection<Stat>();
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("Sport", 0);
-            dic.Add("Movie", 0);
-            dic.Add("Music", 0);
+            ICollection<Stat> statistic1 = new Collection<Stat>();
+            ICollection<Stat> statistic2 = new Collection<Stat>();
+            Dictionary<string, int> dic1 = new Dictionary<string, int>();
+            Dictionary<string, int> dic2 = new Dictionary<string, int>();
+            dic1.Add("Sport", 0);
+            dic1.Add("Movie", 0);
+            dic1.Add("Music", 0);
+            dic2.Add("Sport", 0);
+            dic2.Add("Movie", 0);
+            dic2.Add("Music", 0);
 
             foreach (var t in _context.Tickets)
             {
                 if (t == null)
                     continue;
                 var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
-                if (!dic.ContainsKey(tmpEvent.Genre))
+                if (!dic1.ContainsKey(tmpEvent.Genre))
                 {
-                    dic.Add(t.Event.Genre, 1);
+                    dic1.Add(t.Event.Genre, 1);
                 }
                 else
                 {
-                    int temp = dic.GetValueOrDefault(t.Event.Genre);
-                    dic.Remove(tmpEvent.Genre);
-                    dic.Add(t.Event.Genre, temp + 1);
+                    int temp = dic1.GetValueOrDefault(t.Event.Genre);
+                    dic1.Remove(tmpEvent.Genre);
+                    dic1.Add(t.Event.Genre, temp + 1);
                 }
             }
 
 
 
-            foreach (var v in dic)
+            foreach (var v in dic1)
             {
-                statistic.Add(new Stat(v.Key, v.Value));
+                statistic1.Add(new Stat(v.Key, v.Value));
             }
 
-            ViewBag.data = statistic;
+            ViewBag.data1 = statistic1;
+            //////////////////////////// STAT 2
 
-            return View();
+            foreach (var t in _context.Tickets)
+            {
+                if (t == null)
+                    continue;
+                var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == t.EventID);
+                if (!dic2.ContainsKey(tmpEvent.Genre))
+                {
+                    dic2.Add(t.Event.Genre, t.Price);
+                }
+                else
+                {
+                    int temp = dic2.GetValueOrDefault(t.Event.Genre);
+                    dic2.Remove(tmpEvent.Genre);
+                    dic2.Add(t.Event.Genre, temp + t.Price);
+                }
+            }
+            foreach (var v in dic2)
+            {
+                statistic2.Add(new Stat(v.Key, v.Value));
+            }
+            return View(statistic2);
         }
     }
     public class Stat
@@ -413,4 +535,7 @@ namespace TicketStore.Controllers
             Values = values;
         }
     }
+
 }
+
+

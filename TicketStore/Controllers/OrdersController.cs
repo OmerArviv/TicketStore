@@ -37,9 +37,12 @@ namespace TicketStore.Controllers
                             orderby ord2.TotalAmount descending
                             select ord2;
 
-
-            ViewData["join"] = "The user with the most expensive purchase is " + joinQuery.FirstOrDefault().Costumer.Email + " with " +
-                joinQuery.FirstOrDefault().TotalAmount + "$";
+            if(joinQuery != null)
+            {
+                ViewData["join"] = "The user with the most expensive purchase is " + joinQuery.FirstOrDefault().Costumer.Email + " with " +
+                        joinQuery.FirstOrDefault().TotalAmount + "$";
+            }
+            
 
             return View(await orders.ToListAsync());
         }
