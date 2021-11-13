@@ -15,7 +15,9 @@ namespace TicketStore.Models
         public int UserId { get; set; }
         public User Costumer { get; set; }
         public Event Event { get; set; }
+        [Display(Name = "Order Date")]
         public DateTime OrderTime { get; set; }
+        [Display(Name = "Order Total Amount")]
         public int TotalAmount { get; set; }
 
     }
