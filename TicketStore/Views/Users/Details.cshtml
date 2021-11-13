@@ -2,6 +2,21 @@
 
 @{
     ViewData["Title"] = "Details";
+    if (Context.User.Claims.Any())
+    {
+        if (Context.User.Claims.First(c => c.Type == "Role").Value.Equals("Admin"))
+        {
+            Layout = "_AdminLayout";
+        }
+        else
+        {
+            Layout = "_Layout";
+        }
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <h1>Details</h1>
@@ -10,70 +25,70 @@
     <h4>User</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Password)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Password)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PasswordConfirm)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PasswordConfirm)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Birthdate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Birthdate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Gender)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Gender)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Type)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
         @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CartId)
-        </dt>*@
+                @Html.DisplayNameFor(model => model.CartId)
+            </dt>*@
         @*<dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CartId)
-        </dd>*@
+                @Html.DisplayFor(model => model.CartId)
+            </dd>*@
     </dl>
 </div>
 <div>
-    @{ 
+    @{
         var id = Context.User.Claims.First(c => c.Type == "UserId").Value;
         var toInteger = int.Parse(id);
     }
@@ -81,10 +96,10 @@
     <a asp-action="Index">Back to List</a>
 </div>
 @*<script>
-    var x = document.baseURI;
-    var edit = document.getElementById("Edit");
-    var id = @Model.Id;
-    x += "/users/Edit/" + id;
-    edit.setAttribute("href", x);
-    //fix this
-</script>*@
+        var x = document.baseURI;
+        var edit = document.getElementById("Edit");
+        var id = @Model.Id;
+        x += "/users/Edit/" + id;
+        edit.setAttribute("href", x);
+        //fix this
+    </script>*@

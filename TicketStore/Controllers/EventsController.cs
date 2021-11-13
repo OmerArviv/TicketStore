@@ -31,6 +31,13 @@ namespace TicketStore.Controllers
                 return RedirectToAction("Login", "Users");
             }
             var e = _context.Event.Where(temp => temp.Id == id).FirstOrDefault();
+            var tmp = User.Claims.First(c => c.Type == "UserId").Value;
+            var idd = int.Parse(tmp);
+            //var tempUser = _context.User.FirstOrDefault();
+            var raz = from t in _context.User where idd == t.Id select t;
+            var user = raz.FirstOrDefault();
+            int totalAmount = 0;
+            //var raz = _context.User.FirstOrDefault();
             if (e.AvailableTickets >= Quan)
             {
                 ICollection<Ticket> tick = new List<Ticket>();
@@ -39,12 +46,7 @@ namespace TicketStore.Controllers
                 {
                     Ticket tempTicket = new Ticket { Description = e.Description, Price = e.MinPrice, Available = false, EventID = (int)id, Event = _context.Event.FirstOrDefault(c => c.Id == id) };
                     
-                    var tmp = User.Claims.First(c => c.Type == "UserId").Value;
-                    var idd = int.Parse(tmp);
-                    //var tempUser = _context.User.FirstOrDefault();
-                    var raz = from t in _context.User where idd == t.Id select t;
-                    var user = raz.FirstOrDefault();
-                    //var raz = _context.User.FirstOrDefault();
+                   
                     if (user.Tickets == null)
                         user.Tickets = new List<Ticket>();
                     var tmpEvent = _context.Event.FirstOrDefault(e => e.Id == id);
@@ -52,10 +54,24 @@ namespace TicketStore.Controllers
                     user.Tickets.Add(tempTicket);
                     tempTicket.UserID = user.Id;
                     tempTicket.Costumer = user;
+                    totalAmount += tempTicket.Price;
                     tick.Add(tempTicket);
                     int j = 1; //for debug
                 }
-              
+                var order = new Order
+                {
+                    Costumer = user,
+                    Event = e,
+                    EventId = e.Id,
+                    UserId = user.Id,
+                    NumOfTickets = Quan,
+                    OrderTime = DateTime.Now,
+                    TotalAmount = totalAmount
+                   
+                };
+                _context.Order.Add(order);
+                
+               // _context.SaveChanges();
                 foreach (Ticket t in tick)
                 {
                     _context.Tickets.Add(t);
@@ -67,7 +83,37 @@ namespace TicketStore.Controllers
             else
                 return RedirectToAction("Index", "Events");
         }
+        public async Task<IActionResult> FilterBy(string ArtistName, string Place, string Genre)
+        {
+            var result = from e
+                         in _context.Event
+                         select e;
+            
+            if (!(String.IsNullOrEmpty(ArtistName)))
+            {
+                result = from eve in result
+                         where eve.ArtistName.Equals(ArtistName)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(Place)))
+            {
+                result = from eve in result
+                         where eve.Place.Equals(Place)
+                         select eve;
+            }
+            if (!(String.IsNullOrEmpty(Genre)))
+            {
+                result = from eve in result
+                         where eve.Genre.Equals(Genre)
+                         select eve;
+            }
+            if (result == null)
+            {
+                return View("Index");
+            }
+            return View("Index", await result.ToListAsync());
 
+        }
         public ActionResult Summary(int? id)
         {
             if (id != null)
@@ -159,6 +205,11 @@ namespace TicketStore.Controllers
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+
             if (id == null)
             {
                 return View("NotFound");
@@ -178,6 +229,10 @@ namespace TicketStore.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             return View();
         }
 
@@ -195,6 +250,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(@event);
@@ -207,6 +266,10 @@ namespace TicketStore.Controllers
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -227,6 +290,10 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ArtistName,Place,AvailableTickets,Genre,Date")] Event @event)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id != @event.Id)
             {
                 return View("NotFound");
@@ -258,6 +325,10 @@ namespace TicketStore.Controllers
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -290,8 +361,12 @@ namespace TicketStore.Controllers
         }
 
         public ActionResult Statistics()
-        { 
-            
+        {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+
             ICollection<Stat> statistic = new Collection<Stat>();
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add("Sport", 0);

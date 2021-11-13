@@ -40,7 +40,10 @@ namespace TicketStore.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             var user = await _context.User
                 .Include(c => c.Tickets)
                 .AsNoTracking()
@@ -61,6 +64,10 @@ namespace TicketStore.Controllers
        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (id == null)
             {
                 return View("NotFound");
@@ -83,6 +90,10 @@ namespace TicketStore.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type,IsAdmin")] User user)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             var tmpUser = await _context.User.FindAsync(id);
             if (tmpUser == null || user == null || id != user.Id)
             {
@@ -116,6 +127,10 @@ namespace TicketStore.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             var user = await _context.User
                    .FirstOrDefaultAsync(m => m.Id == id);
             if (id == null || user == null)
@@ -130,6 +145,10 @@ namespace TicketStore.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             return View();
         }
 
@@ -139,6 +158,10 @@ namespace TicketStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Id,UserName,FirstName,LastName,Password,PasswordConfirm,Email,Birthdate,Gender,Type")] User user)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             // Validates the input data
             if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null || user.PasswordConfirm == null)
             {
@@ -279,6 +302,10 @@ namespace TicketStore.Controllers
        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Search(string SearchString)
         {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
             if (SearchString != null)
             {
                 return View(await _context.User.Where(a => (a.UserName.Contains(SearchString) ||
