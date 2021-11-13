@@ -96,12 +96,23 @@ namespace TicketStore.Controllers
             {
                 return View("NotFound");
             }
+            tmpUser.Birthdate = user.Birthdate;
+            tmpUser.Email = user.Email;
+            tmpUser.FirstName = user.FirstName;
+            tmpUser.Gender = user.Gender;
+            tmpUser.IsAdmin = user.IsAdmin;
+            tmpUser.LastName = user.LastName;
+            tmpUser.Password = user.Password;
+            tmpUser.PasswordConfirm = user.PasswordConfirm;
+            tmpUser.Type = user.Type;
+            tmpUser.UserName = user.UserName;
+            tmpUser.Tickets = user.Tickets;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(tmpUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -117,26 +128,10 @@ namespace TicketStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(tmpUser);
         }
 
-        // GET: Users/Delete/5
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
-            {
-                return View("NotFound");
-            }
-            var user = await _context.User
-                   .FirstOrDefaultAsync(m => m.Id == id);
-            if (id == null || user == null)
-            {
-                return View("NotFound");
-            }
-
-            return View(user);
-        }
+       
 
         // GET: Users
         [HttpGet]
@@ -308,6 +303,32 @@ namespace TicketStore.Controllers
             {
                 return View(await _context.User.ToListAsync());
             }
+        }
+
+        // GET: Users/Delete/5
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (!(User.Claims.Any() && User.Claims.First(c => c.Type == "Role").Value.Equals("Admin")))
+            {
+                return View("NotFound");
+            }
+
+            var tmpUserId = User.Claims.First(c => c.Type == "UserId").Value;
+            var userId = int.Parse(tmpUserId);
+
+            if(userId==id)
+            {
+                return View("NotFound");
+            }
+            var user = await _context.User
+                   .FirstOrDefaultAsync(m => m.Id == id);
+            if (id == null || user == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(user);
         }
 
         // POST: Users/Delete/5
