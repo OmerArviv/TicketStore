@@ -179,7 +179,7 @@ namespace TicketStore.Controllers
                     Event e = _context.Event.Where(s => s.Id == order.EventId).FirstOrDefault();
                     int temp = _context.Order.Where(s => s.Id == id).FirstOrDefault().NumOfTickets;
                     int change = 0;
-                    Event tempEvent = _context.Event.Where(e => e.Id == order.Id).FirstOrDefault();
+                    Event tempEvent = _context.Event.Where(e => e.Id == order.EventId).FirstOrDefault();
                     if (order.NumOfTickets > temp)
                     {
                         change = order.NumOfTickets - temp;
