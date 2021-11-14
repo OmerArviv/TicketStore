@@ -498,6 +498,31 @@ namespace TicketStore.Controllers
             {
                 return View("NotFound");
             }
+            var order = from o in _context.Order where o.EventId == id select o;
+            if(order != null && order.FirstOrDefault() != null)
+            {
+               
+                foreach(var o in order)
+                {
+                    var t = from tick in _context.Tickets where tick.EventID == o.EventId select tick;
+                    if (t != null && t.FirstOrDefault() != null)
+                    {
+                        foreach (var i in t)
+                        {
+                            if(i != null)
+                            {
+                                _context.Tickets.Remove(i);
+                            }
+                            
+
+                        }
+                    }
+
+
+
+                    _context.Order.Remove(o);
+                }
+            }
 
             return View(@event);
         }

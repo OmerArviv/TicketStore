@@ -28,7 +28,7 @@
         <form class="signIn" asp-action="Login" asp-controller="users" asp-route-returnurl='@Context.Request.Query["ReturnUrl"]' method="post">
             <h3>Welcome <br />Back !</h3>
             @*<button class="fa fa-twitter" type="button">We are using twitter</button>*@
-            <p>- or -</p>
+            @*<p>- or -</p>*@
             <label asp-for="Email" clas="control-label"></label>
             <input asp-for="Email" type="email" placeholder="Insert eMail" autocomplete="off" reqired />
             <label asp-for="Password" class="control-label"></label>

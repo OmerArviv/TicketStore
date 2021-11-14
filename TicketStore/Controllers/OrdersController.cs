@@ -148,7 +148,64 @@ namespace TicketStore.Controllers
             {
                 try
                 {
-                    _context.Update(order);
+                    if (order.NumOfTickets <= 0)
+                    {
+                        return View("NotFound");
+                    }
+                    Order o = _context.Order.Where(o => o.Id == order.Id).FirstOrDefault();
+                    if (order.UserId != o.UserId)
+                    {
+                        for (int i = 0; i < o.NumOfTickets; i++)
+                        {
+                            Ticket tempTicket = _context.Tickets.Where(t => (t.UserID == o.UserId) && (t.EventID == o.EventId)).FirstOrDefault();
+                            tempTicket.UserID = order.UserId;
+                            _context.SaveChanges();
+                        }
+                        o.UserId = order.UserId;
+                        _context.SaveChanges();
+                    }
+                    if (order.EventId != o.EventId)
+                    {
+                        for (int i = 0; i < o.NumOfTickets; i++)
+                        {
+                            Ticket tempTicket = _context.Tickets.Where(t => (t.UserID == o.UserId) && (t.EventID == o.EventId)).FirstOrDefault();
+                            tempTicket.EventID = order.EventId;
+                            _context.SaveChanges();
+                        }
+                        o.EventId = order.EventId;
+                        _context.SaveChanges();
+                    }
+                    o.TotalAmount = _context.Event.Where(e => e.Id == order.EventId).FirstOrDefault().MinPrice * order.NumOfTickets;
+                    Event e = _context.Event.Where(s => s.Id == order.EventId).FirstOrDefault();
+                    int temp = _context.Order.Where(s => s.Id == id).FirstOrDefault().NumOfTickets;
+                    int change = 0;
+                    Event tempEvent = _context.Event.Where(e => e.Id == order.Id).FirstOrDefault();
+                    if (order.NumOfTickets > temp)
+                    {
+                        change = order.NumOfTickets - temp;
+                        if (change > tempEvent.AvailableTickets)
+                            return View("NotFound");
+                        for (int i = 0; i < change; i++)
+                        {
+                            Ticket ticket = new Ticket { Description = e.Description, Price = e.MinPrice, Available = false, EventID = order.EventId, Event = _context.Event.FirstOrDefault(e => e.Id == order.EventId), UserID = order.UserId };
+
+                            tempEvent.AvailableTickets--;
+                            _context.Tickets.Add(ticket);
+                        }
+                    }
+                    else if (temp > order.NumOfTickets)
+                    {
+                        change = temp - order.NumOfTickets;
+                        for (int i = 0; i < change; i++)
+                        {
+                            Ticket tempTicket = _context.Tickets.Where(t => (t.UserID == order.UserId) && (t.EventID == order.EventId)).FirstOrDefault();
+                            _context.Tickets.Remove(tempTicket);
+                            tempEvent.AvailableTickets++;
+                            _context.SaveChanges();
+                        }
+                    }
+                    o.NumOfTickets = order.NumOfTickets;
+                    _context.SaveChanges();
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -197,6 +254,13 @@ namespace TicketStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            Order tempOrder = _context.Order.Where(o => o.Id == id).FirstOrDefault();
+            for (int i = 0; i < tempOrder.NumOfTickets; i++)
+            {
+                Ticket tempTicket = _context.Tickets.Where(t => (t.UserID == tempOrder.UserId) && (t.EventID == tempOrder.EventId)).FirstOrDefault();
+                _context.Tickets.Remove(tempTicket);
+                _context.SaveChanges();
+            }
             var order = await _context.Order.FindAsync(id);
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
